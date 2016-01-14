@@ -4,5 +4,5 @@
     variables from the other functions and does the number crunching... idk
 
 
-    Ya thats a great idea
+    Ya thats a great idea some more changes
 */
