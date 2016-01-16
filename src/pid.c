@@ -3,6 +3,12 @@
     I think it would be good to have a seperate pid code that takes the
     variables from the other functions and does the number crunching... idk
 
+*/
 
-    Ya thats a great idea some more changes...
+
+/*  PID Controller proposed function prototype:
+
+    Err     (in,out)    (Controller memory)    (Pid K values)
+    int pid(*struct,    *struct,               *strct);
+
 */
