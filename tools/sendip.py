@@ -31,7 +31,10 @@ message = "ssh -p 22 pi@"
  
 #the interface may be wifi and it needs time to initialize
 #so wait a little bit before parsing ifconifg
-time.sleep(10)
+
+
+#time.sleep(30)
+
  
 #extract the ip address (or addresses) from ifconfig
 found_ips = [urllib2.urlopen('http://ip.42.pl/raw').read()]
