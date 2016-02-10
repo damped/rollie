@@ -8,7 +8,7 @@ This is the place for a high level discription of the code and what its for
 
 ## Edit rc.local file to run stuff on boot
 
-You will want to edit the file with `sudo /etc/rc.local` and add the following:
+You will want to edit the file with `sudo nano /etc/rc.local` and add the following:
 
 ```c
 #!/bin/sh -e
