@@ -9,7 +9,7 @@ This is the place for a high level discription of the code and what its for
 # Edit rc.local file to run stuff on boot
 
 
-
+```c
 #!/bin/sh -e
 #
 # rc.local
@@ -34,4 +34,4 @@ if [ "$_IP" ]; then
 fi
 
 exit 0 
-
+```
