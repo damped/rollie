@@ -5,8 +5,8 @@ Self Balancing Robot
 This is the place for a high level discription of the code and what its for
 
 
-
-## Edit rc.local file to run stuff on boot
+## Installation
+### Edit rc.local file to run stuff on boot
 
 You will want to edit the file with `sudo nano /etc/rc.local` and add the following:
 
@@ -37,7 +37,8 @@ fi
 exit 0 
 ```
 
-## BCIT Network Setup
+### BCIT Network Setup
+Add the following to `sudo nano /etc/wpa_supplicant/wpa_supplicant.conf`
 ```
 network={
         ssid="BCIT_Secure"
