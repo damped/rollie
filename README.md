@@ -39,13 +39,14 @@ exit 0
 
 ### BCIT Network Setup
 Add the following to `sudo nano /etc/wpa_supplicant/wpa_supplicant.conf`
+Make sure to edit the user and password.
 ```
 network={
         ssid="BCIT_Secure"
         key_mgmt=WPA-EAP
         eap=PEAP
-        identity="a00######"
-        password="super_secret"
+        identity="a00######"      <--- Here
+        password="super_secret"   <--- And here
         phase2="auth=MSCHAPV2"
 }
 ```
