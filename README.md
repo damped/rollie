@@ -36,3 +36,15 @@ fi
 
 exit 0 
 ```
+
+## BCIT Network Setup
+```
+network={
+        ssid="BCIT_Secure"
+        key_mgmt=WPA-EAP
+        eap=PEAP
+        identity="a00######"
+        password="super_secret"
+        phase2="auth=MSCHAPV2"
+}
+```
