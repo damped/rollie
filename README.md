@@ -6,6 +6,9 @@ This is the place for a high level discription of the code and what its for
 
 
 ## Installation
+### Dependencys
+`sudo apt-get install sshpass` used to send the password to the digital ocian server
+
 ### Edit rc.local file to run stuff on boot
 
 You will want to edit the file with `sudo nano /etc/rc.local` and add the following:
@@ -50,3 +53,7 @@ network={
         phase2="auth=MSCHAPV2"
 }
 ```
+
+## Remot Server
+To be able to connect to the raspberrypi enter 'ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -l pi -p 2222 localhost' on the server. need to increase security
+
