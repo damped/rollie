@@ -31,11 +31,12 @@ You will want to edit the file with `sudo nano /etc/rc.local` and add the follow
 
 /bin/sleep 20
 
-_IP=$(hostname -I) || true
-if [ "$_IP" ]; then
-  #printf "My IP address is %s\n" "$_IP" mother fucker
-  /usr/bin/python /home/pi/rollie/tools/sendip.py
-fi
+#_IP=$(hostname -I) || true
+#if [ "$_IP" ]; then
+  #printf "My IP address is %s\n" "$_IP"
+#fi
+
+/usr/bin/python /home/pi/rollie/tools/sendip.py
 
 exit 0 
 ```
@@ -55,5 +56,5 @@ network={
 ```
 
 ## Remot Server
-To be able to connect to the raspberrypi enter 'ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -l pi -p 2222 localhost' on the server. need to increase security
+To be able to connect to the raspberrypi enter `ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -l pi -p 2222 localhost` on the server. need to increase security
 
