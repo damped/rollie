@@ -5,4 +5,6 @@
 #   Update the rollie folder from github
 #
 
-/usr/bin/git pull
+/usr/bin/git fetch orgin
+
+/usr/bin/git reset --hard origin/master
