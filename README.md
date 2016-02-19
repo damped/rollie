@@ -7,7 +7,7 @@ This is the place for a high level discription of the code and what its for
 
 ## Installation
 ### Dependencys
-`sudo apt-get install sshpass` used to send the password to the digital ocian server
+`sudo apt-get install sshpass` used to send the password to the digital ocean server
 
 ### Edit rc.local file to run stuff on boot
 
@@ -55,6 +55,6 @@ network={
 }
 ```
 
-## Remot Server
+## Remote Server
 To be able to connect to the raspberrypi enter `ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -l pi -p 2222 localhost` on the server. need to increase security
 
