@@ -58,3 +58,8 @@ network={
 ## Remote Server
 To be able to connect to the raspberrypi enter `ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -l pi -p 2222 localhost` on the server. need to increase security
 
+## Connecting the IMU
+To connect the IMU to the raspberry Pi connect the ground and 3.3V and connect the SCL and SCA to their respective inputs on the Pi. Follow this pinout for the PI.
+
+ ![Raspberry Pi pinout](https://www.element14.com/community/servlet/JiveServlet/previewBody/73950-102-4-309126/GPIO_Pi2.png)
+
