@@ -6,7 +6,7 @@ This is the place for a high level discription of the code and what its for
 
 
 ## Installation
-### Dependencys
+### Dependencies
 `sudo apt-get install sshpass` used to send the password to the digital ocean server
 
 ### Edit rc.local file to run stuff on boot
