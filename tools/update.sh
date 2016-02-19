@@ -5,4 +5,4 @@
 #   Update the rollie folder from github
 #
 
-/bin/bash git pull
+/usr/bin/git pull
