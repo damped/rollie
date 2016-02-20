@@ -63,3 +63,7 @@ To connect the IMU to the raspberry Pi connect the ground and 3.3V and connect t
 
  ![Raspberry Pi pinout](https://www.element14.com/community/servlet/JiveServlet/previewBody/73950-102-4-309126/GPIO_Pi2.png)
 
+
+
+## Dependencys
+i2c-tools
