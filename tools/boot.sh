@@ -13,5 +13,5 @@ cd /home/pi/rollie/tools/
 /bin/bash connect_to_server.sh &&
 
 # Get the newest version of the code
-/bin/bash update.sh &&
+/bin/bash update.sh
 
