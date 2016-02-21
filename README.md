@@ -65,5 +65,6 @@ To connect the IMU to the raspberry Pi connect the ground and 3.3V and connect t
 
 
 
-## Dependencys
+## Dependencies
 i2c-tools
+
