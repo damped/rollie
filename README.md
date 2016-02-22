@@ -29,12 +29,12 @@ You will want to edit the file with `sudo nano /etc/rc.local` and add the follow
 
 # Print the IP address
 
-/bin/sleep 20
-
 #_IP=$(hostname -I) || true
 #if [ "$_IP" ]; then
   #printf "My IP address is %s\n" "$_IP"
 #fi
+
+/bin/sleep 20
 
 /usr/bin/python /home/pi/rollie/tools/sendip.py
 
@@ -56,7 +56,7 @@ network={
 ```
 
 ## Remote Server
-To be able to connect to the raspberrypi enter `ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -l pi -p 2222 localhost` on the server. need to increase security
+To be able to connect to the raspberrypi enter `pi1` on the server. This will auto connect to the raspberrypi provided that it has established a reverse ssh tunnle.
 
 ## Connecting the IMU
 To connect the IMU to the raspberry Pi connect the ground and 3.3V and connect the SCL and SCA to their respective inputs on the Pi. Follow this pinout for the PI.
