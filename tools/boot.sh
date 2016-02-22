@@ -13,5 +13,5 @@ cd /home/pi/rollie/tools/ > /dev/null 2>&1
 /bin/bash connect_to_server.sh > /dev/null 2>&1 &&
 
 # Get the newest version of the code
-/bin/bash update.sh > /dev/null 2>&1
+runuser -l  pi -c '/bin/bash update.sh > /dev/null 2>&1'
 
