@@ -7,7 +7,7 @@ This is the place for a high level discription of the code and what its for
 
 ## Installation
 ### Dependencies
-`sudo apt-get install sshpass` used to send the password to the digital ocean server
+i2c-tools
 
 ### Edit rc.local file to run stuff on boot
 
@@ -55,16 +55,11 @@ network={
 }
 ```
 
-## Remote Server
+### Remote Server
 To be able to connect to the raspberrypi enter `pi1` on the server. This will auto connect to the raspberrypi provided that it has established a reverse ssh tunnle.
 
-## Connecting the IMU
+### Connecting the IMU
 To connect the IMU to the raspberry Pi connect the ground and 3.3V and connect the SCL and SCA to their respective inputs on the Pi. Follow this pinout for the PI.
 
  ![Raspberry Pi pinout](https://www.element14.com/community/servlet/JiveServlet/previewBody/73950-102-4-309126/GPIO_Pi2.png)
-
-
-
-## Dependencies
-i2c-tools
 
