@@ -5,7 +5,7 @@ Self Balancing Robot
 This is the place for a high level discription of the code and what its for
 
 ## Compiling
-for now, run 'g++ getangle.c -lwiringPi -o run' in the src directory.
+for now, run `g++ getangle.c -lwiringPi -o run` in the src directory.
 
 
 
