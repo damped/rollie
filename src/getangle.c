@@ -5,15 +5,16 @@
 
 #include "stdio.h"
 #include <math.h>
-#include <wiringPiI2c.h>
+#include <wiringPiI2C.h>
 
-void main() {
-	
-	int fd, result;
-	
-	fd = wiringPiI2CSetup(0x60);
+int main() {
 
-   	cout << "Init result: "<< fd << endl;
-	printf("helloworld!\n");
+        int fd, result;
 
+        fd = wiringPiI2CSetup(0x60);
+
+        //cout << "Init result: "<< fd << endl;
+        printf("fd:%d",fd);
+        return fd;
 }
+
