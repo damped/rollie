@@ -13,36 +13,12 @@ for now, run `g++ getangle.c -lwiringPi -o run` in the src directory.
 ### Dependencies
 i2c-tools
 
-### Edit rc.local file to run stuff on boot
+### Edit Chron tab
+run `crontab -e` to open the cron tab editor. Then add the following:
+```
+@reboot /home/pi/rollie/tools/boot.sh >> boot.log 2>&1
 
-You will want to edit the file with `sudo nano /etc/rc.local` and add the following:
-
-```c
-#!/bin/sh -e
-#
-# rc.local
-#
-# This script is executed at the end of each multiuser runlevel.
-# Make sure that the script will "exit 0" on success or any other
-# value on error.
-#
-# In order to enable or disable this script just change the execution
-# bits.
-#
-# By default this script does nothing.
-
-# Print the IP address
-
-#_IP=$(hostname -I) || true
-#if [ "$_IP" ]; then
-  #printf "My IP address is %s\n" "$_IP"
-#fi
-
-/bin/sleep 20
-
-/usr/bin/python /home/pi/rollie/tools/sendip.py
-
-exit 0 
+*/1 * * * * ~/rollie/tools/connect_to_server.sh >> tunnel.log 2>&1
 ```
 
 ### BCIT Network Setup
