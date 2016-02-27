@@ -15,6 +15,10 @@ The acceleromiter is located at 0x53 and returns a device id of 0xE5
 ### Dependencies
 i2c-tools
 
+### Edit raspi-config
+Enter `sudo raspi-config` and set the host name to a number ex 2223. This is used to represent the port number to distiguish it between the other clients on the server.
+
+
 ### Edit Chron tab
 run `crontab -e` to open the cron tab editor. Then add the following:
 ```
