@@ -7,7 +7,9 @@ This is the place for a high level discription of the code and what its for
 ## Compiling
 for now, run `g++ getangle.c -lwiringPi -o run` in the src directory.
 
-
+## Getting angles
+The gyroscope is located at 0x68 and returns a device id of 0x69
+The acceleromiter is located at 0x53 and returns a device id of 0xE5
 
 ## Installation
 ### Dependencies
