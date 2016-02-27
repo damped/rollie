@@ -9,18 +9,26 @@
 
 int main() {
 
-        int dev_gyro = wiringPiI2CSetup(0x68);
-        int data_gyro = wiringPiI2CReadReg8(dev_gyro,0x00);
+        int ret;
+        int devGyro = wiringPiI2CSetup(0x68);
+        int dataGyro = wiringPiI2CReadReg8(dev_gyro,0x00);
         
-        printf("Gyro device:%x\n", dev_gyro);
-        printf("Gyro device id:%x\n\n", data_gyro);
+        printf("Gyro device:%x\n", devGyro);
+        printf("Gyro device id:%x\n\n", dataGyro);
         
+        wiringPiI2CWriteReg8(devGyro, 0x15, 0x09);
+        wiringPiI2CWriteReg8(devGyro, 0x16, 0x1a);
         
-        int dev_accel = wiringPiI2CSetup(0x53);
-        int data_accel = wiringPiI2CReadReg8(dev_accel,0x00);
+        for (int i = 0; i>=5; i++)
+        {
+                printf("%x\n" wiringPiI2CReadReg8(devGyro,(0x1d+i)));
+        }
         
-        printf("Accel device:%x\n", dev_accel);
-        printf("Accel device id:%x\n", data_accel);
+        int devAccel = wiringPiI2CSetup(0x53);
+        int dataAccel = wiringPiI2CReadReg8(devGccel,0x00);
+        
+        printf("Accel device:%x\n", devAccel);
+        printf("Accel device id:%x\n", dataAccel);
         return 0;
 }
 
