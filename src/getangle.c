@@ -10,16 +10,16 @@
 int main() {
 
         int dev_gyro = wiringPiI2CSetup(0x68);
-        int data_gyro = wiringPiI2CReadReg8(fd,0x00);
+        int data_gyro = wiringPiI2CReadReg8(dev_gyro,0x00);
         
         printf("Gyro device:%x\n", dev_gyro);
-        printf("Gyro device id:%x\n", data_accel);
+        printf("Gyro device id:%x\n", data_gyro);
         
         
         int dev_accel = wiringPiI2CSetup(0x53);
-        int data_accel = wiringPiI2CReadReg8(fd,0x00);
+        int data_accel = wiringPiI2CReadReg8(dev_accel,0x00);
         
-        printf("Accel device:%x", dev_gyro);
+        printf("Accel device:%x", dev_accel);
         printf("Accel device id:%x", data_accel);
         return fd;
 }
