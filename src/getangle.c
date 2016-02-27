@@ -22,6 +22,7 @@ int main() {
         for (int i = 0; i>=5; i++)
         {
                 printf("%x\n", wiringPiI2CReadReg8(devGyro,(0x1d+i)));
+                printf("I: %d",i);
         }
         
         int devAccel = wiringPiI2CSetup(0x53);
