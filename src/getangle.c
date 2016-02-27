@@ -21,6 +21,6 @@ int main() {
         
         printf("Accel device:%x", dev_accel);
         printf("Accel device id:%x", data_accel);
-        return fd;
+        return 0;
 }
 
