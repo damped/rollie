@@ -11,7 +11,7 @@ int main() {
 
         int ret;
         int devGyro = wiringPiI2CSetup(0x68);
-        int dataGyro = wiringPiI2CReadReg8(dev_gyro,0x00);
+        int dataGyro = wiringPiI2CReadReg8(devGyro,0x00);
         
         printf("Gyro device:%x\n", devGyro);
         printf("Gyro device id:%x\n\n", dataGyro);
@@ -25,7 +25,7 @@ int main() {
         }
         
         int devAccel = wiringPiI2CSetup(0x53);
-        int dataAccel = wiringPiI2CReadReg8(devGccel,0x00);
+        int dataAccel = wiringPiI2CReadReg8(devAccel,0x00);
         
         printf("Accel device:%x\n", devAccel);
         printf("Accel device id:%x\n", dataAccel);
