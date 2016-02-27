@@ -13,7 +13,7 @@ int main() {
 
         fd = wiringPiI2CSetup(0x68);
         
-        data = wiringPiI2CReadReg16(fd,0x00);
+        data = wiringPiI2CReadReg8(fd,0x00);
         
         printf("fd:%d", fd);
         printf("Data:%d", data);
