@@ -16,6 +16,5 @@ do
     echo Creating new tunnel connection
     createTunnel
   fi
-echo ye
 sleep 5
 done
