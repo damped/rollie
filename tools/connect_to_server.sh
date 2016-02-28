@@ -1,6 +1,6 @@
 #!/bin/bash
 createTunnel() {
-  /usr/bin/ssh -N -R 2220:localhost:22 root@159.203.6.212
+  /usr/bin/ssh -N -R $(hostname):localhost:22 root@159.203.6.212
   if [[ $? -eq 0 ]]; then
     echo Tunnel to jumpbox created successfully
   else
