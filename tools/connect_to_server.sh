@@ -9,12 +9,12 @@ createTunnel() {
   fi
 }
 
-for i in `seq 1 5`;
+for i in `seq 1 3`;
 do
   /bin/pidof ssh
   if [[ $? -ne 0 ]]; then
     echo Creating new tunnel connection
     createTunnel
   fi
-sleep 5
+sleep 15
 done
