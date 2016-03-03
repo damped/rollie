@@ -1,4 +1,4 @@
-//this code was edited from the toilet
+
 //authors Michael and Jonas
 
 #include <iostream>
