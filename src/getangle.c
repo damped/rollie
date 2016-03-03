@@ -27,7 +27,7 @@ int main() {
         int devAccel = wiringPiI2CSetup(0x53);
         int dataAccel = wiringPiI2CReadReg8(devAccel,0x00);
         
-        printf("Accel device:%x\n", devAccel);
+        printf("\nAccel device:%x\n", devAccel);
         printf("Accel device id:%x\n", dataAccel);
         return 0;
 }
