@@ -19,13 +19,10 @@ int main() {
 
         wiringPiI2CWriteReg8(devGyro, 0x15, 0x09);
         wiringPiI2CWriteReg8(devGyro, 0x16, 0x1a);
-<<<<<<< HEAD
-
-=======
 
 	printf("Gyro Data:\n");
 
->>>>>>> e855f0cd5be544871a9390fbba161dbafe9990ae
+
         for (int i = 0; i<=5; i++)
         {
                 printf("0x%x: %x\n", i+0x1d, wiringPiI2CReadReg8(devGyro,(0x1d+i)));
