@@ -22,9 +22,9 @@ int main() {
 <<<<<<< HEAD
 
 =======
-	
+
 	printf("Gyro Data:\n");
-        
+
 >>>>>>> e855f0cd5be544871a9390fbba161dbafe9990ae
         for (int i = 0; i<=5; i++)
         {
