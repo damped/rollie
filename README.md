@@ -50,9 +50,9 @@ To connect the IMU to the raspberry Pi connect the ground and 3.3V and connect t
  ![Raspberry Pi pinout](https://www.element14.com/community/servlet/JiveServlet/previewBody/73950-102-4-309126/GPIO_Pi2.png)
  
 ### Reading from the IMU
-## Accelerometer reg map
+#### Accelerometer reg map
  ![Accelerameter Register Map](http://www.aimagin.com/learn/images/thumb/2/2a/Using_i2c_master-example-adx345_register_map.PNG/800px-Using_i2c_master-example-adx345_register_map.PNG)
  
-## Gyro reg map
+#### Gyro reg map
 ![Gyro Register Map](http://fixled.ru/image/data/Gyromap-s.jpg)
 
