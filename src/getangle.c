@@ -33,11 +33,11 @@ int main() {
 
 	printf("Gyro Data:\n");
 
-        for (int i = 0; i<=3; i++)
+        for (int i = 0; i<=2; i++)
         {
                 int a = i*2;
-                double angles = wiringPiI2CReadReg16(devGyro,(0x1d+a));
-                printf("%x: %lf\n", i+0x1d, angles);
+                int angles = wiringPiI2CReadReg16(devGyro,(0x1d+a));
+                printf("%x: %d\n", a+0x1d, angles);
         }
 
 //      accelerometer code
