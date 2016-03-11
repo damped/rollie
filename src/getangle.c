@@ -35,8 +35,7 @@ int main() {
         int devAccel = wiringPiI2CSetup(0x53);
         int dataAccel = wiringPiI2CReadReg8(devAccel,0x00);
 
-
-
+        wiringPiI2CWriteReg8(devAccel, 0x2D, 0x08);
 
 
 	printf("Gyro Data:\n");
@@ -51,9 +50,10 @@ int main() {
         }
 
         printf("\nAccel device:%x\n", devAccel);
-        printf("Accel device id:%x\n", dataAccel);
-        
+        printf("Accel device id:%x\n\n", dataAccel);
+
 	printf("Acc Data:\n");
+
         for (int j = 0; j<=2; j++)
         {
                 int b = j*2;
@@ -62,9 +62,6 @@ int main() {
                 //printf("ACC ANGLES\n" );
                 printf("%x: %d\n", b+0x32, accAngles);
         }
-
-
-
 
         return 0;
 }
