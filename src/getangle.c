@@ -30,24 +30,39 @@ int main() {
 
         wiringPiI2CWriteReg8(devGyro, 0x15, 0x09);
         wiringPiI2CWriteReg8(devGyro, 0x16, 0x1a);
+//      accelerometer code
+
+        int devAccel = wiringPiI2CSetup(0x53);
+        int dataAccel = wiringPiI2CReadReg8(devAccel,0x00);
+
+        printf("\nAccel device:%x\n", devAccel);
+        printf("Accel device id:%x\n", dataAccel);
+
+
 
 	printf("Gyro Data:\n");
 
         for (int i = 0; i<=2; i++)
         {
                 int a = i*2;
-                int angles = wiringPiI2CReadReg16(devGyro,(0x1d+a));
-                printf("%x: %d\n", a+0x1d, angles);
+                int gyroAngles = wiringPiI2CReadReg16(devGyro,(0x1d+a));
+
+                printf("GYRO ANGLES\n" );
+                printf("%x: %d\n", a+0x1d, gyroAngles);
         }
 
-//      accelerometer code
-/*
-        int devAccel = wiringPiI2CSetup(0x53);
-        int dataAccel = wiringPiI2CReadReg8(devAccel,0x00);
+	printf("Acc Data:\n");
+        for (int j = 0; j<=2; j++)
+        {
+                int b = j*2;
+                int accAngles = wiringPiI2CReadReg16(devAccel,(0x32+b));
 
-        printf("\nAccel device:%x\n", devAccel);
-        printf("Accel device id:%x\n", dataAccel);
-*/
+                printf("ACC ANGLES\n" );
+                printf("%x: %d\n", b+0x32, accAngles);
+        }
+
+
+
 
         return 0;
 }
