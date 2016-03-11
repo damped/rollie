@@ -43,10 +43,10 @@ int main() {
         for (int i = 0; i<=2; i++)
         {
                 int a = i*2;
-                int gyroAngles = wiringPiI2CReadReg16(devGyro,(0x1d+a));
+                signed int gyroAngles = wiringPiI2CReadReg16(devGyro,(0x1d+a));
 
                 //printf("GYRO ANGLES\n" );
-                printf("%x: %d\n", a+0x1d, gyroAngles);
+                printf("%x: %d, %x\n", a+0x1d, gyroAngles, gyroAngles);
         }
 
         printf("\nAccel device:%x\n", devAccel);
@@ -57,10 +57,10 @@ int main() {
         for (int j = 0; j<=2; j++)
         {
                 int b = j*2;
-                int accAngles = wiringPiI2CReadReg16(devAccel,(0x32+b));
+                signed int accAngles = wiringPiI2CReadReg16(devAccel,(0x32+b));
 
                 //printf("ACC ANGLES\n" );
-                printf("%x: %d\n", b+0x32, accAngles);
+                printf("%x: %d, %x\n", b+0x32, accAngles, accAngles);
         }
 
         return 0;
