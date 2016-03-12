@@ -10,15 +10,31 @@
  *************************************************************/
 
 #include <stdio.h>
-#include <thread>
+//#include <thread>
 //#include <wiringPi.h>
 
 int main()
 {
   using namespace std;
-  unsigned int n = thread::hardware_concurrency();
-  cout << n << " concurrent threads are supported.\n";
   
+  pid_filter_t pid;
+  pid_init(&pid);
+
+  /* PID controller. */
+  pid_set_gains(&pid, 10., 0, 4.);
+  
+  loop(&pid);
   
   return 0;
 }
+
+
+void loop(pid_filter_t *pid)
+{
+  while (1) {
+    error = setpoint - motor_position;
+    motor_pwm = pid_process(&pid, error);
+    
+  }
+}
+
