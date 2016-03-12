@@ -11,6 +11,9 @@ for now, run `g++ getangle.c -lwiringPi -o run` in the src directory.
 The gyroscope is located at 0x68 and returns a device id of 0x69
 The acceleromiter is located at 0x53 and returns a device id of 0xE5
 
+### PID controller
+The PID controller is provided by a github libary. https://github.com/cvra/pid
+
 ## Installation
 ### Dependencies
 i2c-tools
