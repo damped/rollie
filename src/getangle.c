@@ -104,7 +104,8 @@ int main() {
         wiringPiI2CWriteReg8(devGyro, 0x16, 0x1a);
 //      accelerometer code
 */
-
+int devAccel = wiringPiI2CSetup(0x53);
+int dataAccel = wiringPiI2CReadReg8(devAccel,0x00);
 
         initialization();
 
