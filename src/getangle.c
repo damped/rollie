@@ -100,10 +100,12 @@ int main() {
         wiringPiI2CWriteReg8(devGyro, 0x16, 0x1a);
 //      accelerometer code
 */
-        initialization(xOff,yOff,zOff);
-        
 
-        wiringPiI2CWriteReg8(devAccel, 0x2D, 0x08);
+        double  xOff=0,yOff=0,zOff=0;
+
+
+        initialization(xOff,yOff,zOff);
+
 
 
 	printf("Gyro Data:\n");
