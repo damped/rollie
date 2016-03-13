@@ -44,6 +44,10 @@
 #define ADXL345_REG_DATAZ1              (0x37)    // Z-axis data 1
 #define ADXL345_REG_FIFO_CTL            (0x38)    // FIFO control
 #define ADXL345_REG_FIFO_STATUS         (0x39)    // FIFO status
+
+
+#define  ALPHA                          (0 )      //Alpha
+
 /*
  //function prototypes
 void accelGetc0ord(void);   //grabs the  coordinates and from accelerometer
@@ -82,9 +86,9 @@ class ADXL345()
 //void ADXL345::init(char, char, char);
 
 // prototypes, non class
-void initialization(char,char,char);
+void initialization(void);
 AccelG readAccelG(void);
-AccelRaw readAccel();
+AccelRaw readAccel(void);
 
 int main() {
 
@@ -140,7 +144,7 @@ int main() {
 //  setup for accelerometer
 
 //void ADXL345::init(char x_offset, char y_offset, char z_offset)
-void initialization(char x_offset, char y_offset, char z_offset)
+void initialization()
       {
           int devAccel = wiringPiI2CSetup(0x53);
           int dataAccel = wiringPiI2CReadReg8(devAccel,0x00);
@@ -158,13 +162,13 @@ void initialization(char x_offset, char y_offset, char z_offset)
 AccelG readAccelG()
       {
           AccelRaw raw;
-          raw = readAccel();
+        //  raw = readAccel();
 
 
           double fXg, fYg, fZg;
-          fXg =raw.x * 0.00390625 + _xoffset;
-          fYg =raw.y * 0.00390625 + _yoffset;
-          fZg =raw.z * 0.00390625 + _zoffset;
+          fXg =raw.x * 0.00390625; //+ _xoffset;
+          fYg =raw.y * 0.00390625; //+ _yoffset;
+          fZg =raw.z * 0.00390625; //+ _zoffset;
 
           AccelG res;
 
@@ -181,7 +185,7 @@ AccelG readAccelG()
 
 
       }
-
+/*
 //AccelRaw ADXL345::readAccel()
 AccelRaw readAccel()
       {
