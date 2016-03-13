@@ -110,7 +110,7 @@ int main() {
 
 
 
-	printf("Gyro Data:\n");
+/*	printf("Gyro Data:\n");
 
         for (int i = 0; i<=2; i++)
         {
@@ -120,7 +120,7 @@ int main() {
                 //printf("GYRO ANGLES\n" );
                 printf("%x: %d, %x\n", a+0x1d, gyroAngles, gyroAngles);
         }
-
+*/
         printf("\nAccel device:%x\n", devAccel);
         printf("Accel device id:%x\n\n", dataAccel);
 
