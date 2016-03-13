@@ -105,10 +105,8 @@ int main() {
 //      accelerometer code
 */
 
-        double  xOff=0,yOff=0,zOff=0;
 
-
-        initialization(xOff,yOff,zOff);
+        initialization();
 
 
 
@@ -200,3 +198,4 @@ AccelRaw readAccel()
 
           return raw;
       }
+*/
