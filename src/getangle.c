@@ -51,11 +51,28 @@ int main(){
 
   printf("gyro output X: %x, Y: %x, Z: %x\n",gX,gY,gZ);
 
-  gX = gX/14.375;
-  gY = gY/14.375;
-  gZ = gZ/14.375;
+  if (gX>=0x8000) {
+    gX = gX^0x1111;
+    gX = gX+0x0001;
+    gX = gX*(-1);
+  }
 
-  printf("gyro degrees/sec X: %f, Y: %f, Z: %f\n",gX,gY,gZ);
+  if (gY>=0x8000) {
+    gY = gY^0x1111;
+    gY = gY+0x0001;
+    gY = gY*(-1);
+  }
+  if (gZ>=0x8000) {
+    gZ = gZ^0x1111;
+    gZ = gZ+0x0001;
+    gZ = gZ*(-1);
+  }
+
+  double X = gX/14.375;
+  double Y = gY/14.375;
+  double Z = gZ/14.375;
+
+  printf("gyro degrees/sec X: %lf, Y: %lf, Z: %lf\n",X,Y,Z);
 
 
   return(0);
