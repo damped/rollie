@@ -13,6 +13,7 @@
 #include <wiringPiI2C.h>
 #include "ADXL345.h"
 
+#define   PI          3.1415;
 
 
 int main(){
