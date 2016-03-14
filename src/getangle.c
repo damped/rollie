@@ -52,7 +52,7 @@ int main(){
 
      X = aX * 0.0039;
      Y = aY * 0.0039;
-     Y = aY * 0.0039;
+     Z = aZ * 0.0039;
 
      pitch = (atan2(X,sqrt(Y*Y+Z*Z)) * 180.0) / PI;
      printf("%f,%f,%f\n",X,Y,Z );
