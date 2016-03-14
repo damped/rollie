@@ -11,7 +11,7 @@
 
 #include <stdio.h>
 //#include <thread>
-//#include <wiringPi.h>
+#include <wiringPi.h>
 
 #include "pid.c"
 //#include "pidconfig.c"
