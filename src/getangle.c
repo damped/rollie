@@ -12,7 +12,7 @@
 #include <math.h>
 #include <wiringPiI2C.h>
 #include "ADXL345.h"
-#include <bcm2835-1.49>
+
 #include <stdint.h>
 
 
