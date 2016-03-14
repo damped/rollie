@@ -201,6 +201,7 @@ void ComplementaryFilter(int accDev, int devGyro, float *pitch, float *roll)
   //   printf("hex acc X: %x, Y: %x, Z: %x\n",aX,aY,aZ);
 
      aPitch = (atan2(X,sqrt(Y*Y+Z*Z)) * 180.0) / PI;
+     accP = aPitch;
      //printf("%lf,%lf,%lf\n",X,Y,Z );
   //   printf("\raccel pitch = %f",aPitch);
 
@@ -222,7 +223,7 @@ void ComplementaryFilter(int accDev, int devGyro, float *pitch, float *roll)
 	// Turning around the X axis results in a vector on the Y-axis
       //  aPitch = atan2f((float)aY, (float)aZ) * 180 / M_PI;
         *pitch = *pitch * 0.98 + aPitch * 0.02;
-      printf("\rfiltered: %f, gyro: %f, accel: %f", pitch, gpitch, aPitch);
+      printf("\rfiltered: %f, gyro: %f, accel: %f", pitch, gpitch, accP);
 
   //  }
 }
