@@ -212,10 +212,13 @@ void ComplementaryFilter(float *pitch, float *roll)
     // Compensate for drift with accelerometer data if !bullshit
     // Sensitivity = -2 to 2 G at 16Bit -> 2G = 32768 && 0.5G = 8192
     int forceMagnitudeApprox = abs(aX) + abs(aY) + abs(aZ);
-    if (forceMagnitudeApprox > ACCELEROMETER_SENSITIVITY && forceMagnitudeApprox < UPPER_ACC_FORCE)
-    {
+
+    printf("forceMagnitudeApprox: %f\n",forceMagnitudeApprox);
+
+  //  if (forceMagnitudeApprox > ACCELEROMETER_SENSITIVITY && forceMagnitudeApprox < UPPER_ACC_FORCE)
+  //  {
 	// Turning around the X axis results in a vector on the Y-axis
       //  aPitch = atan2f((float)aY, (float)aZ) * 180 / M_PI;
         *pitch = *pitch * 0.98 + aPitch * 0.02;
-    }
+  //  }
 }
