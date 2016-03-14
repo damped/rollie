@@ -41,8 +41,8 @@ int main(){
 
   while(1){
     ComplementaryFilter(accDev,devGyro,&pitch,&roll);
-    printf("filtered Pitch: %f, Roll: %f\n", pitch, roll);
-    printf("\r\r\r\r\r\r\r");
+    printf("\rfiltered Pitch: %f, Roll: %f", pitch, roll);
+
   }
 
 
@@ -154,7 +154,7 @@ void ComplementaryFilter(int accDev, int devGyro, float *pitch, float *roll)
     gZ = (gZ) << 8;
     gZ = gZ | wiringPiI2CReadReg8(devGyro, GYRO_ZOUT_L_REG);
     gData[2] = gZ;
-    printf("gyro output X: %x, Y: %x, Z: %x\n",gX,gY,gZ);
+  //  printf("gyro output X: %x, Y: %x, Z: %x\n",gX,gY,gZ);
 
 
     if (gX>=0x8000) {
@@ -198,23 +198,23 @@ void ComplementaryFilter(int accDev, int devGyro, float *pitch, float *roll)
      Z = aZ * 0.0039;
 
 
-     printf("hex acc X: %x, Y: %x, Z: %x\n",aX,aY,aZ);
+  //   printf("hex acc X: %x, Y: %x, Z: %x\n",aX,aY,aZ);
 
      aPitch = (atan2(X,sqrt(Y*Y+Z*Z)) * 180.0) / PI;
      printf("%lf,%lf,%lf\n",X,Y,Z );
-     printf("pitch = %f\n",aPitch);
+  //   printf("pitch = %f\n",aPitch);
 
 
     // Integrate the gyroscope data -> int(angularSpeed) = angle
     *pitch += ((float)gData[0] / GYROSCOPE_SENSITIVITY) * dt; // Angle around the X-axis
-    printf("Gyro Pitch: %f\n", *pitch);
+  //  printf("Gyro Pitch: %f\n", *pitch);
 
 
     // Compensate for drift with accelerometer data if !bullshit
     // Sensitivity = -2 to 2 G at 16Bit -> 2G = 32768 && 0.5G = 8192
-    int forceMagnitudeApprox = abs(aX) + abs(aY) + abs(aZ);
+    int forceMagnitudeApprox = abs(X) + abs(Y) + abs(Z);
 
-    printf("forceMagnitudeApprox: %f\n",forceMagnitudeApprox);
+  //  printf("forceMagnitudeApprox: %d\n",forceMagnitudeApprox);
 
   //  if (forceMagnitudeApprox > ACCELEROMETER_SENSITIVITY && forceMagnitudeApprox < UPPER_ACC_FORCE)
   //  {
