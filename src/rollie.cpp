@@ -13,6 +13,9 @@
 //#include <thread>
 //#include <wiringPi.h>
 
+#include "pid.c"
+#include "pidconfig.c"
+
 int main()
 {
   using namespace std;
