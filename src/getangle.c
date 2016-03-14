@@ -25,7 +25,7 @@
 //prototypes
 double accPitch(int);
 int accConfig(void);
-void ComplementaryFilter(float *, float *);
+void ComplementaryFilter(int, int, float *, float *);
 int gyroConfig(void);
 
 
@@ -34,17 +34,19 @@ int main(){
   float pitch, roll;
 
 
+  int accDev = accConfig();
+  int devGyro = wiringPiI2CSetup(0x68);
+  wiringPiI2CWriteReg8(devGyro, 0x15, 0x09);
+  wiringPiI2CWriteReg8(devGyro, 0x16, 0x1a);
 
-  ComplementaryFilter(&pitch,&roll);
-
-  printf("filtered Pitch: %f, Roll: %f\n", pitch, roll);
-
+  while(1){
+    ComplementaryFilter(accDev,gyroDev,&pitch,&roll);
+    printf("filtered Pitch: %f, Roll: %f\n", pitch, roll);
+  }
 
 
   return(0);
 }
-
-
 
 // function to configure the accelerometer
 int accConfig(){
@@ -114,14 +116,14 @@ double accPitch(int accDev){
 
 }
 
-void ComplementaryFilter(float *pitch, float *roll)
+void ComplementaryFilter(int accDev, int gyroDev, float *pitch, float *roll)
 {
 
     short aX,aY,aZ;
     float X,Y,Z,aPitch;
     short gX, gY, gZ,gData[3];
 
-    int accDev = accConfig();
+
     // grab raw data from accelerometer
 
      aX = wiringPiI2CReadReg8(accDev,(ADXL345_REG_DATAX1));
@@ -135,10 +137,6 @@ void ComplementaryFilter(float *pitch, float *roll)
      aY = wiringPiI2CReadReg8(accDev,(ADXL345_REG_DATAY1));
      aY = (aY) << 8;
      aY = aY | wiringPiI2CReadReg8(accDev,(ADXL345_REG_DATAY0));
-
-    int devGyro = wiringPiI2CSetup(0x68);
-    wiringPiI2CWriteReg8(devGyro, 0x15, 0x09);
-    wiringPiI2CWriteReg8(devGyro, 0x16, 0x1a);
 
 
     gX = wiringPiI2CReadReg8(devGyro,(GYRO_XOUT_H_REG));
