@@ -18,7 +18,7 @@
 
 int main(){
 
-  int aX,aY,aZ,pitch;
+  signed int aX,aY,aZ,pitch;
 
 // setup i2c
   int devAccel = wiringPiI2CSetup(0x53);
