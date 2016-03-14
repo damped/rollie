@@ -37,13 +37,15 @@ int main(){
      aX = (aX) << 8;
      aX = aX | wiringPiI2CReadReg8(devAccel,(ADXL345_REG_DATAX0));
 
-     aY = wiringPiI2CReadReg8(devAccel,(ADXL345_REG_DATAY1));
-     aY = (aY) << 8;
-     aY = aY | wiringPiI2CReadReg8(devAccel,(ADXL345_REG_DATAY0));
+
 
      aZ = wiringPiI2CReadReg8(devAccel,(ADXL345_REG_DATAZ1));
      aZ = (aZ) << 8;
      aZ = aZ | wiringPiI2CReadReg8(devAccel,(ADXL345_REG_DATAZ0));
+
+     aY = wiringPiI2CReadReg8(devAccel,(ADXL345_REG_DATAY1));
+     aY = (aY) << 8;
+     aY = aY | wiringPiI2CReadReg8(devAccel,(ADXL345_REG_DATAY0));
 
 
      aX = aX * 0.00390625;
@@ -54,7 +56,7 @@ int main(){
      printf("%x,%x,%x\n",aX,aY,aZ );
      printf("pitch = %d\n",pitch);
      printf("data ready = %x\n",wiringPiI2CReadReg8(devAccel,(ADXL345_REG_INT_SOURCE)));
-   
+
 
   return(0);
 }
