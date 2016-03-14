@@ -40,7 +40,7 @@ int main(){
   wiringPiI2CWriteReg8(devGyro, 0x16, 0x1a);
 
   while(1){
-    ComplementaryFilter(accDev,gyroDev,&pitch,&roll);
+    ComplementaryFilter(accDev,devGyro,&pitch,&roll);
     printf("filtered Pitch: %f, Roll: %f\n", pitch, roll);
   }
 
@@ -116,7 +116,7 @@ double accPitch(int accDev){
 
 }
 
-void ComplementaryFilter(int accDev, int gyroDev, float *pitch, float *roll)
+void ComplementaryFilter(int accDev, int devGyro, float *pitch, float *roll)
 {
 
     short aX,aY,aZ;
