@@ -33,9 +33,13 @@ int main(){
 
   float pitch, roll;
 
+while(1)
+{
   ComplementaryFilter(&pitch,&roll);
 
   printf("filtered Pitch: %f, Roll: %f\n", pitch, roll);
+}
+
 
   return(0);
 }
