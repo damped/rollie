@@ -15,11 +15,11 @@
 #include <stdint.h>
 
 //global constants
-#define   PI          3.1415;
-#define ACCELEROMETER_SENSITIVITY 8192.0;
-#define GYROSCOPE_SENSITIVITY 14.375;
-#define dt            0.01;                       //sampling rate **
-#define UPPER_ACC_FORCE  32768;                   // max force
+#define   PI          3.1415
+#define ACCELEROMETER_SENSITIVITY 8192.0
+#define GYROSCOPE_SENSITIVITY 14.375
+#define dt            0.01                      //sampling rate **
+#define UPPER_ACC_FORCE  32768                 // max force
 
 //prototypes
 double accPitch(int);
@@ -114,9 +114,7 @@ void ComplementaryFilter(float *pitch, float *roll)
 
     short aX,aY,aZ;
     float X,Y,Z,aPitch;
-    short gX, gY, gZ;
-
-
+    short gX, gY, gZ,gData[3];
 
     int accDev = accConfig();
     // grab raw data from accelerometer
