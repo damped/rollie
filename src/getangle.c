@@ -27,10 +27,11 @@ int main(){
 // configure ADXL345 registers
   wiringPiI2CWriteReg8(devAccel, ADXL345_REG_POWER_CTL, 0x08);
   wiringPiI2CWriteReg8(devAccel, ADXL345_REG_DATA_FORMAT, 0x0B);
+  wiringPiI2CwriteReg8(devAccel,(ADXL345_REG_INT_ENABLE), 0x80);
 
 // grab raw data from accelerometer
 
-   while (1)
+   while (wiringPiI2CReadReg8(devAccel,(ADXL345_REG_INT_SOURCE))==0x80)
    {
      aX = wiringPiI2CReadReg8(devAccel,(ADXL345_REG_DATAX0));
      aX = (aX) << 8;
