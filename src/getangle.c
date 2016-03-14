@@ -30,33 +30,31 @@ int main(){
   wiringPiI2CWriteReg8(devAccel,(ADXL345_REG_INT_ENABLE), 0x80);
 
 // grab raw data from accelerometer
-while(1){
-  while (wiringPiI2CReadReg8(devAccel,(ADXL345_REG_INT_SOURCE))>=0x80)
-  {
-    aX = wiringPiI2CReadReg8(devAccel,(ADXL345_REG_DATAX0));
-    aX = (aX) << 8;
-    aX = aX | wiringPiI2CReadReg8(devAccel,(ADXL345_REG_DATAX1));
 
-    aY = wiringPiI2CReadReg8(devAccel,(ADXL345_REG_DATAY0));
-    aY = (aY) << 8;
-    aY = aY | wiringPiI2CReadReg8(devAccel,(ADXL345_REG_DATAY1));
+   while (1)
+   {
+     aX = wiringPiI2CReadReg8(devAccel,(ADXL345_REG_DATAX1));
+     aX = (aX) << 8;
+     aX = aX | wiringPiI2CReadReg8(devAccel,(ADXL345_REG_DATAX0));
 
-    aZ = wiringPiI2CReadReg8(devAccel,(ADXL345_REG_DATAZ0));
-    aZ = (aZ) << 8;
-    aZ = aZ | wiringPiI2CReadReg8(devAccel,(ADXL345_REG_DATAZ1));
+     aY = wiringPiI2CReadReg8(devAccel,(ADXL345_REG_DATAY1));
+     aY = (aY) << 8;
+     aY = aY | wiringPiI2CReadReg8(devAccel,(ADXL345_REG_DATAY0));
+
+     aZ = wiringPiI2CReadReg8(devAccel,(ADXL345_REG_DATAZ1));
+     aZ = (aZ) << 8;
+     aZ = aZ | wiringPiI2CReadReg8(devAccel,(ADXL345_REG_DATAZ0));
 
 
-    aX = aX * 0.00390625;
-    aY = aY * 0.00390625;
-    aY = aY * 0.00390625;
+     aX = aX * 0.00390625;
+     aY = aY * 0.00390625;
+     aY = aY * 0.00390625;
 
-    pitch = (atan2(aX,sqrt(aY*aY+aZ*aZ)) * 180.0) / PI;
-    printf("%d,%d,%d\n",aX,aY,aZ );
-    printf("pitch = %d\n",pitch);
-    printf("data ready = %x\n",wiringPiI2CReadReg8(devAccel,(ADXL345_REG_INT_SOURCE)));
-  }
-
-}
+     pitch = (atan2(aX,sqrt(aY*aY+aZ*aZ)) * 180.0) / PI;
+     printf("%d,%d,%d\n",aX,aY,aZ );
+     printf("pitch = %d\n",pitch);
+     printf("data ready = %x\n",wiringPiI2CReadReg8(devAccel,(ADXL345_REG_INT_SOURCE)));
+   }
 
   return(0);
 }
