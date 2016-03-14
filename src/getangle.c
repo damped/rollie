@@ -201,7 +201,7 @@ void ComplementaryFilter(int accDev, int devGyro, float *pitch, float *roll)
   //   printf("hex acc X: %x, Y: %x, Z: %x\n",aX,aY,aZ);
 
      aPitch = (atan2(X,sqrt(Y*Y+Z*Z)) * 180.0) / PI;
-     accP = aPitch;
+     float accP = aPitch;
      //printf("%lf,%lf,%lf\n",X,Y,Z );
   //   printf("\raccel pitch = %f",aPitch);
 
