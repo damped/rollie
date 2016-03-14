@@ -31,7 +31,7 @@ int main(){
 
 // grab raw data from accelerometer
 
-   while (wiringPiI2CReadReg8(devAccel,(ADXL345_REG_INT_SOURCE))==0x82)
+   while (wiringPiI2CReadReg8(devAccel,(ADXL345_REG_INT_SOURCE))=0x82)
    {
      aX = wiringPiI2CReadReg8(devAccel,(ADXL345_REG_DATAX0));
      aX = (aX) << 8;
