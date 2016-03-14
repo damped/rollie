@@ -22,7 +22,7 @@
 int main(){
 
   int aX,aY,aZ;
-  float X,Y,Z,pitch;
+  double X,Y,Z,pitch;
 
   // setup i2c
   int devAccel = wiringPiI2CSetup(0x53);
@@ -55,7 +55,7 @@ int main(){
      Z = aZ * 0.0039;
 
      pitch = (atan2(X,sqrt(Y*Y+Z*Z)) * 180.0) / PI;
-     printf("%f,%f,%f\n",X,Y,Z );
+     printf("%lf,%lf,%lf\n",X,Y,Z );
      printf("pitch = %f\n",pitch);
      printf("data ready = %x\n",wiringPiI2CReadReg8(devAccel,(ADXL345_REG_INT_SOURCE)));
 
