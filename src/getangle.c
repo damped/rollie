@@ -21,7 +21,8 @@
 
 int main(){
 
-  signed short aX,aY,aZ,pitch;
+  int aX,aY,aZ;
+  float X,Y,Z,pitch;
 
   // setup i2c
   int devAccel = wiringPiI2CSetup(0x53);
@@ -49,13 +50,13 @@ int main(){
      aY = (aY) << 8;
      aY = aY | wiringPiI2CReadReg8(devAccel,(ADXL345_REG_DATAY0));
 
-     aX = aX * 0.0039;
-     aY = aY * 0.0039;
-     aY = aY * 0.0039;
+     X = aX * 0.0039;
+     Y = aY * 0.0039;
+     Y = aY * 0.0039;
 
-     pitch = (atan2(aX,sqrt(aY*aY+aZ*aZ)) * 180.0) / PI;
-     printf("%x,%x,%x\n",aX,aY,aZ );
-     printf("pitch = %d\n",pitch);
+     pitch = (atan2(X,sqrt(Y*Y+Z*Z)) * 180.0) / PI;
+     printf("%f,%f,%f\n",X,Y,Z );
+     printf("pitch = %f\n",pitch);
      printf("data ready = %x\n",wiringPiI2CReadReg8(devAccel,(ADXL345_REG_INT_SOURCE)));
 
 
