@@ -17,7 +17,7 @@
 
 int main(){
 
-  int aX,aY,aZ;
+  int aX,aY,aZ,pitch;
 
 // setup i2c
   int devAccel = wiringPiI2CSetup(0x53);
@@ -31,12 +31,26 @@ int main(){
 
    while (1)
    {
-     aX = wiringPiI2CReadReg8(devAccel,(ADXL345_REG_DATAX0));
-     printf("%x\n", aX);
+     aX = wiringPiI2CReadReg8(devAccel,(ADXL345_REG_DATAX0))
      aX = (aX) << 8;
-     printf("%x\n", aX);
      aX = aX | wiringPiI2CReadReg8(devAccel,(ADXL345_REG_DATAX1));
-     printf("%x\n", aX);
+
+     aY = wiringPiI2CReadReg8(devAccel,(ADXL345_REG_DATAY0))
+     aY = (aY) << 8;
+     aY = aY | wiringPiI2CReadReg8(devAccel,(ADXL345_REG_DATAY1));
+
+     aZ = wiringPiI2CReadReg8(devAccel,(ADXL345_REG_DATAZ0))
+     aZ = (aZ) << 8;
+     aZ = aZ | wiringPiI2CReadReg8(devAccel,(ADXL345_REG_DATAZ1));
+
+
+     aX = aX * 0.00390625;
+     aY = aY * 0.00390625;
+     aY = aY * 0.00390625;
+
+     pitch = (atan2(aX,sqrt(aY*aY+aZ*aZ)) * 180.0) / PI;
+
+     printf("pitch = %d",pitch);
    }
   return(0);
 }
