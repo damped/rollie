@@ -53,15 +53,18 @@ int main(){
      if (aX>=8000) {
        aX = aX^0x1111;
        aX = aX+0x0001;
+       aX = aX*(-1);
      }
 
      if (aY>=8000) {
        aY = aY^0x1111;
        aY = aY+0x0001;
+       aY = aY*(-1);
      }
      if (aZ>=8000) {
        aZ = aZ^0x1111;
        aZ = aZ+0x0001;
+       aZ = aZ*(-1);
      }
 
      X = aX * 0.0039;
