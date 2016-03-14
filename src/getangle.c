@@ -202,7 +202,7 @@ void ComplementaryFilter(int accDev, int devGyro, float *pitch, float *roll)
 
      aPitch = (atan2(X,sqrt(Y*Y+Z*Z)) * 180.0) / PI;
      //printf("%lf,%lf,%lf\n",X,Y,Z );
-  //   printf("pitch = %f\n",aPitch);
+     printf("\rpitch = %f\n",aPitch);
 
 
     // Integrate the gyroscope data -> int(angularSpeed) = angle
