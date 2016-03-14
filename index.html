@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="UTF-8">
+    <title>Rollie by damped</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
+  </head>
+  <body>
+    <section class="page-header">
+      <h1 class="project-name">Rollie</h1>
+      <h2 class="project-tagline">Self Balancing Robot</h2>
+      <a href="https://github.com/damped/rollie" class="btn">View on GitHub</a>
+      <a href="https://github.com/damped/rollie/zipball/master" class="btn">Download .zip</a>
+      <a href="https://github.com/damped/rollie/tarball/master" class="btn">Download .tar.gz</a>
+    </section>
+
+    <section class="main-content">
+      <h1>
+<a id="rollie" class="anchor" href="#rollie" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>rollie</h1>
+
+<p>Self Balancing Robot</p>
+
+<p>This is the place for a high level discription of the code and what its for</p>
+
+<h2>
+<a id="compiling" class="anchor" href="#compiling" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Compiling</h2>
+
+<p>Depriciated: for now, run <code>g++ getangle.c -lwiringPi -o run</code> in the src directory.</p>
+
+<p>The new makefile system allows us to easaly compile all the files togeter. It does some fancy things like only compileing what was changed, and allows us to install the program in the <code>~/bin</code> folder. This means that when you type <code>rollie</code> from anywher it will exicute the program.</p>
+
+<p>For testing run:</p>
+
+<pre><code>make
+./rollie
+</code></pre>
+
+<p>When you wish to install:</p>
+
+<pre><code>make install
+./rollie
+</code></pre>
+
+<p>Before you commit run:</p>
+
+<pre><code>make clean
+git add *    #or any spicific files to add to the commit
+git commit -m "message"
+git push
+</code></pre>
+
+<p>Maybe we will add that last part to make so we just need to do something like <code>make commit</code> idk...</p>
+
+<h2>
+<a id="getting-angles" class="anchor" href="#getting-angles" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Getting angles</h2>
+
+<p>The gyroscope is located at 0x68 and returns a device id of 0x69
+The acceleromiter is located at 0x53 and returns a device id of 0xE5</p>
+
+<h3>
+<a id="pid-controller" class="anchor" href="#pid-controller" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>PID controller</h3>
+
+<p>The PID controller is provided by a github libary. <a href="https://github.com/cvra/pid">https://github.com/cvra/pid</a></p>
+
+<h2>
+<a id="installation" class="anchor" href="#installation" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Installation</h2>
+
+<h3>
+<a id="dependencies" class="anchor" href="#dependencies" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Dependencies</h3>
+
+<p>i2c-tools</p>
+
+<h3>
+<a id="edit-raspi-config" class="anchor" href="#edit-raspi-config" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Edit raspi-config</h3>
+
+<p>Enter <code>sudo raspi-config</code> and set the host name to a number ex 2223. This is used to represent the port number to distiguish it between the other clients on the server.</p>
+
+<h3>
+<a id="edit-chron-tab" class="anchor" href="#edit-chron-tab" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Edit Chron tab</h3>
+
+<p>run <code>crontab -e</code> to open the cron tab editor. Then add the following:</p>
+
+<pre><code>@reboot /home/pi/rollie/tools/boot.sh &gt;&gt; boot.log 2&gt;&amp;1
+
+*/1 * * * * ~/rollie/tools/connect_to_server.sh &gt;&gt; tunnel.log 2&gt;&amp;1
+</code></pre>
+
+<h3>
+<a id="bcit-network-setup" class="anchor" href="#bcit-network-setup" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>BCIT Network Setup</h3>
+
+<p>Add the following to <code>sudo nano /etc/wpa_supplicant/wpa_supplicant.conf</code>
+Make sure to edit the user and password.</p>
+
+<pre><code>network={
+        ssid="BCIT_Secure"
+        key_mgmt=WPA-EAP
+        eap=PEAP
+        identity="a00######"      &lt;--- Here
+        password="super_secret"   &lt;--- And here
+        phase2="auth=MSCHAPV2"
+}
+</code></pre>
+
+<h3>
+<a id="remote-server" class="anchor" href="#remote-server" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Remote Server</h3>
+
+<p>To be able to connect to the raspberrypi enter <code>pi1</code> on the server. This will auto connect to the raspberrypi provided that it has established a reverse ssh tunnel.</p>
+
+<h3>
+<a id="connecting-the-imu" class="anchor" href="#connecting-the-imu" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Connecting the IMU</h3>
+
+<p>To connect the IMU to the raspberry Pi connect the ground and 3.3V and connect the SCL and SCA to their respective inputs on the Pi. Follow this pinout for the PI.</p>
+
+<p><img src="https://www.element14.com/community/servlet/JiveServlet/previewBody/73950-102-4-309126/GPIO_Pi2.png" alt="Raspberry Pi pinout"></p>
+
+<h2>
+<a id="hardware" class="anchor" href="#hardware" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Hardware</h2>
+
+<h3>
+<a id="reading-from-the-imu" class="anchor" href="#reading-from-the-imu" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Reading from the IMU</h3>
+
+<h4>
+<a id="accelerometer-reg-map" class="anchor" href="#accelerometer-reg-map" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Accelerometer reg map</h4>
+
+<p><img src="http://www.aimagin.com/learn/images/thumb/2/2a/Using_i2c_master-example-adx345_register_map.PNG/800px-Using_i2c_master-example-adx345_register_map.PNG" alt="Accelerameter Register Map"></p>
+
+<h4>
+<a id="gyro-reg-map" class="anchor" href="#gyro-reg-map" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Gyro reg map</h4>
+
+<p><img src="http://fixled.ru/image/data/Gyromap-s.jpg" alt="Gyro Register Map"></p>
+
+<h3>
+<a id="stepper-drivers" class="anchor" href="#stepper-drivers" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Stepper drivers</h3>
+
+<p><a href="https://www.pololu.com/product/1182">https://www.pololu.com/product/1182</a></p>
+
+      <footer class="site-footer">
+        <span class="site-footer-owner"><a href="https://github.com/damped/rollie">Rollie</a> is maintained by <a href="https://github.com/damped">damped</a>.</span>
+
+        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
+      </footer>
+
+    </section>
+
+  
+  </body>
+</html>
