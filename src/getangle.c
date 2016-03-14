@@ -18,7 +18,7 @@
 
 int main(){
 
-  int aX,aY,aZ,pitch;
+  double aX,aY,aZ,pitch;
 
 // setup i2c
   int devAccel = wiringPiI2CSetup(0x53);
@@ -50,8 +50,8 @@ int main(){
      aY = aY * 0.00390625;
 
      pitch = (atan2(aX,sqrt(aY*aY+aZ*aZ)) * 180.0) / PI;
-
-     printf("pitch = %d",pitch);
+     printf("%lf,%lf,%lf\n",aX,aY,aZ );
+     printf("pitch = %lf\n",pitch);
    }
   return(0);
 }
