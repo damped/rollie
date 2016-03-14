@@ -33,12 +33,12 @@ int main(){
 
   float pitch, roll;
 
-while(1)
-{
+
+
   ComplementaryFilter(&pitch,&roll);
 
   printf("filtered Pitch: %f, Roll: %f\n", pitch, roll);
-}
+
 
 
   return(0);
@@ -201,13 +201,15 @@ void ComplementaryFilter(float *pitch, float *roll)
 
      printf("hex acc X: %x, Y: %x, Z: %x\n",aX,aY,aZ);
 
-     aPitch = (atan(X/sqrt(Y*Y+Z*Z)) * 180.0) / PI;
+     aPitch = (atan2(X/sqrt(Y*Y+Z*Z)) * 180.0) / PI;
      printf("%lf,%lf,%lf\n",X,Y,Z );
      printf("pitch = %f\n",aPitch);
 
 
     // Integrate the gyroscope data -> int(angularSpeed) = angle
     *pitch += ((float)gData[0] / GYROSCOPE_SENSITIVITY) * dt; // Angle around the X-axis
+    printf("Gyro Pitch: %f\n", *pitch);
+
 
     // Compensate for drift with accelerometer data if !bullshit
     // Sensitivity = -2 to 2 G at 16Bit -> 2G = 32768 && 0.5G = 8192
