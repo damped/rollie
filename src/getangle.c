@@ -49,7 +49,14 @@ int main(){
   gZ = (gZ) << 8;
   gZ = gZ | wiringPiI2CReadReg8(devGyro, GYRO_ZOUT_L_REG);
 
-  printf("gyro output X: %x, Y: %x, Z: %x",gX,gY,gZ);
+  printf("gyro output X: %x, Y: %x, Z: %x\n",gX,gY,gZ);
+
+  gX = gX/14.375;
+  gY = gY/14.375;
+  gZ = gZ/14.375;
+
+  printf("gyro degrees/sec X: %x, Y: %x, Z: %x\n",gX,gY,gZ);
+
 
   return(0);
 }
