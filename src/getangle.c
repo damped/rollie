@@ -144,17 +144,17 @@ void ComplementaryFilter(float *pitch, float *roll)
     gX = wiringPiI2CReadReg8(devGyro,(GYRO_XOUT_H_REG));
     gX = (gX) << 8;
     gX = gX | wiringPiI2CReadReg8(devGyro, GYRO_XOUT_L_REG);
-    gX = gData[0];
+    gData[0] = gX;
 
     gY = wiringPiI2CReadReg8(devGyro,(GYRO_YOUT_H_REG));
     gY = (gY) << 8;
     gY = gY | wiringPiI2CReadReg8(devGyro, GYRO_YOUT_L_REG);
-    gY = gData[1];
+    gData[1] = gY;
 
     gZ = wiringPiI2CReadReg8(devGyro,(GYRO_ZOUT_H_REG));
     gZ = (gZ) << 8;
     gZ = gZ | wiringPiI2CReadReg8(devGyro, GYRO_ZOUT_L_REG);
-    gZ = gData[2];
+    gData[2] = gZ;
     printf("gyro output X: %x, Y: %x, Z: %x\n",gX,gY,gZ);
 
 
