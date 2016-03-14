@@ -29,12 +29,27 @@ int main(){
   int acc = accConfig();
   double pitch = accPitch(acc);
 
+  short gX, gY, gZ;
+
   int devGyro = wiringPiI2CSetup(0x68);
   int dataGyro = wiringPiI2CReadReg8(devGyro,0x00);
 
   wiringPiI2CWriteReg8(devGyro, 0x15, 0x09);
   wiringPiI2CWriteReg8(devGyro, 0x16, 0x1a);
 
+  gX = wiringPiI2CReadReg8(devGyro,(GYRO_XOUT_H_REG));
+  gX = (gX) << 8;
+  gX = gX | wiringPiI2CReadReg8(devGyro, GYRO_XOUT_L_REG);
+
+  gY = wiringPiI2CReadReg8(devGyro,(GYRO_YOUT_H_REG));
+  gY = (gY) << 8;
+  gY = gY | wiringPiI2CReadReg8(devGyro, GYRO_YOUT_L_REG);
+
+  gZ = wiringPiI2CReadReg8(devGyro,(GYRO_ZOUT_H_REG));
+  gZ = (gZ) << 8;
+  gZ = gZ | wiringPiI2CReadReg8(devGyro, GYRO_ZOUT_L_REG);
+
+  printf("gyro output X: %x, Y: %x, Z: %x",gX,gY,gZ);
 
   return(0);
 }
