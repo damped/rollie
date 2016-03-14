@@ -38,5 +38,5 @@ int main(){
      aX = aX | wiringPiI2CReadReg8(devAccel,(ADXL345_REG_DATAX1));
      printf("%x\n", aX);
    }
-  return(O);
+  return(0);
 }
