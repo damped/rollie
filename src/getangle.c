@@ -21,7 +21,7 @@
 
 int main(){
 
-  signed int aX,aY,aZ;
+  int aX,aY,aZ;
   double X,Y,Z,pitch;
 
   // setup i2c
@@ -50,6 +50,19 @@ int main(){
      aY = (aY) << 8;
      aY = aY | wiringPiI2CReadReg8(devAccel,(ADXL345_REG_DATAY0));
 
+     if (aX>=8000) {
+       aX = aX^0x1111;
+       aX = aX+0x0001;
+     }
+
+     if (aY>=8000) {
+       aY = aY^0x1111;
+       aY = aY+0x0001;
+     }
+     if (aZ>=8000) {
+       aZ = aZ^0x1111;
+       aZ = aZ+0x0001;
+     }
 
      X = aX * 0.0039;
      Y = aY * 0.0039;
