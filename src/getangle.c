@@ -31,7 +31,7 @@ int main(){
 
 // grab raw data from accelerometer
 
-   while (wiringPiI2CReadReg8(devAccel,(ADXL345_REG_INT_SOURCE))==0x80)
+   while (1)
    {
      aX = wiringPiI2CReadReg8(devAccel,(ADXL345_REG_DATAX0));
      aX = (aX) << 8;
@@ -53,6 +53,7 @@ int main(){
      pitch = (atan2(aX,sqrt(aY*aY+aZ*aZ)) * 180.0) / PI;
      printf("%d,%d,%d\n",aX,aY,aZ );
      printf("pitch = %d\n",pitch);
+     printf("data ready = %x\n",wiringPiI2CReadReg8(devAccel,(ADXL345_REG_INT_SOURCE)));
    }
   return(0);
 }
