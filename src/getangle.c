@@ -74,7 +74,7 @@ int main(){
 
      printf("hex X: %x, Y: %x, Z: %x\n",aX,aY,aZ);
 
-     pitch = (atan2(X,sqrt(Y*Y+Z*Z)) * 180.0) / PI;
+     pitch = (atan(X/sqrt(Y*Y+Z*Z)) * 180.0) / PI;
      printf("%lf,%lf,%lf\n",X,Y,Z );
      printf("pitch = %f\n",pitch);
      printf("data ready = %x\n",wiringPiI2CReadReg8(devAccel,(ADXL345_REG_INT_SOURCE)));
