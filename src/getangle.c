@@ -155,7 +155,7 @@ void ComplementaryFilter(float *pitch, float *roll)
     gZ = (gZ) << 8;
     gZ = gZ | wiringPiI2CReadReg8(devGyro, GYRO_ZOUT_L_REG);
     gZ = gData[2];
-//    printf("gyro output X: %x, Y: %x, Z: %x\n",gX,gY,gZ);
+    printf("gyro output X: %x, Y: %x, Z: %x\n",gX,gY,gZ);
 
 
     if (gX>=0x8000) {
@@ -199,12 +199,12 @@ void ComplementaryFilter(float *pitch, float *roll)
      Z = aZ * 0.0039;
 
 
-//     printf("hex X: %x, Y: %x, Z: %x\n",aX,aY,aZ);
-/*
+     printf("hex acc X: %x, Y: %x, Z: %x\n",aX,aY,aZ);
+
      aPitch = (atan(X/sqrt(Y*Y+Z*Z)) * 180.0) / PI;
      printf("%lf,%lf,%lf\n",X,Y,Z );
      printf("pitch = %f\n",aPitch);
-  */
+
 
     // Integrate the gyroscope data -> int(angularSpeed) = angle
     *pitch += ((float)gData[0] / GYROSCOPE_SENSITIVITY) * dt; // Angle around the X-axis
@@ -215,7 +215,7 @@ void ComplementaryFilter(float *pitch, float *roll)
     if (forceMagnitudeApprox > ACCELEROMETER_SENSITIVITY && forceMagnitudeApprox < UPPER_ACC_FORCE)
     {
 	// Turning around the X axis results in a vector on the Y-axis
-        aPitch = atan2f((float)aY, (float)aZ) * 180 / M_PI;
+      //  aPitch = atan2f((float)aY, (float)aZ) * 180 / M_PI;
         *pitch = *pitch * 0.98 + aPitch * 0.02;
     }
 }
