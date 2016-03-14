@@ -21,7 +21,7 @@
 
 int main(){
 
-  int aX,aY,aZ;
+  signed int aX,aY,aZ;
   double X,Y,Z,pitch;
 
   // setup i2c
@@ -50,12 +50,14 @@ int main(){
      aY = (aY) << 8;
      aY = aY | wiringPiI2CReadReg8(devAccel,(ADXL345_REG_DATAY0));
 
+
      X = aX * 0.0039;
      Y = aY * 0.0039;
      Z = aZ * 0.0039;
 
+
      printf("hex X: %x, Y: %x, Z: %x\n",aX,aY,aZ);
-     
+
      pitch = (atan2(X,sqrt(Y*Y+Z*Z)) * 180.0) / PI;
      printf("%lf,%lf,%lf\n",X,Y,Z );
      printf("pitch = %f\n",pitch);
