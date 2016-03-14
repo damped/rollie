@@ -22,7 +22,7 @@
 int main(){
 
   short aX,aY,aZ;
-  double X,Y,Z,pitch;
+  double X,Y,Z,aPitch;
 
   // setup i2c
   int devAccel = wiringPiI2CSetup(0x53);
@@ -30,7 +30,7 @@ int main(){
 
 // configure ADXL345 registers
   wiringPiI2CWriteReg8(devAccel, ADXL345_REG_POWER_CTL, 0x08);
-  wiringPiI2CWriteReg8(devAccel, ADXL345_REG_DATA_FORMAT, 0x0);
+  wiringPiI2CWriteReg8(devAccel, ADXL345_REG_DATA_FORMAT, 0x0B);
   wiringPiI2CWriteReg8(devAccel,ADXL345_REG_INT_ENABLE, 0x80);
 
 
@@ -50,6 +50,7 @@ int main(){
      aY = (aY) << 8;
      aY = aY | wiringPiI2CReadReg8(devAccel,(ADXL345_REG_DATAY0));
 
+     // convert from twos compliment
      if (aX>=0x8000) {
        aX = aX^0x1111;
        aX = aX+0x0001;
@@ -74,10 +75,10 @@ int main(){
 
      printf("hex X: %x, Y: %x, Z: %x\n",aX,aY,aZ);
 
-     pitch = (atan(X/sqrt(Y*Y+Z*Z)) * 180.0) / PI;
+     aPitch = (atan(X/sqrt(Y*Y+Z*Z)) * 180.0) / PI;
      printf("%lf,%lf,%lf\n",X,Y,Z );
-     printf("pitch = %f\n",pitch);
-     printf("data ready = %x\n",wiringPiI2CReadReg8(devAccel,(ADXL345_REG_INT_SOURCE)));
+     printf("pitch = %f\n",aPitch);
+
 
 
   return(0);
