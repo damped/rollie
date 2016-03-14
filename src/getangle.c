@@ -42,6 +42,7 @@ int main(){
   while(1){
     ComplementaryFilter(accDev,devGyro,&pitch,&roll);
     printf("filtered Pitch: %f, Roll: %f\n", pitch, roll);
+    printf("\r\r\r\r\r\r\r");
   }
 
 
