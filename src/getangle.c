@@ -21,7 +21,7 @@
 
 int main(){
 
-  int aX,aY,aZ;
+  short aX,aY,aZ;
   double X,Y,Z,pitch;
 
   // setup i2c
