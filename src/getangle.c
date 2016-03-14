@@ -55,7 +55,7 @@ int main(){
   gY = gY/14.375;
   gZ = gZ/14.375;
 
-  printf("gyro degrees/sec X: %x, Y: %x, Z: %x\n",gX,gY,gZ);
+  printf("gyro degrees/sec X: %f, Y: %f, Z: %f\n",gX,gY,gZ);
 
 
   return(0);
