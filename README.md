@@ -5,7 +5,7 @@ Self Balancing Robot
 This is the place for a high level discription of the code and what its for
 
 ## Git
-![Git cheat sheet](https://confluence.atlassian.com/bitbucketserver/basic-git-commands-776639767.html)
+Git cheat sheet: https://confluence.atlassian.com/bitbucketserver/basic-git-commands-776639767.html
 
 ## Compiling
 Depriciated: for now, run `g++ getangle.c -lwiringPi -o run` in the src directory.
