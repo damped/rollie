@@ -5,7 +5,7 @@
  *  Authours: Jonas Menge and Michael Jones
  *
  *  Usage:
- *    
+ *
  *
  *************************************************************/
 
@@ -14,7 +14,12 @@
 //#include <wiringPi.h>
 
 #include "pid.c"
-#include "pidconfig.c"
+//#include "pidconfig.c"
+
+
+// function prototypes
+void loop(pid_filter_t *pid);
+
 
 int main()
 {
@@ -24,7 +29,7 @@ int main()
   pid_init(&pid);
 
   /* PID controller. */
-  pid_set_gains(&pid, 10., 0, 4.);
+  pid_set_gains(&pid, 10.0, 0.1, 4.0);
   
   loop(&pid);
   
@@ -34,10 +39,13 @@ int main()
 
 void loop(pid_filter_t *pid)
 {
+  float error;
+  float setpoint = 9.5;
+  float motor_position = 10.0;
   while (1) {
     error = setpoint - motor_position;
-    motor_pwm = pid_process(&pid, error);
-    
+    float motor_pwm = pid_process(pid, error);
+    printf("SetPnt = %f, Current = %f, Error = %f, PIDout = %f\n", setpoint, motor_position, error, motor_pwm);
   }
 }
 

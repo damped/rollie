@@ -4,7 +4,7 @@ BIN_NAME := rollie
 # Compiler used
 CXX ?= g++
 # Extension of source files used in the project
-SRC_EXT = c*
+SRC_EXT = cpp
 # Path to the source directory, relative to the makefile
 SRC_PATH = .
 # Space-separated pkg-config libraries used by this project
@@ -24,9 +24,10 @@ RLINK_FLAGS =
 # Additional debug-specific linker settings
 DLINK_FLAGS =
 # Destination directory, like a jail or mounted system
-DESTDIR = ../
+DESTDIR = ~/
 # Install path (bin/ is appended automatically)
-INSTALL_PREFIX = usr/local
+#INSTALL_PREFIX = usr/local
+INSTALL_PREFIX =
 #### END PROJECT SETTINGS ####
 
 # Generally should not need to edit below this line
@@ -69,11 +70,11 @@ debug: export CXXFLAGS := $(CXXFLAGS) $(COMPILE_FLAGS) $(DCOMPILE_FLAGS)
 debug: export LDFLAGS := $(LDFLAGS) $(LINK_FLAGS) $(DLINK_FLAGS)
 
 # Build and output paths
-release: export BUILD_PATH := build/release
-release: export BIN_PATH := bin/release
-debug: export BUILD_PATH := build/debug
-debug: export BIN_PATH := bin/debug
-install: export BIN_PATH := bin/release
+release: export BUILD_PATH := ../build/release
+release: export BIN_PATH := ../bin/release
+debug: export BUILD_PATH := ../build/debug
+debug: export BIN_PATH := ../bin/debug
+install: export BIN_PATH := ../bin/release
 
 # Find all source files in the source directory, sorted by most
 # recently modified
