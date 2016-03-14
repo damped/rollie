@@ -13,6 +13,7 @@
 #include <wiringPiI2C.h>
 #include "6dofIMU.h"
 #include <stdint.h>
+#include <stdlib.h>
 
 //global constants
 #define   PI          3.1415
