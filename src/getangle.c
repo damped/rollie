@@ -4,32 +4,44 @@
 //
 //Outputs
 
-
+// libraries and header files
 #include <iostream>
 #include <errno.h>
 #include <wiringPi.h>
 #include "stdio.h"
 #include <math.h>
 #include <wiringPiI2C.h>
-#include "ADXL345.h"
-
+#include "6dofIMU.h"
 #include <stdint.h>
 
-
+//global constants
 #define   PI          3.1415;
 
+//prototypes
 double accPitch(int);
 int accConfig(void);
+
+int gyroConfig(void);
+
 
 int main(){
 
   int acc = accConfig();
-  
   double pitch = accPitch(acc);
+
+  int devGyro = wiringPiI2CSetup(0x68);
+  int dataGyro = wiringPiI2CReadReg8(devGyro,0x00);
+
+  wiringPiI2CWriteReg8(devGyro, 0x15, 0x09);
+  wiringPiI2CWriteReg8(devGyro, 0x16, 0x1a);
+
 
   return(0);
 }
 
+
+
+// function to configure the accelerometer
 int accConfig(){
 
       // setup i2c
@@ -43,6 +55,8 @@ int accConfig(){
 
       return(devAccel);
 }
+
+//
 double accPitch(int accDev){
 
       short aX,aY,aZ;
