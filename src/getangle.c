@@ -21,7 +21,7 @@
 
 int main(){
 
-  signed int aX,aY,aZ;
+  int aX,aY,aZ;
   double X,Y,Z,pitch;
 
   // setup i2c
@@ -54,6 +54,8 @@ int main(){
      Y = aY * 0.0039;
      Z = aZ * 0.0039;
 
+     printf("hex X: %x, Y: %x, Z: %x\n",aX,aY,aZ);
+     
      pitch = (atan2(X,sqrt(Y*Y+Z*Z)) * 180.0) / PI;
      printf("%lf,%lf,%lf\n",X,Y,Z );
      printf("pitch = %f\n",pitch);
