@@ -31,15 +31,15 @@ int main(){
 
    while (1)
    {
-     aX = wiringPiI2CReadReg8(devAccel,(ADXL345_REG_DATAX0))
+     aX = wiringPiI2CReadReg8(devAccel,(ADXL345_REG_DATAX0));
      aX = (aX) << 8;
      aX = aX | wiringPiI2CReadReg8(devAccel,(ADXL345_REG_DATAX1));
 
-     aY = wiringPiI2CReadReg8(devAccel,(ADXL345_REG_DATAY0))
+     aY = wiringPiI2CReadReg8(devAccel,(ADXL345_REG_DATAY0));
      aY = (aY) << 8;
      aY = aY | wiringPiI2CReadReg8(devAccel,(ADXL345_REG_DATAY1));
 
-     aZ = wiringPiI2CReadReg8(devAccel,(ADXL345_REG_DATAZ0))
+     aZ = wiringPiI2CReadReg8(devAccel,(ADXL345_REG_DATAZ0));
      aZ = (aZ) << 8;
      aZ = aZ | wiringPiI2CReadReg8(devAccel,(ADXL345_REG_DATAZ1));
 
