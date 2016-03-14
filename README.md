@@ -5,7 +5,31 @@ Self Balancing Robot
 This is the place for a high level discription of the code and what its for
 
 ## Compiling
-for now, run `g++ getangle.c -lwiringPi -o run` in the src directory.
+Depriciated: for now, run `g++ getangle.c -lwiringPi -o run` in the src directory.
+
+The new makefile system allows us to easaly compile all the files togeter. It does some fancy things like only compileing what was changed, and allows us to install the program in the `~/bin` folder. This means that when you type `rollie` from anywher it will exicute the program.
+
+For testing run:
+```
+make
+./rollie
+```
+
+When you wish to install:
+```
+make install
+./rollie
+```
+
+Before you commit run:
+```
+make clean
+git add *    #or any spicific files to add to the commit
+git commit -m "message"
+git push
+```
+Maybe we will add that last part to make so we just need to do something like `make commit` idk...
+
 
 ## Getting angles
 The gyroscope is located at 0x68 and returns a device id of 0x69
