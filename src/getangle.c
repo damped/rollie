@@ -23,13 +23,16 @@ int main(){
 
   signed short aX,aY,aZ,pitch;
 
+  // setup i2c
+  int devAccel = wiringPiI2CSetup(0x53);
+  int dataAccel = wiringPiI2CReadReg8(devAccel,0x00);
+
 // configure ADXL345 registers
   wiringPiI2CWriteReg8(devAccel, ADXL345_REG_POWER_CTL, 0x08);
   wiringPiI2CWriteReg8(devAccel, ADXL345_REG_DATA_FORMAT, 0x0);
   wiringPiI2CWriteReg8(devAccel,ADXL345_REG_INT_ENABLE, 0x80);
-// setup i2c
-  int devAccel = wiringPiI2CSetup(0x53);
-  int dataAccel = wiringPiI2CReadReg8(devAccel,0x00);
+
+
 
 
 // grab raw data from accelerometer
