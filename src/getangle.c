@@ -12,32 +12,31 @@
 #include <math.h>
 #include <wiringPiI2C.h>
 #include "ADXL345.h"
+#include <bcm2835-1.49>
+#include <stdint.h>
+
 
 #define   PI          3.1415;
 
 
 int main(){
 
-  signed int aX,aY,aZ,pitch;
+  signed short aX,aY,aZ,pitch;
 
+// configure ADXL345 registers
+  wiringPiI2CWriteReg8(devAccel, ADXL345_REG_POWER_CTL, 0x08);
+  wiringPiI2CWriteReg8(devAccel, ADXL345_REG_DATA_FORMAT, 0x0);
+  wiringPiI2CWriteReg8(devAccel,ADXL345_REG_INT_ENABLE, 0x80);
 // setup i2c
   int devAccel = wiringPiI2CSetup(0x53);
   int dataAccel = wiringPiI2CReadReg8(devAccel,0x00);
 
-// configure ADXL345 registers
-  wiringPiI2CWriteReg8(devAccel, ADXL345_REG_POWER_CTL, 0x08);
-  wiringPiI2CWriteReg8(devAccel, ADXL345_REG_DATA_FORMAT, 0x0B);
-  wiringPiI2CWriteReg8(devAccel,(ADXL345_REG_INT_ENABLE), 0x80);
 
 // grab raw data from accelerometer
-
-
 
      aX = wiringPiI2CReadReg8(devAccel,(ADXL345_REG_DATAX1));
      aX = (aX) << 8;
      aX = aX | wiringPiI2CReadReg8(devAccel,(ADXL345_REG_DATAX0));
-
-
 
      aZ = wiringPiI2CReadReg8(devAccel,(ADXL345_REG_DATAZ1));
      aZ = (aZ) << 8;
@@ -47,10 +46,9 @@ int main(){
      aY = (aY) << 8;
      aY = aY | wiringPiI2CReadReg8(devAccel,(ADXL345_REG_DATAY0));
 
-
-     aX = aX * 0.00390625;
-     aY = aY * 0.00390625;
-     aY = aY * 0.00390625;
+     aX = aX * 0.0039;
+     aY = aY * 0.0039;
+     aY = aY * 0.0039;
 
      pitch = (atan2(aX,sqrt(aY*aY+aZ*aZ)) * 180.0) / PI;
      printf("%x,%x,%x\n",aX,aY,aZ );
