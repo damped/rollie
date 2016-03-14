@@ -50,18 +50,18 @@ int main(){
      aY = (aY) << 8;
      aY = aY | wiringPiI2CReadReg8(devAccel,(ADXL345_REG_DATAY0));
 
-     if (aX>=8000) {
+     if (aX>=0x8000) {
        aX = aX^0x1111;
        aX = aX+0x0001;
        aX = aX*(-1);
      }
 
-     if (aY>=8000) {
+     if (aY>=0x8000) {
        aY = aY^0x1111;
        aY = aY+0x0001;
        aY = aY*(-1);
      }
-     if (aZ>=8000) {
+     if (aZ>=0x8000) {
        aZ = aZ^0x1111;
        aZ = aZ+0x0001;
        aZ = aZ*(-1);
