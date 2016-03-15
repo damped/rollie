@@ -25,28 +25,19 @@
 //prototypes
 double accPitch(int);
 int accConfig(void);
-void ComplementaryFilter(int, int, float *, float *);
+float getangle(int, int);
 int gyroConfig(void);
 
 
-int main(){
-
-  float pitch, roll;
 
 
-  int accDev = accConfig();
+int gyroConfig(){
+
   int devGyro = wiringPiI2CSetup(0x68);
   wiringPiI2CWriteReg8(devGyro, 0x15, 0x09);
   wiringPiI2CWriteReg8(devGyro, 0x16, 0x1a);
 
-  while(1){
-    ComplementaryFilter(accDev,devGyro,&pitch,&roll);
-
-
-  }
-
-
-  return(0);
+  return(devGyro);
 }
 
 // function to configure the accelerometer
@@ -114,14 +105,13 @@ double accPitch(int accDev){
        printf("pitch = %f\n",aPitch);
 
        return(aPitch);
-
 }
 
-void ComplementaryFilter(int accDev, int devGyro, float *pitch, float *roll)
+float getangle(int accDev, int devGyro)
 {
 
     short aX,aY,aZ;
-    float X,Y,Z,aPitch;
+    float X,Y,Z,aPitch, pitch;
     short gX, gY, gZ,gData[3];
 
 
@@ -207,8 +197,8 @@ void ComplementaryFilter(int accDev, int devGyro, float *pitch, float *roll)
 
 
     // Integrate the gyroscope data -> int(angularSpeed) = angle
-    *pitch += ((float)gData[0] / GYROSCOPE_SENSITIVITY) * dt; // Angle around the X-axis
-    float gpitch = *pitch;
+    pitch += ((float)gData[0] / GYROSCOPE_SENSITIVITY) * dt; // Angle around the X-axis
+    float gpitch = pitch;
   //  printf("Gyro Pitch: %f\n", *pitch);
 
 
@@ -222,8 +212,10 @@ void ComplementaryFilter(int accDev, int devGyro, float *pitch, float *roll)
   //  {
 	// Turning around the X axis results in a vector on the Y-axis
       //  aPitch = atan2f((float)aY, (float)aZ) * 180 / M_PI;
-        *pitch = *pitch * 0.98 + aPitch * 0.02;
-      printf("\rfiltered: %f, gyro: %f, accel: %f         ", pitch, gpitch, accP);
+        pitch = pitch * 0.98 + aPitch * 0.02;
+    //  printf("\rfiltered: %f, gyro: %f, accel: %f         ", pitch, gpitch, accP);
 
   //  }
+
+      return(pitch);
 }
