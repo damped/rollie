@@ -16,11 +16,11 @@
 #include <stdlib.h>
 
 //global constants
-#define   PI                      3.14159265359 // Its pi day... need at least 11 decimals
-#define ACCELEROMETER_SENSITIVITY 8192.0
-#define GYROSCOPE_SENSITIVITY     14.375
-#define dt                        0.01    //sampling rate 0.01 = 10ms, need to add function input for this
-#define UPPER_ACC_FORCE           32768  // max force
+#define PI                          3.14159265359 // Its pi day... need at least 11 decimals
+#define ACCELEROMETER_SENSITIVITY   8192.0
+#define GYROSCOPE_SENSITIVITY       14.375
+#define dt                          0.01    //sampling rate 0.01 = 10ms, need to add function input for this
+#define UPPER_ACC_FORCE             32768  // max force
 
 //prototypes
 double accPitch(int);
@@ -56,24 +56,24 @@ int accConfig(){
 }
 
 // accelerometer pitch
-double accPitch(int accDev){
+double accPitch(int devAccel){
 
     short aX,aY,aZ;
     double X,Y,Z,aPitch;
 
     // grab raw data from accelerometer
 
-    aX = wiringPiI2CReadReg8(accDev,(ADXL345_REG_DATAX1));
+    aX = wiringPiI2CReadReg8(devAccel,(ADXL345_REG_DATAX1));
     aX = (aX) << 8;
-    aX = aX | wiringPiI2CReadReg8(accDev,(ADXL345_REG_DATAX0));
+    aX = aX | wiringPiI2CReadReg8(devAccel,(ADXL345_REG_DATAX0));
 
-    aZ = wiringPiI2CReadReg8(accDev,(ADXL345_REG_DATAZ1));
+    aZ = wiringPiI2CReadReg8(devAccel,(ADXL345_REG_DATAZ1));
     aZ = (aZ) << 8;
-    aZ = aZ | wiringPiI2CReadReg8(accDev,(ADXL345_REG_DATAZ0));
+    aZ = aZ | wiringPiI2CReadReg8(devAccel,(ADXL345_REG_DATAZ0));
 
-    aY = wiringPiI2CReadReg8(accDev,(ADXL345_REG_DATAY1));
+    aY = wiringPiI2CReadReg8(devAccel,(ADXL345_REG_DATAY1));
     aY = (aY) << 8;
-    aY = aY | wiringPiI2CReadReg8(accDev,(ADXL345_REG_DATAY0));
+    aY = aY | wiringPiI2CReadReg8(devAccel,(ADXL345_REG_DATAY0));
 
     // convert from twos compliment
     if (aX>=0x8000) {
@@ -107,7 +107,7 @@ double accPitch(int accDev){
     return(aPitch);
 }
 
-float getangle(int accDev, int devGyro)
+float getAngle(int devAccel, int devGyro)
 {
 
     short aX,aY,aZ;
@@ -117,17 +117,17 @@ float getangle(int accDev, int devGyro)
 
     // grab raw data from accelerometer
 
-    aX = wiringPiI2CReadReg8(accDev,(ADXL345_REG_DATAX1));
+    aX = wiringPiI2CReadReg8(devAccel,(ADXL345_REG_DATAX1));
     aX = (aX) << 8;
-    aX = aX | wiringPiI2CReadReg8(accDev,(ADXL345_REG_DATAX0));
+    aX = aX | wiringPiI2CReadReg8(devAccel,(ADXL345_REG_DATAX0));
 
-    aZ = wiringPiI2CReadReg8(accDev,(ADXL345_REG_DATAZ1));
+    aZ = wiringPiI2CReadReg8(devAccel,(ADXL345_REG_DATAZ1));
     aZ = (aZ) << 8;
-    aZ = aZ | wiringPiI2CReadReg8(accDev,(ADXL345_REG_DATAZ0));
+    aZ = aZ | wiringPiI2CReadReg8(devAccel,(ADXL345_REG_DATAZ0));
 
-    aY = wiringPiI2CReadReg8(accDev,(ADXL345_REG_DATAY1));
+    aY = wiringPiI2CReadReg8(devAccel,(ADXL345_REG_DATAY1));
     aY = (aY) << 8;
-    aY = aY | wiringPiI2CReadReg8(accDev,(ADXL345_REG_DATAY0));
+    aY = aY | wiringPiI2CReadReg8(devAccel,(ADXL345_REG_DATAY0));
 
 
     gX = wiringPiI2CReadReg8(devGyro,(GYRO_XOUT_H_REG));
@@ -213,7 +213,7 @@ float getangle(int accDev, int devGyro)
     //Turning around the X axis results in a vector on the Y-axis
     //aPitch = atan2f((float)aY, (float)aZ) * 180 / M_PI;
     pitch = pitch * 0.98 + aPitch * 0.02;
-    //printf("\rfiltered: %f, gyro: %f, accel: %f         ", pitch, gpitch, accP);
+    printf("\rfiltered: %f, gyro: %f, accel: %f         ", pitch, gpitch, accP);
 
     //}
 

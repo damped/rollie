@@ -14,37 +14,44 @@
 #include <wiringPi.h>
 
 #include "pid.c"
-//#include "pidconfig.c"
+#include "getangle.c"
 
 
 // function prototypes
-void loop(pid_filter_t *pid);
+void loop(pid_filter_t *pid, int devAccel, int devGyro);
 
 
 int main()
 {
     using namespace std;
 
+
+    /* PID controller setup */
     pid_filter_t pid;
     pid_init(&pid);
-
-    /* PID controller. */
     pid_set_gains(&pid, 10.0, 0.1, 4.0);
 
-    loop(&pid);
-    
+    /* IMU setup */
+    int devAccel = accConfig();
+    int devGyro = gyroConfig();
+
+
+
+    loop(&pid, devAccel, devGyro);
+
     return 0;
 }
 
 
-void loop(pid_filter_t *pid)
+void loop(pid_filter_t *pid, int devAccel, int devGyro)
 {
     float error;
-    float setpoint = 9.5;
-    float motor_position = 10.0;
+    float setpoint = 0;
+
     while (1) {
-        error = setpoint - motor_position;
-        float motor_pwm = pid_process(pid, error);
-        printf("SetPnt = %f, Current = %f, Error = %f, PIDout = %f\n", setpoint, motor_position, error, motor_pwm);
+        getangle(devAccel, devGyro);
+        error = setpoint - current;
+        float pidOutput = pid_process(pid, error);
+        printf("\rSetPnt = %f, Current = %f, Error = %f, PIDout = %f  ", setpoint, current, error, pidOutput);
     }
 }
