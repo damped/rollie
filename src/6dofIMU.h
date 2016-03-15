@@ -5,7 +5,6 @@
 #include "stdio.h"
 #include <math.h>
 #include <wiringPiI2C.h>
-#include "6dofIMU.h"
 #include <stdint.h>
 #include <stdlib.h>
 
