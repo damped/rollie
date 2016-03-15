@@ -1,3 +1,7 @@
+#ifndef 6DOFIMU_H_
+#define 6DOFIMU_H_
+
+
 // libraries and header files
 #include <iostream>
 #include <errno.h>
