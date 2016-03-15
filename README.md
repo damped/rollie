@@ -22,7 +22,7 @@ make
 When you wish to install:
 ```
 make install
-./rollie
+rollie
 ```
 
 Before you commit run:
