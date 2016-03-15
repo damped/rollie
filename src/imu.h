@@ -17,7 +17,7 @@
 //prototypes
 double accPitch(int);
 int accConfig(void);
-float getangle(int, int);
+float getAngle(int, int);
 int gyroConfig(void);
 
 
@@ -84,8 +84,8 @@ int gyroConfig(void);
 //-----------
 // Offsets
 //-----------
-short int TEMP_OUT_OFFSET = 0;
-short int GYRO_XOUT_OFFSET = 0;
-short int GYRO_YOUT_OFFSET = 0;
-short int GYRO_ZOUT_OFFSET = 0;
+//short int TEMP_OUT_OFFSET = 0;
+//short int GYRO_XOUT_OFFSET = 0;
+//short int GYRO_YOUT_OFFSET = 0;
+//short int GYRO_ZOUT_OFFSET = 0;
 #endif
