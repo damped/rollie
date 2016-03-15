@@ -4,20 +4,8 @@
 //
 //Outputs
 
-<<<<<<< HEAD
-// libraries and header files
-#include <iostream>
-#include <errno.h>
-#include <wiringPi.h>
-#include <stdio.h>
-#include <math.h>
-#include <wiringPiI2C.h>
-#include "6dofIMU.h"
-#include <stdint.h>
-#include <stdlib.h>
-=======
 
->>>>>>> 7f99fe6b38026586823f8d343159dfa8ac1487ff
+#include "6dofIMU.h"
 
 //global constants
 #define PI                          3.14159265359 // Its pi day... need at least 11 decimals
