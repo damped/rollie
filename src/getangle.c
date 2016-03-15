@@ -4,16 +4,7 @@
 //
 //Outputs
 
-// libraries and header files
-#include <iostream>
-#include <errno.h>
-#include <wiringPi.h>
-#include "stdio.h"
-#include <math.h>
-#include <wiringPiI2C.h>
-#include "6dofIMU.h"
-#include <stdint.h>
-#include <stdlib.h>
+
 
 //global constants
 #define PI                          3.14159265359 // Its pi day... need at least 11 decimals
@@ -22,11 +13,7 @@
 #define dt                          0.01    //sampling rate 0.01 = 10ms, need to add function input for this
 #define UPPER_ACC_FORCE             32768  // max force
 
-//prototypes
-double accPitch(int);
-int accConfig(void);
-float getangle(int, int);
-int gyroConfig(void);
+
 
 
 

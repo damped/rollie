@@ -1,3 +1,24 @@
+// libraries and header files
+#include <iostream>
+#include <errno.h>
+#include <wiringPi.h>
+#include "stdio.h"
+#include <math.h>
+#include <wiringPiI2C.h>
+#include "6dofIMU.h"
+#include <stdint.h>
+#include <stdlib.h>
+
+
+
+//prototypes
+double accPitch(int);
+int accConfig(void);
+float getangle(int, int);
+int gyroConfig(void);
+
+
+
 // adxl345 registers
 
 #define ADXL345_REG_DEVID               (0x00)    // Device ID
