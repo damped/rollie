@@ -11,7 +11,7 @@
 
 #include <stdio.h>
 //#include <thread>
-#include <wiringPi.h>
+//#include <wiringPi.h>
 
 #include "pid.c"
 #include "getangle.c"
@@ -49,7 +49,7 @@ void loop(pid_filter_t *pid, int devAccel, int devGyro)
     float setpoint = 0;
 
     while (1) {
-        getangle(devAccel, devGyro);
+        float current = getangle(devAccel, devGyro);
         error = setpoint - current;
         float pidOutput = pid_process(pid, error);
         printf("\rSetPnt = %f, Current = %f, Error = %f, PIDout = %f  ", setpoint, current, error, pidOutput);

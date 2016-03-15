@@ -8,7 +8,7 @@
 #include <iostream>
 #include <errno.h>
 #include <wiringPi.h>
-#include "stdio.h"
+#include <stdio.h>
 #include <math.h>
 #include <wiringPiI2C.h>
 #include "6dofIMU.h"
@@ -213,7 +213,7 @@ float getAngle(int devAccel, int devGyro)
     //Turning around the X axis results in a vector on the Y-axis
     //aPitch = atan2f((float)aY, (float)aZ) * 180 / M_PI;
     pitch = pitch * 0.98 + aPitch * 0.02;
-    printf("\rfiltered: %f, gyro: %f, accel: %f         ", pitch, gpitch, accP);
+    //printf("\rfiltered: %f, gyro: %f, accel: %f         ", pitch, gpitch, accP);
 
     //}
 
