@@ -5,7 +5,7 @@
 //Outputs
 
 
-#include "6dofIMU.h"
+#include "imu.h"
 
 //global constants
 #define PI                          3.14159265359 // Its pi day... need at least 11 decimals

@@ -1,5 +1,5 @@
-#ifndef 6DOFIMU_H_
-#define 6DOFIMU_H_
+#ifndef IMU_H_
+#define IMU_H_
 
 
 // libraries and header files

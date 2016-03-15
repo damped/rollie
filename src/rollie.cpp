@@ -15,7 +15,7 @@
 
 #include "pid.c"
 #include "getangle.c"
-#include "6dofIMU.h"
+
 
 
 // function prototypes
