@@ -95,12 +95,12 @@ double accPitch(int devAccel){
     return(aPitch);
 }
 
-float getAngle(float *pitch, int devAccel, int devGyro)
+void getAngle(float *pitch, int devAccel, int devGyro)
 {
 
-    short aX,aY,aZ;
+    int aX,aY,aZ;
     float X,Y,Z,aPitch;
-    short gX, gY, gZ;
+    int gX, gY, gZ;
 
 
     // grab raw data from accelerometer
