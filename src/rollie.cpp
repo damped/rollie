@@ -47,13 +47,14 @@ int main()
 
 void loop(pid_filter_t *pid, int devAccel, int devGyro)
 {
-    float error;
+    float error, pitch;
     float setpoint = 0;
 
+
     while (1) {
-        float current = getAngle(devAccel, devGyro);
-        error = setpoint - current;
+        getAngle(&pitch, devAccel, devGyro);
+        error = setpoint - pitch;
         float pidOutput = pid_process(pid, error);
-        printf("\rSetPnt = %f, Current = %f, Error = %f, PIDout = %f", setpoint, current, error, pidOutput);
+        printf("\rSetPnt = %f, Current = %f, Error = %f, PIDout = %f", setpoint, pitch, error, pidOutput);
     }
 }

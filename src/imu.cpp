@@ -95,12 +95,12 @@ double accPitch(int devAccel){
     return(aPitch);
 }
 
-float getAngle(int devAccel, int devGyro)
+float getAngle(float *pitch, int devAccel, int devGyro)
 {
 
     short aX,aY,aZ;
-    float X,Y,Z,aPitch, pitch;
-    short gX, gY, gZ,gData[3];
+    float X,Y,Z,aPitch;
+    short gX, gY, gZ;
 
 
     // grab raw data from accelerometer
@@ -121,17 +121,14 @@ float getAngle(int devAccel, int devGyro)
     gX = wiringPiI2CReadReg8(devGyro,(GYRO_XOUT_H_REG));
     gX = (gX) << 8;
     gX = gX | wiringPiI2CReadReg8(devGyro, GYRO_XOUT_L_REG);
-    gData[0] = gX;
 
     gY = wiringPiI2CReadReg8(devGyro,(GYRO_YOUT_H_REG));
     gY = (gY) << 8;
     gY = gY | wiringPiI2CReadReg8(devGyro, GYRO_YOUT_L_REG);
-    gData[1] = gY;
 
     gZ = wiringPiI2CReadReg8(devGyro,(GYRO_ZOUT_H_REG));
     gZ = (gZ) << 8;
     gZ = gZ | wiringPiI2CReadReg8(devGyro, GYRO_ZOUT_L_REG);
-    gData[2] = gZ;
     //printf("gyro output X: %x, Y: %x, Z: %x\n",gX,gY,gZ);
 
 
@@ -185,7 +182,7 @@ float getAngle(int devAccel, int devGyro)
 
 
     // Integrate the gyroscope data -> int(angularSpeed) = angle
-    pitch += ((float)gData[0] / GYROSCOPE_SENSITIVITY) * dt; // Angle around the X-axis
+    *pitch += ((float)gX / GYROSCOPE_SENSITIVITY) * dt; // Angle around the X-axis
     //float gpitch = pitch;
     //printf("Gyro Pitch: %f\n", *pitch);
 
@@ -200,10 +197,9 @@ float getAngle(int devAccel, int devGyro)
     //{
     //Turning around the X axis results in a vector on the Y-axis
     //aPitch = atan2f((float)aY, (float)aZ) * 180 / M_PI;
-    pitch = pitch * 0.98 + aPitch * 0.02;
+    *pitch = *pitch * 0.98 + aPitch * 0.02;
     //printf("\rfiltered: %f, gyro: %f, accel: %f         ", pitch, gpitch, accP);
 
     //}
 
-    return(pitch);
 }
