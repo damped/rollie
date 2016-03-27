@@ -55,8 +55,8 @@ void loop(pid_filter_t *pid, int devAccel, int devGyro)
 
       double gP,aP;
 
-        gP = gyroPitch(devGyro);
-       // aP = accPitch(devAccel);
+        gyroPitch(&gP,devGyro);
+        accPitch(&aP,devAccel);
 
         //take average of two outputs for pitch
         pitch = (gP + aP)/2;
@@ -64,6 +64,6 @@ void loop(pid_filter_t *pid, int devAccel, int devGyro)
        // getAngle(&pitch, devAccel, devGyro);
         error = setpoint - pitch;
         float pidOutput = pid_process(pid, error);
-       // printf("\r Current = %f, gPitch = %f, aPitch = %f", pitch, gP, aP);
+        printf("\r Current = %lf, gPitch = %lf, aPitch = %lf", pitch, gP, aP);
     }
 }
