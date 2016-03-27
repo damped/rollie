@@ -87,7 +87,6 @@ double gyroPitch(int devGyro)
 {
   double gPitch,X,Y,Z;
 
-
   // read from the gyro and grab the accelerational data for each axis
 
   X = (double)wiringPiI2CReadReg8(devGyro,(GYRO_XOUT_H_REG));
