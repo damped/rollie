@@ -59,9 +59,11 @@ double accPitch(int devAccel){
     X = (X) << 8;
     X = X | (double)wiringPiI2CReadReg8(devAccel,(ADXL345_REG_DATAX0));
 
+
     Z = (double)wiringPiI2CReadReg8(devAccel,(ADXL345_REG_DATAZ1));
     Z = (Z) << 8;
     Z = Z | (double)wiringPiI2CReadReg8(devAccel,(ADXL345_REG_DATAZ0));
+
 
     Y = (double)wiringPiI2CReadReg8(devAccel,(ADXL345_REG_DATAY1));
     Y = (Y) << 8;
