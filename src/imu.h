@@ -16,6 +16,7 @@
 
 //prototypes
 double accPitch(int);
+double gyroPitch(int);
 int accConfig(void);
 void getAngle(float *,int, int);
 int gyroConfig(void);

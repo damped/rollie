@@ -25,6 +25,9 @@ int gyroConfig(){
     wiringPiI2CWriteReg8(devGyro, 0x15, 0x09);
     wiringPiI2CWriteReg8(devGyro, 0x16, 0x1a);
 
+
+    printf("gyro configured\n");
+
     return(devGyro);
 }
 
@@ -40,59 +43,72 @@ int accConfig(){
     wiringPiI2CWriteReg8(devAccel, ADXL345_REG_DATA_FORMAT, 0x0B);
     wiringPiI2CWriteReg8(devAccel,ADXL345_REG_INT_ENABLE, 0x80);
 
+    printf("accelerometer configured\n");
+
     return(devAccel);
 }
 
 // accelerometer pitch
 double accPitch(int devAccel){
 
-    short aX,aY,aZ;
     double X,Y,Z,aPitch;
 
     // grab raw data from accelerometer
 
-    aX = wiringPiI2CReadReg8(devAccel,(ADXL345_REG_DATAX1));
-    aX = (aX) << 8;
-    aX = aX | wiringPiI2CReadReg8(devAccel,(ADXL345_REG_DATAX0));
+    X = (double)wiringPiI2CReadReg8(devAccel,(ADXL345_REG_DATAX1));
+    X = (X) << 8;
+    X = X | (double)wiringPiI2CReadReg8(devAccel,(ADXL345_REG_DATAX0));
 
-    aZ = wiringPiI2CReadReg8(devAccel,(ADXL345_REG_DATAZ1));
-    aZ = (aZ) << 8;
-    aZ = aZ | wiringPiI2CReadReg8(devAccel,(ADXL345_REG_DATAZ0));
+    Z = (double)wiringPiI2CReadReg8(devAccel,(ADXL345_REG_DATAZ1));
+    Z = (Z) << 8;
+    Z = Z | (double)wiringPiI2CReadReg8(devAccel,(ADXL345_REG_DATAZ0));
 
-    aY = wiringPiI2CReadReg8(devAccel,(ADXL345_REG_DATAY1));
-    aY = (aY) << 8;
-    aY = aY | wiringPiI2CReadReg8(devAccel,(ADXL345_REG_DATAY0));
+    Y = (double)wiringPiI2CReadReg8(devAccel,(ADXL345_REG_DATAY1));
+    Y = (Y) << 8;
+    Y = Y | (double)wiringPiI2CReadReg8(devAccel,(ADXL345_REG_DATAY0));
 
-    // convert from twos compliment
-    if (aX>=0x8000) {
-        aX = aX^0x1111;
-        aX = aX+0x0001;
-        aX = aX*(-1);
-    }
+    // scale the output for calculating the angle
+    X = X * 0.0039;
+    Y = Y * 0.0039;
+    Z = Z * 0.0039;
 
-    if (aY>=0x8000) {
-        aY = aY^0x1111;
-        aY = aY+0x0001;
-        aY = aY*(-1);
-    }
-    if (aZ>=0x8000) {
-        aZ = aZ^0x1111;
-        aZ = aZ+0x0001;
-        aZ = aZ*(-1);
-    }
+  //  printf("hex X: %x, Y: %x, Z: %x\n",aX,aY,aZ);
 
-    X = aX * 0.0039;
-    Y = aY * 0.0039;
-    Z = aZ * 0.0039;
-
-
-    printf("hex X: %x, Y: %x, Z: %x\n",aX,aY,aZ);
-
+    //calc angle
     aPitch = (atan(X/sqrt(Y*Y+Z*Z)) * 180.0) / PI;
     printf("%lf,%lf,%lf\n",X,Y,Z );
     printf("pitch = %f\n",aPitch);
 
     return(aPitch);
+}
+
+
+double gyroPitch(int devGyro)
+{
+  double gPitch,X,Y,Z;
+
+
+  // read from the gyro and grab the accelerational data for each axis
+
+  X = (double)wiringPiI2CReadReg8(devGyro,(GYRO_XOUT_H_REG));
+  X = (X) << 8;
+  X = X | (double)wiringPiI2CReadReg8(devGyro, GYRO_XOUT_L_REG);
+
+  Y = (double)wiringPiI2CReadReg8(devGyro,(GYRO_YOUT_H_REG));
+  Y = (Y) << 8;
+  Y = Y | (double)wiringPiI2CReadReg8(devGyro, GYRO_YOUT_L_REG);
+
+  Z = (double)wiringPiI2CReadReg8(devGyro,(GYRO_ZOUT_H_REG));
+  Z = (Z) << 8;
+  Z = Z | (double)wiringPiI2CReadReg8(devGyro, GYRO_ZOUT_L_REG);
+
+  // Integrate the gyroscope data -> int(angularSpeed) = angle
+  pitch = (X / GYROSCOPE_SENSITIVITY) * dt; // Angle around the X-axis
+
+  //PRINT  THE RESULT FROM THE GYROSCOPE
+    printf("GYRO PITCH: %lf\n", );
+
+  return(gPitch);
 }
 
 void getAngle(float *pitch, int devAccel, int devGyro)
