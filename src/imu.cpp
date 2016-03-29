@@ -137,8 +137,8 @@ void getAngle(float *pitch, int devAccel, int devGyro)
     accPitch(&aPitch, devAccel);      // get pitch from the accelerometer
     gyroPitch(&gyrPitch, devGyro);   //get pitch from Gyro
 
-    printf("\rgyroPitch = %f, accPitch = %f, filtered pitch = %f",gyrPitch,aPitch,*pitch);
+  //  printf("\rgyroPitch = %f, accPitch = %f, filtered pitch = %f",gyrPitch,aPitch,*pitch);
 
     *pitch = (*pitch+gyrPitch) * 0.90 + aPitch * 0.10;
-   
+
 }

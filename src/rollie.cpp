@@ -58,7 +58,7 @@ void loop(pid_filter_t *pid, int devAccel, int devGyro)
         float pidOutput = pid_process(pid, error);
 
 
-//        printf("\r comp filter pitch = %f", pitch);
+        printf("\r error = %f, PID = %f", error, pidOutput);
 
     }
 }
