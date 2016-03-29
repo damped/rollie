@@ -51,18 +51,15 @@ void loop(pid_filter_t *pid, int devAccel, int devGyro)
     float  setpoint = 0.0;
     float  gP,aP;
 
-    while (1) {
+    while (1){
 
-        gyroPitch(&gP,devGyro);
-        accPitch(&aP,devAccel);
+        getAngle(&pitch,devAccel,devGyro);
 
-        //take average of two outputs for pitch
-        pitch = 0.98*gP +(0.02)*aP;
-	pitch = gP;
-
-       // getAngle(&pitch, devAccel, devGyro);
         error = setpoint - pitch;
         float pidOutput = pid_process(pid, error);
-        printf("\r Current = %f, gPitch = %f, aPitch = %f", pitch, gP, aP);
+
+
+        printf("comp filter pitch = %f\n", pitch);
+
     }
 }
