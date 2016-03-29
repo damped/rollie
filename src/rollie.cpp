@@ -47,23 +47,22 @@ int main()
 
 void loop(pid_filter_t *pid, int devAccel, int devGyro)
 {
-    double  error, pitch;
-    double  setpoint = 0.0;
-
+    float  error, pitch;
+    float  setpoint = 0.0;
+    float  gP,aP;
 
     while (1) {
-
-      double gP,aP;
 
         gyroPitch(&gP,devGyro);
         accPitch(&aP,devAccel);
 
         //take average of two outputs for pitch
-        pitch = (gP + aP)/2;
+        pitch = 0.98*gP +(0.02)*aP;
+	pitch = gP;
 
        // getAngle(&pitch, devAccel, devGyro);
         error = setpoint - pitch;
         float pidOutput = pid_process(pid, error);
-        printf("\r Current = %lf, gPitch = %lf, aPitch = %lf", pitch, gP, aP);
+        printf("\r Current = %f, gPitch = %f, aPitch = %f", pitch, gP, aP);
     }
 }

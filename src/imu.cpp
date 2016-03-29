@@ -51,7 +51,7 @@ int accConfig(){
 }
 
 // accelerometer pitch
-void accPitch(double *aPitch, int devAccel){
+void accPitch(float *aPitch, int devAccel){
 
     double Xa,Ya,Za;
     short X,Y,Z;
@@ -86,22 +86,21 @@ void accPitch(double *aPitch, int devAccel){
 }
 
 
-void gyroPitch(double *gPitch, int devGyro)
+void gyroPitch(float *gPitch, int devGyro)
 {
-  double Xg,Yg,Zg;
+  float Xg,Yg,Zg;
   short X,Y,Z;
   int flag;
 
+	do{
 
-  do{
+	flag =wiringPiI2CReadReg8(devGyro,(INT_STATUS));
+	flag= flag & 0x01;
+	//printf("\n flag = %x", flag);
 
-       flag = wiringPiI2CReadReg8(devGyro,(INT_STATUS));
-       flag = flag & 0x01;
-
-    }while(flag != 0x01);
+	}while(flag != 0x01);
 
 
-  while(flag == 0x01){
         // read from the gyro and grab the accelerational data for each axis
         X = wiringPiI2CReadReg8(devGyro,(GYRO_XOUT_H_REG));
         X = (X) << 8;
@@ -114,12 +113,14 @@ void gyroPitch(double *gPitch, int devGyro)
         Z = wiringPiI2CReadReg8(devGyro,(GYRO_ZOUT_H_REG));
         Z = (Z) << 8;
         Z = Z | wiringPiI2CReadReg8(devGyro, GYRO_ZOUT_L_REG);
+ 
+
 
       // printf("hex output: X, %x, Y, %x, Z %x", X, Y, Z);
 
-        Xg = (double)X;
-        Yg = (double)Y;
-        Zg = (double)Z;
+        Xg = (float)X;
+        Yg = (float)Y;
+        Zg = (float)Z;
 
       // printf("double conversion, Xg %lf, Yg %lf, Zg %lf", Xg, Yg, Zg);
 
@@ -127,8 +128,8 @@ void gyroPitch(double *gPitch, int devGyro)
         *gPitch += (Xg / GYROSCOPE_SENSITIVITY) * dt; // Angle around the X-axis
 
         //PRINT THE RESULT FROM THE GYROSCOPE
-      //  printf("\r flag, %x : X, %x : Xg : %lf : gPitch, %lf ", flag, X, Xg, *gPitch);
-    }
+       // printf("\n  X, %x : Xg : %lf : gPitch, %lf ", X, Xg, *gPitch);
+    
 }
 
 void getAngle(float *pitch, int devAccel, int devGyro)
