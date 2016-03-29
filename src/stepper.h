@@ -1,10 +1,8 @@
-#ifndef IMU_H_
-#define IMU_H_
+#ifndef STEPPER_H_
+#define STEPPER_H_
 
-
-
-
-
-
+#include <pthread.h> 
+#include <stdio.h>
+#include <wiringPi.h>
 
 #endif
