@@ -58,7 +58,7 @@ void accPitch(float *aPitch, int devAccel){
     do{
          flag = wiringPiI2CReadReg8(devAccel,(ADXL345_REG_INT_SOURCE));
          flag = flag & 0x80;
-         printf("flag = %x\n",flag);
+      //   printf("flag = %x\n",flag);
 
       }while(flag != 0x80);
 
@@ -87,12 +87,12 @@ void accPitch(float *aPitch, int devAccel){
     //calc angle
     *aPitch = (atan2(Xa,sqrt(Ya*Ya+Za*Za)) * 180.0) / PI;
    // printf("%lf,%lf,%lf\n",Xa,Ya,Za );
-    printf("pitch = %lf\n",*aPitch);
+   // printf("pitch = %lf\n",*aPitch);
 
 }
 
 
-void gyroPitch(float *gyroPitch, int devGyro)
+void gyroPitch(float *gyrPitch, int devGyro)
 {
   float Xg,Yg,Zg;
   short X,Y,Z;
@@ -101,7 +101,7 @@ void gyroPitch(float *gyroPitch, int devGyro)
 	do{
 	flag =wiringPiI2CReadReg8(devGyro,(INT_STATUS));
 	flag= flag & 0x01;
-	//printf("\n flag = %x", flag);
+	//printf("flag gyro = %x \n", flag);
 
 	}while(flag != 0x01);
 
@@ -127,18 +127,18 @@ void gyroPitch(float *gyroPitch, int devGyro)
       // printf("double conversion, Xg %lf, Yg %lf, Zg %lf", Xg, Yg, Zg);
 
         // Integrate the gyroscope data -> int(angularSpeed) = angle
-        *gyroPitch = (Xg / GYROSCOPE_SENSITIVITY) * dt; // Angle around the X-axis
+        *gyrPitch += (Xg / GYROSCOPE_SENSITIVITY)*dt; // Angle around the X-axis
 
 }
 void getAngle(float *pitch, int devAccel, int devGyro)
 {
-    float aPitch,gyroPitch;
+    float aPitch,gyrPitch;
 
     accPitch(&aPitch, devAccel);      // get pitch from the accelerometer
-    gyroPitch(&gyroPitch, devGyro);   //get pitch from Gyro
+    gyroPitch(&gyrPitch, devGyro);   //get pitch from Gyro
 
-    printf("gyroPitch = %f, accPitch = %f\n",gyroPitch,aPitch);
+    printf("\rgyroPitch = %f, accPitch = %f",gyrPitch,aPitch);
 
-    *pitch = gyroPitch * 0.98 + aPitch * 0.02;
+    *pitch = gyrPitch * 0.98 + aPitch * 0.02;
 
 }

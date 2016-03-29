@@ -49,7 +49,6 @@ void loop(pid_filter_t *pid, int devAccel, int devGyro)
 {
     float  error, pitch;
     float  setpoint = 0.0;
-    float  gP,aP;
 
     while (1){
 
@@ -59,7 +58,7 @@ void loop(pid_filter_t *pid, int devAccel, int devGyro)
         float pidOutput = pid_process(pid, error);
 
 
-        printf("comp filter pitch = %f\n", pitch);
+//        printf("\r comp filter pitch = %f", pitch);
 
     }
 }
