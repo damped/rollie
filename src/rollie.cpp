@@ -41,9 +41,9 @@ int main()
 
     /* Start Stepper Motor Thread */
     pthread_t stepperControll;
-    void *stepperControll;
+    void *stepperControll();
     float rate = 0;
-    bool enable = FALSE;
+    bool enable = false;
     pthread_create(&stepperControll_thread,NULL,stepperControll,&rate,enable);
     
     
