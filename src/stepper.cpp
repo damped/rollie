@@ -33,7 +33,7 @@ void *stepperControl(float *rate, bool *enable){
 }
 
 void motorSetup(){
-  printf("starting motor thread")
+  printf("starting motor thread");
   wiringPiSetupGpio(); // Initialize wiringPi -- using Broadcom pin numbers
 
   pinMode(motor1Step, OUTPUT);
