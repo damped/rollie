@@ -11,6 +11,7 @@
 
 #include <stdio.h>
 #include "imu.h"
+#include "stepper.h"
 
 //#include <thread>
 //#include <wiringPi.h>
@@ -18,6 +19,7 @@
 //#include "getangle.c"
 #include "pid.h"
 
+#include <pthread.h>
 
 // function prototypes
 void loop(pid_filter_t *pid, int devAccel, int devGyro);
@@ -31,15 +33,44 @@ int main()
     /* PID controller setup */
     pid_filter_t pid;
     pid_init(&pid);
-    pid_set_gains(&pid, 10.0, 0.1, 4.0);
+    pid_set_gains(&pid, 1.0, 0.0001, 0.00001);
 
     /* IMU setup */
     int devAccel = accConfig();
     int devGyro = gyroConfig();
 
-
+    /* Start Stepper Motor Thread */
+    pthread_t stepperControll;
+    void *stepperControll;
+    float rate = 0;
+    bool enable = FALSE;
+    pthread_create(&stepperControll_thread,NULL,stepperControll,&rate,enable);
+    
+    
+    
+    while (1){
+      printf("Set rate to 100000\n");
+      enable = true;
+      rate = 100000.0;
+      delay(10000);
+      printf("Set rate to -100000\n");
+      enable = true;
+      rate = -100000.0;
+      delay(10000);
+      printf("Set rate to  200000\n");
+      enable = true;
+      rate = -200000.0;
+      delay(10000);
+    }
+    
+    
+    
+    
+    
+    
 
     loop(&pid, devAccel, devGyro);
+    
 
     return 0;
 }
