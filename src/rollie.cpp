@@ -41,7 +41,7 @@ int main()
 
     /* Start Stepper Motor Thread */
     printf("one\n");
-    pthread_t stepperControll;
+    pthread_t stepperControll_thread;
     printf("2\n");
     //void *stepperControll();
     printf("3\n");
