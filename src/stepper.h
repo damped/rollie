@@ -4,6 +4,7 @@
 #include <pthread.h> 
 #include <stdio.h>
 #include <wiringPi.h>
+#include <math.h>
 
 // function prototypes
 void motorSetup();
