@@ -7,7 +7,7 @@ const int motor1Dir = 18;
 const int motor2Dir = 22;
 
 
-void stepperControl(float *rate, bool *enable){
+void *stepperControl(float *rate, bool *enable){
   motorSetup();
   while(1){
     while(*enable){
