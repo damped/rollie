@@ -43,7 +43,7 @@ int main()
     printf("one\n");
     pthread_t stepperControll;
     printf("2\n");
-    void *stepperControll();
+    //void *stepperControll();
     printf("3\n");
     float rate = 0;
     printf("4\n");
