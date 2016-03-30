@@ -40,12 +40,17 @@ int main()
     int devGyro = gyroConfig();
 
     /* Start Stepper Motor Thread */
+    printf("one\n");
     pthread_t stepperControll;
+    printf("2\n");
     void *stepperControll();
+    printf("3\n");
     float rate = 0;
+    printf("4\n");
     bool enable = false;
+    printf("5\n");
     pthread_create(&stepperControll_thread,NULL,stepperControll,&rate,&enable);
-    
+    printf("6\n");
     
     
     while (1){
