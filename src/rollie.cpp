@@ -44,7 +44,7 @@ int main()
     void *stepperControll();
     float rate = 0;
     bool enable = false;
-    pthread_create(&stepperControll_thread,NULL,stepperControll,&rate,enable);
+    pthread_create(&stepperControll_thread,NULL,stepperControll,&rate,&enable);
     
     
     

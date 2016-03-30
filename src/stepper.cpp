@@ -48,7 +48,7 @@ void motorSetup(){
 
 void wait(float *rate){
   
-  for (float i = -0.01; i <= (abs(*rate)/2); i = i + 200.0) // check how long we need to wait
+  for (float i = -0.01; i <= (abs(*rate)/2.0); i = i + 200.0) // check how long we need to wait
   {
     delayMicroseconds(200);
   }
