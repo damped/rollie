@@ -5,4 +5,9 @@
 #include <stdio.h>
 #include <wiringPi.h>
 
+// function prototypes
+void motorSetup();
+
+
+
 #endif

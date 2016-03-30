@@ -13,11 +13,11 @@ void *stepperControl(float *rate, bool *enable){
     while(*enable){
       // Do math with the rate to scail it and set dir
       if (*rate > 0){
-        digitalWrite(motor1dir, HIGH);
-        digitalWrite(motor2dir, HIGH);
+        digitalWrite(motor1Dir, HIGH);
+        digitalWrite(motor2Dir, HIGH);
       } else {
-        digitalWrite(motor1dir, LOW);
-        digitalWrite(motor2dir, LOW);
+        digitalWrite(motor1Dir, LOW);
+        digitalWrite(motor2Dir, LOW);
       }
       
       
