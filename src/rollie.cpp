@@ -19,7 +19,7 @@
 //#include "getangle.c"
 #include "pid.h"
 
-#include <pthread.h>
+#include <thread.h>
 
 // function prototypes
 void loop(pid_filter_t *pid, int devAccel, int devGyro);
@@ -40,31 +40,25 @@ int main()
     int devGyro = gyroConfig();
 
     /* Start Stepper Motor Thread */
-    printf("one\n");
-    pthread_t stepperControll_thread;
-    printf("2\n");
-    //void *stepperControll();
-    printf("3\n");
-    float rate = 0;
-    printf("4\n");
-    bool enable = false;
-    printf("5\n");
-    pthread_create(&stepperControll_thread,NULL,stepperControll,&rate,&enable);
-    printf("6\n");
+    float rate = 0.0;
     
+    std::thread t_stepper;
+    t = std::thread(stepperControl, rate);
+    printf("Thread started\n");
+
     
     while (1){
       printf("Set rate to 100000\n");
       enable = true;
       rate = 100000.0;
       delay(10000);
-      printf("Set rate to -100000\n");
+     /* printf("Set rate to -100000\n");
       enable = true;
       rate = -100000.0;
-      delay(10000);
+      delay(10000); */
       printf("Set rate to  200000\n");
       enable = true;
-      rate = -200000.0;
+      rate = 200000.0;
       delay(10000);
     }
     

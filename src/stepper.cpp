@@ -7,8 +7,9 @@ const int motor1Dir = 18;
 const int motor2Dir = 22;
 
 
-void *stepperControl(float *rate, bool *enable){
+void stepperControl(float *rate){
   motorSetup();
+  bool enable = 1;
   while(1){
     while(*enable){
       // Do math with the rate to scail it and set dir
