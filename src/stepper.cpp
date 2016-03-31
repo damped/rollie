@@ -8,10 +8,13 @@ const int motor2Dir = 22;
 
 
 void stepperControl(float *rate){
-  motorSetup();
+while(1){
+printf("%f\n",rate);
+}
+/*  motorSetup();
   bool enable = 1;
   while(1){
-    while(*enable){
+    while(enable){
       // Do math with the rate to scail it and set dir
       if (*rate > 0){
         digitalWrite(motor1Dir, HIGH);
@@ -31,6 +34,7 @@ void stepperControl(float *rate){
     }
     delay(5);
   }
+*/
 }
 
 void motorSetup(){

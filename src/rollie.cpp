@@ -27,7 +27,7 @@ void loop(pid_filter_t *pid, int devAccel, int devGyro);
 
 int main()
 {
-    using namespace std;
+    //using namespace std;
 
 
     /* PID controller setup */
