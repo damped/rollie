@@ -18,7 +18,7 @@ DCOMPILE_FLAGS = -D DEBUG
 # Add additional include paths
 INCLUDES = -I $(SRC_PATH)/ -l wiringPi
 # General linker settings
-LINK_FLAGS = -l wiringPi
+LINK_FLAGS = -l wiringPi -l pthread
 # Additional release-specific linker settings
 RLINK_FLAGS =
 # Additional debug-specific linker settings
