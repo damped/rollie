@@ -9,7 +9,7 @@ const int motor2Dir = 22;
 
 void stepperControl(float *rate){
 while(1){
-printf("%f\n",rate);
+printf("%f\n",*rate);
 }
 /*  motorSetup();
   bool enable = 1;
@@ -53,7 +53,7 @@ void motorSetup(){
 
 void wait(float *rate){
   
-  for (float i = -0.01; i <= (abs(*rate)/2.0); i = i + 200.0) // check how long we need to wait
+  for (float i = -0.01; i <= (*rate/2.0); i = i + 200.0) // check how long we need to wait
   {
     delayMicroseconds(200);
   }
