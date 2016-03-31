@@ -43,7 +43,7 @@ int main()
     float rate = 0.0;
     
     std::thread t_stepper;
-    t_stepper = std::thread(stepperControl, rate);
+    t_stepper = std::thread(stepperControl, &rate);
     printf("Thread started\n");
 
     bool enable = 0;
