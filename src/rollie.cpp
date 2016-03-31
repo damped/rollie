@@ -46,7 +46,7 @@ int main()
     t_stepper = std::thread(stepperControl, rate);
     printf("Thread started\n");
 
-    
+    bool enable = 0;
     while (1){
       printf("Set rate to 100000\n");
       enable = true;
