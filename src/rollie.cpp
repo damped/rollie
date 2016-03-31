@@ -19,7 +19,7 @@
 //#include "getangle.c"
 #include "pid.h"
 
-#include <thread.h>
+#include <thread>
 
 // function prototypes
 void loop(pid_filter_t *pid, int devAccel, int devGyro);
