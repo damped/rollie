@@ -48,17 +48,17 @@ int main()
 
     bool enable = 0;
     while (1){
-      printf("Set rate to 100000\n");
+      printf("Set rate to 1000\n");
       enable = true;
-      rate = 100000.0;
+      rate = 1000.0;
       delay(10000);
-     /* printf("Set rate to -100000\n");
+      printf("Set rate to 500\n");
       enable = true;
-      rate = -100000.0;
-      delay(10000); */
-      printf("Set rate to  200000\n");
+      rate = 500.0;
+      delay(10000);
+      printf("Set rate to  2000\n");
       enable = true;
-      rate = 200000.0;
+      rate = 2000.0;
       delay(10000);
     }
     

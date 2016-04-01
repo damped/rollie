@@ -11,11 +11,9 @@ void stepperControl(float *rate){
   motorSetup();
   bool enable = 1;
   while(1){
-    printf("while(1)\n");
     while(enable){
-      printf("while(enable)");
       // Do math with the rate to scail it and set dir
-      printf("rate = %f",*rate);
+      //printf("rate = %f\n",*rate);
       if (*rate > 0){
         digitalWrite(motor1Dir, HIGH);
         digitalWrite(motor2Dir, HIGH);
@@ -52,8 +50,8 @@ void motorSetup(){
 
 void wait(float *rate){
   
-  for (float i = -0.01; i <= (*rate/2.0); i = i + 200.0) // check how long we need to wait
+  for (float i = -0.01; i <= (*rate/2.0); i = i + 110.0) // check how long we need to wait
   {
-    delayMicroseconds(200);
+    delayMicroseconds(110);
   }
 }
