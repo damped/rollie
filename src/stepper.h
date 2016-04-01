@@ -7,7 +7,7 @@
 
 // function prototypes
 void motorSetup();
-void wait(float *rate);
+void wait(float time);
 void stepperControl(float *rate);
 
 

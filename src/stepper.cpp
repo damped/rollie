@@ -1,4 +1,5 @@
 #include "stepper.h"
+#define RAMP 0.04
 
 
 const int motor1Step = 17;
@@ -10,6 +11,7 @@ const int motor2Dir = 22;
 void stepperControl(float *rate){
   motorSetup();
   bool enable = 1;
+  float time = 1000.0;
   while(1){
     while(enable){
       // Do math with the rate to scail it and set dir
@@ -22,13 +24,18 @@ void stepperControl(float *rate){
         digitalWrite(motor2Dir, LOW);
       }
       
-      
+      if (*rate > time) {
+	time = time + RAMP;
+      } else if (*rate < time) {
+	time = time - RAMP;
+      }
+
       digitalWrite(motor1Step, HIGH);
       digitalWrite(motor2Step, HIGH);
-      wait(rate);
+      wait(time);
       digitalWrite(motor1Step, LOW);
       digitalWrite(motor2Step, LOW);
-      wait(rate);
+      wait(time);
     }
     delay(5);
   }
@@ -48,10 +55,10 @@ void motorSetup(){
 
 }
 
-void wait(float *rate){
+void wait(float time){
   
-  for (float i = -0.01; i <= (*rate/2.0); i = i + 110.0) // check how long we need to wait
+  for (float i = -0.01; i <= (time/2.0); i = i + 10.0) // check how long we need to wait
   {
-    delayMicroseconds(110);
+    delayMicroseconds(10);
   }
 }
