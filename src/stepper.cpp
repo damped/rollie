@@ -8,14 +8,14 @@ const int motor2Dir = 22;
 
 
 void stepperControl(float *rate){
-while(1){
-printf("%f\n",*rate);
-}
-/*  motorSetup();
+  motorSetup();
   bool enable = 1;
   while(1){
+    printf("while(1)\n");
     while(enable){
+      printf("while(enable)");
       // Do math with the rate to scail it and set dir
+      printf("rate = %f",*rate);
       if (*rate > 0){
         digitalWrite(motor1Dir, HIGH);
         digitalWrite(motor2Dir, HIGH);
@@ -34,13 +34,12 @@ printf("%f\n",*rate);
     }
     delay(5);
   }
-*/
 }
 
 void motorSetup(){
   printf("starting motor thread");
   wiringPiSetupGpio(); // Initialize wiringPi -- using Broadcom pin numbers
-
+  
   pinMode(motor1Step, OUTPUT);
   pinMode(motor2Step, OUTPUT);
   
