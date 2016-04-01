@@ -1,5 +1,5 @@
 #include "stepper.h"
-#define RAMP 0.04
+#define RAMP 0.02
 
 
 const int motor1Step = 17;
