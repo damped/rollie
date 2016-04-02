@@ -8,7 +8,7 @@
 // function prototypes
 void motorSetup();      // Initialize motor pins
 void wait(float time);  // Wait loop
-void stepperControl(float *rate);
+void stepperControl(float *period);
 void setSpeed(float velocity, float *pulseTimePtr);
 
 //constants
