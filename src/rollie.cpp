@@ -40,45 +40,39 @@ int main()
     int devGyro = gyroConfig();
 
     /* Start Stepper Motor Thread */
-    float rate = 0.0;
-    
+    float period = 0.0;
+
     std::thread t_stepper;
     t_stepper = std::thread(stepperControl, &rate);
     printf("Thread started\n");
 
-    bool enable = 0;
+    bool enable = 1;
     while (1){
-      printf("Set rate to 1000\n");
-      enable = true;
-      rate = 1000.0;
+      printf("Set velocity to 0.01 m/s\n");
+      setSpeed(0.01, &period);
       delay(10000);
-      printf("Set rate to 500\n");
-      enable = true;
-      rate = 500.0;
+      printf("Set velocity to 0.02 m/s\n");
+      setSpeed(0.02, &period);
       delay(10000);
-      printf("Set rate to 400\n");
-      enable = true;
-      rate = 400.0;
+      printf("Set velocity to 0.03 m/s\n");
+      setSpeed(0.03, &period);
       delay(10000);
-      printf("Set rate to 300\n");
-      rate = 300.0;
+      printf("Set velocity to 0.04 m/s\n");
+      setSpeed(0.04, &period);
       delay(10000);
-      printf("Set rate to 200\n");
-      rate = 200.0;
-      delay(15000);
-      printf("Set rate to 100\n");
-      rate = 100.0;
-      delay(15000);
+      printf("Set velocity to 0.05 m/s\n");
+      setSpeed(0.05, &period);
+      delay(10000);
     }
-    
-    
-    
-    
-    
-    
+
+
+
+
+
+
 
     loop(&pid, devAccel, devGyro);
-    
+
 
     return 0;
 }

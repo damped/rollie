@@ -6,10 +6,12 @@
 #include <math.h>
 
 // function prototypes
-void motorSetup();
-void wait(float time);
+void motorSetup();      // Initialize motor pins
+void wait(float time);  // Wait loop
 void stepperControl(float *rate);
+void setSpeed(float velocity, float *pulseTimePtr);
 
-
+//constants
+#define PI  3.14159265359 // Its pi day... need at least 11 decimals
 
 #endif
