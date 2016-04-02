@@ -91,3 +91,6 @@ To connect the IMU to the raspberry Pi connect the ground and 3.3V and connect t
 ### Stepper drivers
 https://www.pololu.com/product/1182
 
+### References
+Realy great stuff:
+http://letsmakerobots.com/node/38610
