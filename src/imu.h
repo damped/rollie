@@ -15,9 +15,10 @@
 
 
 //prototypes
-double accPitch(int);
+void accPitch(float *,int);
+void gyroPitch(float *,int);
 int accConfig(void);
-float getAngle(int, int);
+void getAngle(float *,int, int);
 int gyroConfig(void);
 
 

@@ -89,6 +89,7 @@ int main()
 
 void loop(pid_filter_t *pid, int devAccel, int devGyro)
 {
+<<<<<<< HEAD
     float error;
     float setpoint = 0;
 	
@@ -103,5 +104,20 @@ void loop(pid_filter_t *pid, int devAccel, int devGyro)
 	//delay(5);
 	digitalWrite (17, HIGH);
 	//delay(5);
+=======
+    float  error, pitch;
+    float  setpoint = 0.0;
+
+    while (1){
+
+        getAngle(&pitch,devAccel,devGyro);
+
+        error = setpoint - pitch;
+        float pidOutput = pid_process(pid, error);
+
+
+        printf("\r error = %f, PID = %f", error, pidOutput);
+
+>>>>>>> imuFixes
     }
 }
