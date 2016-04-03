@@ -18,7 +18,7 @@
 
 
 // function prototypes
-void loop(pid_filter_t *pid, int devAccel, int devGyro);
+void loop(pid_filter_t *pid, int devAccel, int devGyro, float *period);
 
 
 int main()
@@ -33,16 +33,17 @@ int main()
     int devGyro = gyroConfig();
 
     /* Start Stepper Motor Thread */
-    float period = 0.0;
+    float period;
+    setSpeed(0.0, &period);
 
     std::thread t_stepper;
     t_stepper = std::thread(stepperControl, &period);
-    printf("Thread started\n");
 
-    bool enable = 1;
+    //bool enable = 1;
+    /* Motor tester eh
     while (1){
       printf("Set velocity to 0.01 m/s\n");
-      setSpeed(1, &period);
+      setSpeed(0.01, &period);
       delay(10000);
       printf("Set velocity to 0.02 m/s\n");
       setSpeed(0.02, &period);
@@ -57,34 +58,30 @@ int main()
       setSpeed(0.05, &period);
       delay(10000);
     }
+  */
 
 
-    loop(&pid, devAccel, devGyro);
+    loop(&pid, devAccel, devGyro, &period);
 
 
     return 0;
 }
 
 
-void loop(pid_filter_t *pid, int devAccel, int devGyro)
+void loop(pid_filter_t *pid, int devAccel, int devGyro, float *period)
 {
-
-    float error;
-    float setpoint = 0;
-
-
-	while(1){
-
-    float  error, pitch;
-    float  setpoint = 0.0;
+    float error, pitch;
+    float setpoint = 0.0;
+    float pidOutput;
 
     while (1){
 
         getAngle(&pitch,devAccel,devGyro);
 
         error = setpoint - pitch;
-        float pidOutput = pid_process(pid, error);
+        pidOutput = pid_process(pid, error);
 
+        setSpeed(pidOutput, period);
 
         printf("\r error = %f, PID = %f", error, pidOutput);
 
