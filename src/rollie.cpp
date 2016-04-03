@@ -31,6 +31,8 @@ int main()
     /* IMU setup */
     int devAccel = accConfig();
     int devGyro = gyroConfig();
+    float pitch;
+    getAngle(&pitch,devAccel,devGyro); // Get an agle to clear out the crap
 
     /* Start Stepper Motor Thread */
     float period;
