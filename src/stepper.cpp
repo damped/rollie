@@ -13,13 +13,13 @@ void stepperControl(float *period){
   bool enable = 1;
  // float time = 1000.0;
   while(1){
-    while(enable){
+    if (* period != 0.0){
       // Do math with the rate to scail it and set dir
       //printf("rate = %f\n",*rate);
       if (*period > 0){
         digitalWrite(motor1Dir, HIGH);
         digitalWrite(motor2Dir, HIGH);
-      } else {
+    } else {
         digitalWrite(motor1Dir, LOW);
         digitalWrite(motor2Dir, LOW);
       }
