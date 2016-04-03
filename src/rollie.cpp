@@ -32,7 +32,10 @@ int main()
     int devAccel = accConfig();
     int devGyro = gyroConfig();
     float pitch;
-    getAngle(&pitch,devAccel,devGyro); // Get an agle to clear out the crap
+    for (size_t i = 0; i < 200; i++) {
+      getAngle(&pitch,devAccel,devGyro); // Get an agle to clear out the crap
+    }
+
 
     /* Start Stepper Motor Thread */
     float period;
