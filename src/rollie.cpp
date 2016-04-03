@@ -8,18 +8,14 @@
 *
 *
 *************************************************************/
-
-#include <stdio.h>
 #include "imu.h"
+#include "pid.h"
 #include "stepper.h"
 
-//#include <thread>
+#include <stdio.h>
 #include <wiringPi.h>
-
-//#include "getangle.c"
-#include "pid.h"
-
 #include <thread>
+
 
 // function prototypes
 void loop(pid_filter_t *pid, int devAccel, int devGyro);
@@ -27,14 +23,6 @@ void loop(pid_filter_t *pid, int devAccel, int devGyro);
 
 int main()
 {
-<<<<<<< HEAD
-    using namespace std;
-	wiringPiSetupGpio();
-=======
-    //using namespace std;
-
->>>>>>> steppercontroll
-
     /* PID controller setup */
     pid_filter_t pid;
     pid_init(&pid);
@@ -44,9 +32,6 @@ int main()
     int devAccel = accConfig();
     int devGyro = gyroConfig();
 
-<<<<<<< HEAD
-    pinMode (17, OUTPUT);
-=======
     /* Start Stepper Motor Thread */
     float period = 0.0;
 
@@ -74,12 +59,6 @@ int main()
     }
 
 
-
-
-
-
->>>>>>> steppercontroll
-
     loop(&pid, devAccel, devGyro);
 
 
@@ -89,22 +68,13 @@ int main()
 
 void loop(pid_filter_t *pid, int devAccel, int devGyro)
 {
-<<<<<<< HEAD
+
     float error;
     float setpoint = 0;
-	
+
 
 	while(1){
-    //for (int i = 0; i < 1000; i++) {
-        //float current = 99;//getAngle(devAccel, devGyro);
-        //error = setpoint - current;
-        //float pidOutput = pid_process(pid, error);
-        //printf("\rSetPnt = %f, Current = %f, Error = %f, PIDout = %f", setpoint, current, error, pidOutput);
-	digitalWrite (17, LOW);
-	//delay(5);
-	digitalWrite (17, HIGH);
-	//delay(5);
-=======
+
     float  error, pitch;
     float  setpoint = 0.0;
 
@@ -118,6 +88,5 @@ void loop(pid_filter_t *pid, int devAccel, int devGyro)
 
         printf("\r error = %f, PID = %f", error, pidOutput);
 
->>>>>>> imuFixes
     }
 }
