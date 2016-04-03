@@ -66,4 +66,5 @@ void wait(float time){
 
 void setSpeed(float velocity, float *pulseTimePtr) {
     *pulseTimePtr = 1.0 / ((MOTOR_STEPS / (MICRO_STEPS * DIA * PI)) * velocity);
+    printf("Period: %f\n", *pulseTimePtr);
 }
