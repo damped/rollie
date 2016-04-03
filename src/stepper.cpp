@@ -11,7 +11,7 @@ const int motor2Dir = 22;
 void stepperControl(float *period){
   motorSetup();
   bool enable = 1;
-  float time = 1000.0;
+ // float time = 1000.0;
   while(1){
     while(enable){
       // Do math with the rate to scail it and set dir
@@ -25,18 +25,19 @@ void stepperControl(float *period){
       }
 
 
-      if (*period > time) {
-	time = time + RAMP;
-      } else if (*period < time) {
-	time = time - RAMP;
-      }
+  //    if (*period > time) {
+//	time = time + RAMP;
+    //  } else if (*period < time) {
+//	time = time - RAMP;
+  //    }
 
       digitalWrite(motor1Step, HIGH);
       digitalWrite(motor2Step, HIGH);
-      wait(time);
+      wait(*period);
       digitalWrite(motor1Step, LOW);
       digitalWrite(motor2Step, LOW);
-      wait(time);
+      wait(*period);
+    // printf("\r %f",*period);
     }
     delay(5);
   }
@@ -65,6 +66,6 @@ void wait(float time){
 }
 
 void setSpeed(float velocity, float *pulseTimePtr) {
-    *pulseTimePtr = (1.0 / (MOTOR_STEPS / (MICRO_STEPS * DIA * PI))) * velocity;
-    printf("Period: %f\n", *pulseTimePtr);
+    *pulseTimePtr = 1000000*(1.0 / (MOTOR_STEPS / (MICRO_STEPS * DIA * PI))) / velocity;
+//    printf("Period: %f, velocity: %f\n", *pulseTimePtr,velocity);
 }

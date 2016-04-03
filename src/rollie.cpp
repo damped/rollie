@@ -49,7 +49,7 @@ int main()
     bool enable = 1;
     while (1){
       printf("Set velocity to 0.01 m/s\n");
-      setSpeed(0.01, &period);
+      setSpeed(1, &period);
       delay(10000);
       printf("Set velocity to 0.02 m/s\n");
       setSpeed(0.02, &period);
