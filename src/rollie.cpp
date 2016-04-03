@@ -31,11 +31,11 @@ int main()
     /* IMU setup */
     int devAccel = accConfig();
     int devGyro = gyroConfig();
-    float pitch;
+/*    float pitch = ;
     for (size_t i = 0; i < 200; i++) {
       getAngle(&pitch,devAccel,devGyro); // Get an agle to clear out the crap
     }
-
+*/
 
     /* Start Stepper Motor Thread */
     float period;
@@ -75,7 +75,8 @@ int main()
 
 void loop(pid_filter_t *pid, int devAccel, int devGyro, float *period)
 {
-    float error, pitch;
+    float error = 0.0
+    float pitch = 0.0;
     float setpoint = 0.0;
     float pidOutput;
 
