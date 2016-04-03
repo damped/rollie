@@ -10,8 +10,8 @@ const int motor2Dir = 22;
 
 void stepperControl(float *period){
   motorSetup();
-  bool enable = 1;
- // float time = 1000.0;
+
+
   while(1){
     if (* period != 0.0){
       // Do math with the rate to scail it and set dir
