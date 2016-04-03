@@ -36,6 +36,8 @@ Maybe we will add that last part to make so we just need to do something like `m
 
 
 ## Getting angles
+Complementary filter http://www.pieter-jan.com/node/11
+
 The gyroscope is located at 0x68 and returns a device id of 0x69
 The acceleromiter is located at 0x53 and returns a device id of 0xE5
 
