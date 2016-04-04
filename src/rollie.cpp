@@ -75,7 +75,7 @@ int main()
 
 void loop(pid_filter_t *pid, int devAccel, int devGyro, float *period)
 {
-    float error = 0.0
+    float error = 0.0;
     float pitch = 0.0;
     float setpoint = 0.0;
     float pidOutput;
