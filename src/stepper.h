@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <wiringPi.h>
 #include <math.h>
+#include <stdlib.h>
 
 //constants
 #define MOTOR_STEPS 400.0   // Full steps per rotation of the motor
@@ -16,7 +17,7 @@
 
 // function prototypes
 void motorSetup();      // Initialize motor pins
-void wait(float time);  // Wait loop
+void wait(float *time);  // Wait loop
 void stepperControl(float *period);
 void setSpeed(float velocity, float *pulseTimePtr);
 
