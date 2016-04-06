@@ -26,7 +26,9 @@ int main()
     /* PID controller setup */
     pid_filter_t pid;
     pid_init(&pid);
-    pid_set_gains(&pid, 0.01, 0.00001, 0.000015);
+//    pid_set_gains(&pid, 0.026, /*0.0000108*/0.0, 0.000024);
+//    pid_set_gains(&pid, 0.020, /*0.0000108*/0.0, 0.00004);
+    pid_set_gains(&pid, 0.025,/* 0.0000808*/0.0, /*0.000024*/ 0.6);
 
     /* IMU setup */
     int devAccel = accConfig();
