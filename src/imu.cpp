@@ -128,7 +128,7 @@ void gyroPitch(float *gyrPitch, int devGyro)
   // printf("double conversion, Xg %lf, Yg %lf, Zg %lf\n", Xg, Yg, Zg);
 
   // Integrate the gyroscope data -> int(angularSpeed) = angle
-  *gyrPitch = ((1.0)*Yg / GYROSCOPE_SENSITIVITY)*dt; // Angle around the X-axis
+  *gyrPitch = ((-1.0)*Yg / GYROSCOPE_SENSITIVITY)*dt; // Angle around the X-axis
 }
 
 void getAngle(float *pitch, int devAccel, int devGyro)
@@ -140,6 +140,6 @@ void getAngle(float *pitch, int devAccel, int devGyro)
 
   //  printf("\rgyroPitch = %f, accPitch = %f, filtered pitch = %f",gyrPitch,aPitch,*pitch);
 
-  *pitch = (*pitch+gyrPitch) * 0.99 + aPitch * 0.01;
+  *pitch = (*pitch+gyrPitch) * 0.975 + aPitch * 0.015;
 
 }
