@@ -10,7 +10,7 @@
 //global constants
 #define PI                          3.14159265359 // Its pi day... need at least 11 decimals
 //#define ACCELEROMETER_SENSITIVITY   2047.97 //+-16 g full scale range of accelerometer
-#define ACCELEROMETER_SENSITIVITY   1047 //+-16 g full scale range of accelerometer
+#define ACCELEROMETER_SENSITIVITY   1000 //+-16 g full scale range of accelerometer
 #define GYROSCOPE_SENSITIVITY       14.375  //LSB/(deg/s)
 #define dt                          0.01    //sampling rate 0.01 = 10ms, need to add function input for this
 #define UPPER_ACC_FORCE             4095.94  // max force 2g*2047.97
@@ -128,7 +128,7 @@ void gyroPitch(float *gyrPitch, int devGyro)
   // printf("double conversion, Xg %lf, Yg %lf, Zg %lf\n", Xg, Yg, Zg);
 
   // Integrate the gyroscope data -> int(angularSpeed) = angle
-  *gyrPitch = ((-1.0)*Yg / GYROSCOPE_SENSITIVITY)*dt; // Angle around the X-axis
+  *gyrPitch = ((1.0)*Yg / GYROSCOPE_SENSITIVITY)*dt; // Angle around the X-axis
 }
 
 void getAngle(float *pitch, int devAccel, int devGyro)
@@ -140,6 +140,6 @@ void getAngle(float *pitch, int devAccel, int devGyro)
 
   //  printf("\rgyroPitch = %f, accPitch = %f, filtered pitch = %f",gyrPitch,aPitch,*pitch);
 
-  *pitch = (*pitch+gyrPitch) * 0.975 + aPitch * 0.015;
+  *pitch = (*pitch+gyrPitch) * 0.98 + aPitch * 0.01;
 
 }

@@ -28,7 +28,8 @@ int main()
     pid_init(&pid);
 //    pid_set_gains(&pid, 0.026, /*0.0000108*/0.0, 0.000024);
 //    pid_set_gains(&pid, 0.020, /*0.0000108*/0.0, 0.00004);
-    pid_set_gains(&pid, 0.025,/* 0.0000808*/0.0, /*0.000024*/ 0.6);
+//    pid_set_gains(&pid, 0.027,/* 0.0000808*/0.0, /*0.000024*/ 0.001);
+    pid_set_gains(&pid, 0.029,/* 0.0000808*/0.0, /*0.000024*/ 0.001);
 
     /* IMU setup */
     int devAccel = accConfig();
