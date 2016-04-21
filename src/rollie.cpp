@@ -15,6 +15,9 @@
 #include <stdio.h>
 #include <wiringPi.h>
 #include <thread>
+#include <math.h>
+
+#define DEADBAND 1.0    // Amount of angle error that is exeptable
 
 
 // function prototypes
@@ -88,6 +91,11 @@ void loop(pid_filter_t *pid, int devAccel, int devGyro, float *period)
         getAngle(&pitch,devAccel,devGyro);
 
         error = setpoint - pitch;
+
+        if(abs(error) < DEADBAND){
+          error = 0;
+        }
+
         pidOutput = pid_process(pid, error);
 
         setSpeed(pidOutput, period);
