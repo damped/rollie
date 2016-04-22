@@ -22,7 +22,7 @@
 
 
 // function prototypes
-void loop(pid_filter_t *pid, int devAccel, int devGyro, float *period);
+void loop(pid_filter_t *pid, int devAccel, int devGyro, struct stepper *stepper);
 
 
 int main()
@@ -52,7 +52,7 @@ int main()
     setSpeed(0.0, &stepper->period);
 
     std::thread t_stepper;
-    t_stepper = std::thread(stepperControl, &stepper);
+    t_stepper = std::thread(stepperControl, stepper);
 
     //bool enable = 1;
     /* Motor tester eh
@@ -86,13 +86,13 @@ int main()
 void loop(pid_filter_t *pid, int devAccel, int devGyro, struct stepper *stepper)
 {
     float error = 0.0;
-    //float pitch = 0.0;
+    float pitch = 0.0;
     float setpoint = 6.0;
     float pidOutput;
 
     while (1){
 
-        getAngle(&stepper->pitch,devAccel,devGyro);
+        getAngle(&pitch,devAccel,devGyro);
 
 
         // if(abs(error) < DEADBAND){

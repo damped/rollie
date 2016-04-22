@@ -15,7 +15,7 @@
 
 
 // Structs
-typedef struct stepper {
+struct stepper {
   float period;
   long int count;
 };
