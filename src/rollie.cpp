@@ -76,7 +76,7 @@ int main()
   */
 
 
-    loop(&pid, devAccel, devGyro, &stepper);
+    loop(&pid, devAccel, devGyro, stepper);
 
 
     return 0;
