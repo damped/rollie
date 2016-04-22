@@ -48,11 +48,11 @@ int main()
 */
 
     /* Start Stepper Motor Thread */
-    float period;
-    setSpeed(0.0, &period);
+    struct stepper stepper;
+    setSpeed(0.0, &stepper->period);
 
     std::thread t_stepper;
-    t_stepper = std::thread(stepperControl, &period);
+    t_stepper = std::thread(stepperControl, &stepper);
 
     //bool enable = 1;
     /* Motor tester eh
@@ -76,33 +76,33 @@ int main()
   */
 
 
-    loop(&pid, devAccel, devGyro, &period);
+    loop(&pid, devAccel, devGyro, &stepper);
 
 
     return 0;
 }
 
 
-void loop(pid_filter_t *pid, int devAccel, int devGyro, float *period)
+void loop(pid_filter_t *pid, int devAccel, int devGyro, struct stepper *stepper)
 {
     float error = 0.0;
-    float pitch = 0.0;
+    //float pitch = 0.0;
     float setpoint = 6.0;
     float pidOutput;
 
     while (1){
 
-        getAngle(&pitch,devAccel,devGyro);
+        getAngle(&stepper->pitch,devAccel,devGyro);
+
+
+        // if(abs(error) < DEADBAND){
+        //   error = 0;
+        // }
 
         error = setpoint - pitch;
-
-//        if(abs(error) < DEADBAND){
-//          error = 0;
-//        }
-
         pidOutput = pid_process(pid, error);
 
-        setSpeed(pidOutput, period);
+        setSpeed(pidOutput, &stepper->period);
 
         printf("\r error = %f, PID = %f", error, pidOutput);
 

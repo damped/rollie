@@ -8,19 +8,21 @@ const int motor1Dir = 18;
 const int motor2Dir = 22;
 
 
-void stepperControl(float *period){
+void stepperControl(struct stepper *stepper){
   motorSetup();
 
   while(1){
-    if (*period != 0.0){
+    if (stepper->period != 0.0){
       // Do math with the rate to scail it and set dir
       //printf("period = %f",*period);
-      if (*period > 0){
+      if (stepper->period > 0){
         digitalWrite(motor1Dir, HIGH);
         digitalWrite(motor2Dir, HIGH);
-    } else {
+        stepper->count++;
+      } else {
         digitalWrite(motor1Dir, LOW);
         digitalWrite(motor2Dir, LOW);
+        stepper->count--;
       }
 
 
@@ -32,10 +34,10 @@ void stepperControl(float *period){
 
       digitalWrite(motor1Step, HIGH);
       digitalWrite(motor2Step, HIGH);
-      wait(period);
+      wait(stepper->period);
       digitalWrite(motor1Step, LOW);
       digitalWrite(motor2Step, LOW);
-      wait(period);
+      wait(stepper->period);
     // printf("\r %f",*period);
     } else {
     delay(5);
