@@ -18,7 +18,7 @@
 typedef struct stepper {
   float period;
   long int count;
-} stepper;
+};
 
 // function prototypes
 void motorSetup();      // Initialize motor pins

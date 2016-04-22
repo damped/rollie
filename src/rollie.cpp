@@ -48,7 +48,7 @@ int main()
 */
 
     /* Start Stepper Motor Thread */
-    struct stepper stepper;
+    struct stepper *stepper;
     setSpeed(0.0, &stepper->period);
 
     std::thread t_stepper;
