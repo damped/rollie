@@ -17,7 +17,8 @@
 #include <thread>
 #include <math.h>
 
-#define DEADBAND 1.0    // Amount of angle error that is exeptable
+#define DEADBAND 0.0    // Absolute amount of angle error that is exeptable
+//#define DEADBAND 0.00001    // Absolute amount of angle error that is exeptable
 
 
 // function prototypes
@@ -34,7 +35,8 @@ int main()
 //    pid_set_gains(&pid, 0.027,/* 0.0000808*/0.0, /*0.000024*/ 0.001);
 //    pid_set_gains(&pid, 0.029,/* 0.0000808*/0.0, /*0.000024*/ 0.001);
 //    pid_set_gains(&pid, 0.050,/* 0.0000808*/0.0, /*0.000024*/ 0.002);
-    pid_set_gains(&pid, 0.050,/* 0.0000808*/0.00, /*0.000024*/ 0.003);
+//    pid_set_gains(&pid, 0.20,/* 0.0000808*/0.00001, /*0.000024*/ 0.003);
+    pid_set_gains(&pid, 0.260,/* 0.0000808*/0.0000, /*0.000024*/ 0.000010);
 
     /* IMU setup */
     int devAccel = accConfig();
@@ -85,7 +87,7 @@ void loop(pid_filter_t *pid, int devAccel, int devGyro, float *period)
 {
     float error = 0.0;
     float pitch = 0.0;
-    float setpoint = 2.0;
+    float setpoint = 6.0;
     float pidOutput;
 
     while (1){
@@ -94,9 +96,9 @@ void loop(pid_filter_t *pid, int devAccel, int devGyro, float *period)
 
         error = setpoint - pitch;
 
-        if(abs(error) < DEADBAND){
-          error = 0;
-        }
+//        if(abs(error) < DEADBAND){
+//          error = 0;
+//        }
 
         pidOutput = pid_process(pid, error);
 
