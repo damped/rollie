@@ -34,10 +34,10 @@ void stepperControl(struct stepper *stepper){
 
       digitalWrite(motor1Step, HIGH);
       digitalWrite(motor2Step, HIGH);
-      wait(stepper->period);
+      wait(&stepper->period);
       digitalWrite(motor1Step, LOW);
       digitalWrite(motor2Step, LOW);
-      wait(stepper->period);
+      wait(&stepper->period);
     // printf("\r %f",*period);
     } else {
     delay(5);

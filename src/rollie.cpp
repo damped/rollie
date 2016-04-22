@@ -30,6 +30,9 @@ int main()
     /* PID controller setup */
     pid_filter_t pid;
     pid_init(&pid);
+
+
+
 //    pid_set_gains(&pid, 0.026, /*0.0000108*/0.0, 0.000024);
 //    pid_set_gains(&pid, 0.020, /*0.0000108*/0.0, 0.00004);
 //    pid_set_gains(&pid, 0.027,/* 0.0000808*/0.0, /*0.000024*/ 0.001);
