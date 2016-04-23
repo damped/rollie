@@ -22,11 +22,12 @@
 
 
 // function prototypes
-void loop(pid_filter_t *pid, int devAccel, int devGyro, struct stepper *stepper);
+void loop(pid_filter_t *pidAngle, pid_filter_t *pidPos, int devAccel, int devGyro, struct stepper *stepper);
 
 
 int main()
 {
+<<<<<<< HEAD
     /* PID controller setup */
     pid_filter_t pid;
     pid_init(&pid);
@@ -40,6 +41,24 @@ int main()
 //    pid_set_gains(&pid, 0.050,/* 0.0000808*/0.0, /*0.000024*/ 0.002);
 //    pid_set_gains(&pid, 0.20,/* 0.0000808*/0.00001, /*0.000024*/ 0.003);
     pid_set_gains(&pid, 0.260,/* 0.0000808*/0.0000, /*0.000024*/ 0.000010);
+=======
+    /* Angle PID controller setup */
+    pid_filter_t pidAngle;
+    pid_init(&pidAngle);
+
+    /* Position PID controller setup */
+    pid_filter_t pidPos;
+    pid_init(&pidPos);
+
+    // pid_set_gains(&pid, 0.026, /*0.0000108*/0.0, 0.000024);
+    // pid_set_gains(&pid, 0.020, /*0.0000108*/0.0, 0.00004);
+    // pid_set_gains(&pid, 0.027,/* 0.0000808*/0.0, /*0.000024*/ 0.001);
+    // pid_set_gains(&pid, 0.029,/* 0.0000808*/0.0, /*0.000024*/ 0.001);
+    // pid_set_gains(&pid, 0.050,/* 0.0000808*/0.0, /*0.000024*/ 0.002);
+    // pid_set_gains(&pid, 0.20,/* 0.0000808*/0.00001, /*0.000024*/ 0.003);
+    pid_set_gains(&pidAngle, 0.260,/* 0.0000808*/0.0000, /*0.000024*/ 0.000010);
+    pid_set_gains(&pidPos, 0.001,/* 0.0000808*/0.00001, /*0.000024*/ 0.00000);
+>>>>>>> 1e1e50d99d68b44656080dec1f8223732d36597f
 
     /* IMU setup */
     int devAccel = accConfig();
@@ -79,18 +98,19 @@ int main()
   */
 
 
-    loop(&pid, devAccel, devGyro, stepper);
+    loop(&pidAngle, &pidPos, devAccel, devGyro, stepper);
 
 
     return 0;
 }
 
 
-void loop(pid_filter_t *pid, int devAccel, int devGyro, struct stepper *stepper)
+void loop(pid_filter_t *pidAngle, pid_filter_t *pidPos, int devAccel, int devGyro, struct stepper *stepper)
 {
     float error = 0.0;
     float pitch = 0.0;
-    float setpoint = 6.0;
+    float setpointPos   = 0.0;
+    float setpointAngle = 0.0;
     float pidOutput;
 
     while (1){
@@ -102,12 +122,15 @@ void loop(pid_filter_t *pid, int devAccel, int devGyro, struct stepper *stepper)
         //   error = 0;
         // }
 
-        error = setpoint - pitch;
-        pidOutput = pid_process(pid, error);
+        errorPos = setpointPos - count;
+        setpointAngle = pid_process(pidPos, stepper->count);
+
+        errorAngle = setpointAngle - pitch;
+        pidOutput = pid_process(pidAngle, errorAngle);
 
         setSpeed(pidOutput, &stepper->period);
 
-        printf("\r error = %f, PID = %f", error, pidOutput);
+        printf("\rerPos = %f, spAngle = %f, erAngle = %f, PID = %f",errorPos, setpointAngle, errorAngle, pidOutput);
 
     }
 }
