@@ -8,7 +8,7 @@ const int motor1Dir = 18;
 const int motor2Dir = 22;
 
 
-void stepperControl(struct stepper *stepper){
+void stepperControl(stepper *stepper){
   motorSetup();
 
   while(1){
@@ -18,11 +18,11 @@ void stepperControl(struct stepper *stepper){
       if (stepper->period > 0){
         digitalWrite(motor1Dir, HIGH);
         digitalWrite(motor2Dir, HIGH);
-        stepper->count++;
+        stepper->count--;
       } else {
         digitalWrite(motor1Dir, LOW);
         digitalWrite(motor2Dir, LOW);
-        stepper->count--;
+        stepper->count++;
       }
 
 
