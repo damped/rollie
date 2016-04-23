@@ -141,5 +141,6 @@ void getAngle(float *pitch, int devAccel, int devGyro)
   //  printf("\rgyroPitch = %f, accPitch = %f, filtered pitch = %f",gyrPitch,aPitch,*pitch);
 
   *pitch = (*pitch+gyrPitch) * 0.99 + aPitch * 0.01;
+//  *pitch = (*pitch+gyrPitch) * 1.0 + aPitch * 0.00;
 
 }

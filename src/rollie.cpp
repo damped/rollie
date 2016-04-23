@@ -42,7 +42,7 @@ int main()
     // pid_set_gains(&pid, 0.050,/* 0.0000808*/0.0, /*0.000024*/ 0.002);
     // pid_set_gains(&pid, 0.20,/* 0.0000808*/0.00001, /*0.000024*/ 0.003);
     pid_set_gains(&pidAngle, 0.260,/* 0.0000808*/0.0000, /*0.000024*/ 0.000010);
-    pid_set_gains(&pidPos, -0.000000,/* 0.0000808*/0.000008, /*0.000024*/ 0.04);
+    pid_set_gains(&pidPos, -0.0000000000,/* 0.0000808*/0.000007, /*0.000024*/ 0.05);
 
 
     /* IMU setup */
@@ -82,7 +82,6 @@ int main()
     }
   */
 
-	printf("2/n");
     loop(&pidAngle, &pidPos, devAccel, devGyro, &stepper);
 
 
