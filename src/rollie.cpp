@@ -18,8 +18,6 @@
 #include <math.h>
 
 #define DEADBAND 0.0    // Absolute amount of angle error that is exeptable
-//#define DEADBAND 0.00001    // Absolute amount of angle error that is exeptable
-
 
 // function prototypes
 void loop(pid_filter_t *pidAngle, pid_filter_t *pidPos, int devAccel, int devGyro, stepper *stepper);
@@ -41,8 +39,12 @@ int main()
     // pid_set_gains(&pid, 0.029,/* 0.0000808*/0.0, /*0.000024*/ 0.001);
     // pid_set_gains(&pid, 0.050,/* 0.0000808*/0.0, /*0.000024*/ 0.002);
     // pid_set_gains(&pid, 0.20,/* 0.0000808*/0.00001, /*0.000024*/ 0.003);
-    pid_set_gains(&pidAngle, 0.260,/* 0.0000808*/0.0000, /*0.000024*/ 0.000010);
-    pid_set_gains(&pidPos, -0.0000000000,/* 0.0000808*/0.000007, /*0.000024*/ 0.05);
+    //pid_set_gains(&pidAngle, 0.260,/* 0.0000808*/0.0000, /*0.000024*/ 0.000010);
+    //pid_set_gains(&pidPos, -0.0000000000,/* 0.0000808*/0.000007, /*0.000024*/ 0.05);
+
+    pid_set_gains(&pidAngle, 0.260, 0.0000, 0.000010);
+    pid_set_gains(&pidPos, 0.0000000000, 0.000006, 0.05);
+
 
 
     /* IMU setup */
@@ -96,20 +98,31 @@ void loop(pid_filter_t *pidAngle, pid_filter_t *pidPos, int devAccel, int devGyr
     float pitch = 0.0;
     float errorAngle = 0.0;
     float setpointAngle = 0.0;
-    float pidOutput;
+    float pidOutput = 0;
+    unsigned int pidTimer;
+    pidTimer = micros();
 
-	printf("3/n");
-
+    for(int i = 0; i >= 10; i++) { getAngle(&pitch,devAccel,devGyro); }
 
     while (1){
-	printf("4/n");
+	//time = micros();
 
         getAngle(&pitch,devAccel,devGyro);
 
+        //printf("\rGA: %u                   ", (micros()-time));
 
         // if(abs(error) < DEADBAND){
         //   error = 0;
         // }
+
+
+	/////////// Get and set the frequency
+	//pid_set_frequency(pidPos, (float)(micros() - pidTimer));
+	//pid_set_frequency(pidAngle, (float)(micros() - pidTimer));
+	//printf("%f", (float)(micros() - pidTimer));
+	//pidTimer = micros();
+
+
 
         errorPos = setpointPos - stepper->count;
         setpointAngle = pid_process(pidPos, errorPos);
@@ -118,8 +131,8 @@ void loop(pid_filter_t *pidAngle, pid_filter_t *pidPos, int devAccel, int devGyr
         pidOutput = pid_process(pidAngle, errorAngle);
 
         setSpeed(pidOutput, &stepper->period);
-
-        printf("\rerPos = %f, spAngle = %f, erAngle = %f, PID = %f",errorPos, setpointAngle, errorAngle, pidOutput);
+	//printf("\r Comp Angle: %0.2f", pitch);
+        printf("\rerPos = %f, spAngle = %f, ActualA = %f, erAngle = %f, PID = %f",errorPos, setpointAngle, pitch, errorAngle, pidOutput);
 
     }
 }
