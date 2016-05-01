@@ -33,6 +33,12 @@ int main()
     pid_filter_t pidPos;
     pid_init(&pidPos);
 
+    /* Set the maximum positinal PID limit */
+    pid_set_integral_limit(&pidPos,10.0);
+
+    /* Preset the integral */
+    pid_set_integral(&pidPos,6.0);
+
     // pid_set_gains(&pid, 0.026, /*0.0000108*/0.0, 0.000024);
     // pid_set_gains(&pid, 0.020, /*0.0000108*/0.0, 0.00004);
     // pid_set_gains(&pid, 0.027,/* 0.0000808*/0.0, /*0.000024*/ 0.001);
@@ -42,8 +48,8 @@ int main()
     //pid_set_gains(&pidAngle, 0.260,/* 0.0000808*/0.0000, /*0.000024*/ 0.000010);
     //pid_set_gains(&pidPos, -0.0000000000,/* 0.0000808*/0.000007, /*0.000024*/ 0.05);
 
-    pid_set_gains(&pidAngle, 0.260, 0.0000, 0.000010);
-    pid_set_gains(&pidPos, 0.0000000000, 0.000006, 0.05);
+    pid_set_gains(&pidAngle, 0.250, 0.0000, 0.000010);
+    pid_set_gains(&pidPos, 0.0000000000, 0.000007, 0.05);
 
 
 
@@ -94,26 +100,24 @@ int main()
 void loop(pid_filter_t *pidAngle, pid_filter_t *pidPos, int devAccel, int devGyro, struct stepper *stepper)
 {
     float errorPos = 0.0;
-    float setpointPos   = 6.0;
+    float setpointPos = 0.0;
     float pitch = 0.0;
     float errorAngle = 0.0;
     float setpointAngle = 0.0;
-    float pidOutput = 0;
-    unsigned int pidTimer;
-    pidTimer = micros();
+    float pidOutput = 0.0;
 
-    for(int i = 0; i >= 10; i++) { getAngle(&pitch,devAccel,devGyro); }
+    //for(int i = 0; i >= 10; i++) { getAngle(&pitch,devAccel,devGyro); }
 
     while (1){
-	//time = micros();
+//	time = micros();
 
         getAngle(&pitch,devAccel,devGyro);
 
         //printf("\rGA: %u                   ", (micros()-time));
 
-        // if(abs(error) < DEADBAND){
-        //   error = 0;
-        // }
+         //if(abs(error) < DEADBAND){
+         //  error = 0;
+         //}
 
 
 	/////////// Get and set the frequency

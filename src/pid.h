@@ -40,6 +40,9 @@ void pid_set_integral_limit(pid_filter_t *pid, float max);
 /** Resets the PID integrator to zero. */
 void pid_reset_integral(pid_filter_t *pid);
 
+/** Resets the PID integrator to zero. */
+void pid_set_integral(pid_filter_t *pid, float value);
+
 /** Sets the PID frequency for gain compensation. */
 void pid_set_frequency(pid_filter_t *pid, float frequency);
 

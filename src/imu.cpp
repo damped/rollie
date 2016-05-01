@@ -126,6 +126,6 @@ void getAngle(float *pitch, int devAccel, int devGyro)
 	//convert to seconds from micro
 	//time = time * 0.000001;
 	//printf("time: %f",time);
-  	*pitch = (*pitch + (gyrPitch / GYROSCOPE_SENSITIVITY * ((float)time * 0.000001))) * 0.99 + aPitch * 0.01;
+  	*pitch = (*pitch + (gyrPitch * GYROSCOPE_SENSITIVITY *dt /*((float)time * 0.000001)*/)) * 0.99 + aPitch * 0.01;
 
 }
