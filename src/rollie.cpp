@@ -53,7 +53,7 @@ int main()
     //pid_set_gains(&pidAngle, 0.260,/* 0.0000808*/0.0000, /*0.000024*/ 0.000010);
     //pid_set_gains(&pidPos, -0.0000000000,/* 0.0000808*/0.000007, /*0.000024*/ 0.05);
 
-    pid_set_gains(&pidAngle, 0.270, 0.0000, 0.000040);
+    pid_set_gains(&pidAngle, 0.290, 0.0000, 0.000030);
     pid_set_gains(&pidPos, 0.0, 0.00082, 0.00005);
 
 
@@ -110,13 +110,18 @@ void loop(pid_filter_t *pidAngle, pid_filter_t *pidPos, int devAccel, int devGyr
     float errorAngle = 0.0;
     float setpointAngle = 0.0;
     float pidOutput = 0.0;
-
+    float p0,p1 = 0.0;
     //for(int i = 0; i >= 10; i++) { getAngle(&pitch,devAccel,devGyro); }
 
     while (1){
 //	time = micros();
 
+	p0 = pitch;
         getAngle(&pitch,devAccel,devGyro);
+	p1 = pitch;
+        getAngle(&pitch,devAccel,devGyro);
+	pitch = (pitch + p0 + p1) / 3.0;
+
 
         //printf("\rGA: %u                   ", (micros()-time));
 
@@ -131,7 +136,7 @@ void loop(pid_filter_t *pidAngle, pid_filter_t *pidPos, int devAccel, int devGyr
 	//printf("%f", (float)(micros() - pidTimer));
 	//pidTimer = micros();
 
-	if (500 < stepper->count) 
+	if (500 < stepper->count)
 	{
 		stepper->count = 500;
 	} else if (-500 > stepper->count) {
