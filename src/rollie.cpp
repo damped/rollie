@@ -33,11 +33,16 @@ int main()
     pid_filter_t pidPos;
     pid_init(&pidPos);
 
+
+    /* Set the pid frequency */
+    pid_set_frequency(&pidPos, 100);
+    pid_set_frequency(&pidAngle, 100);
+
     /* Set the maximum positinal PID limit */
-    pid_set_integral_limit(&pidPos,10.0);
+    pid_set_integral_limit(&pidPos,1428571.0); // 10 degrees max
 
     /* Preset the integral */
-    //pid_set_integral(&pidPos, 857142.8);
+    pid_set_integral(&pidPos, 857142.8); // set to 6 degrees
 
     // pid_set_gains(&pid, 0.026, /*0.0000108*/0.0, 0.000024);
     // pid_set_gains(&pid, 0.020, /*0.0000108*/0.0, 0.00004);
@@ -48,8 +53,8 @@ int main()
     //pid_set_gains(&pidAngle, 0.260,/* 0.0000808*/0.0000, /*0.000024*/ 0.000010);
     //pid_set_gains(&pidPos, -0.0000000000,/* 0.0000808*/0.000007, /*0.000024*/ 0.05);
 
-    pid_set_gains(&pidAngle, 0.250, 0.0000, 0.000010);
-    pid_set_gains(&pidPos, 0.0, 0.000008, /*0.05*/0.0);
+    pid_set_gains(&pidAngle, 0.270, 0.0000, 0.00080);
+    pid_set_gains(&pidPos, 0.0, 0.00085, 0.00055);
 
 
 
