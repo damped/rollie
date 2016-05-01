@@ -14,11 +14,16 @@
 #define PI  3.14159265359 // Its pi day... need at least 11 decimals
 
 
+// Structs
+struct stepper {
+  float period;
+  long int count;
+};
 
 // function prototypes
 void motorSetup();      // Initialize motor pins
 void wait(float *time);  // Wait loop
-void stepperControl(float *period);
+void stepperControl(struct stepper *stepper);
 void setSpeed(float velocity, float *pulseTimePtr);
 
 

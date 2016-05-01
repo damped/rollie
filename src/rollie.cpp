@@ -15,18 +15,37 @@
 #include <stdio.h>
 #include <wiringPi.h>
 #include <thread>
+#include <math.h>
 
+#define DEADBAND 0.0    // Absolute amount of angle error that is exeptable
 
 // function prototypes
-void loop(pid_filter_t *pid, int devAccel, int devGyro, float *period);
+void loop(pid_filter_t *pidAngle, pid_filter_t *pidPos, int devAccel, int devGyro, stepper *stepper);
 
 
 int main()
 {
-    /* PID controller setup */
-    pid_filter_t pid;
-    pid_init(&pid);
-    pid_set_gains(&pid, 0.01, 0.00001, 0.000015);
+    /* Angle PID controller setup */
+    pid_filter_t pidAngle;
+    pid_init(&pidAngle);
+
+    /* Position PID controller setup */
+    pid_filter_t pidPos;
+    pid_init(&pidPos);
+
+    // pid_set_gains(&pid, 0.026, /*0.0000108*/0.0, 0.000024);
+    // pid_set_gains(&pid, 0.020, /*0.0000108*/0.0, 0.00004);
+    // pid_set_gains(&pid, 0.027,/* 0.0000808*/0.0, /*0.000024*/ 0.001);
+    // pid_set_gains(&pid, 0.029,/* 0.0000808*/0.0, /*0.000024*/ 0.001);
+    // pid_set_gains(&pid, 0.050,/* 0.0000808*/0.0, /*0.000024*/ 0.002);
+    // pid_set_gains(&pid, 0.20,/* 0.0000808*/0.00001, /*0.000024*/ 0.003);
+    //pid_set_gains(&pidAngle, 0.260,/* 0.0000808*/0.0000, /*0.000024*/ 0.000010);
+    //pid_set_gains(&pidPos, -0.0000000000,/* 0.0000808*/0.000007, /*0.000024*/ 0.05);
+
+    pid_set_gains(&pidAngle, 0.260, 0.0000, 0.000010);
+    pid_set_gains(&pidPos, 0.0000000000, 0.000006, 0.05);
+
+
 
     /* IMU setup */
     int devAccel = accConfig();
@@ -38,11 +57,11 @@ int main()
 */
 
     /* Start Stepper Motor Thread */
-    float period;
-    setSpeed(0.0, &period);
+    stepper stepper;
+    setSpeed(0.0, &stepper.period);
 
     std::thread t_stepper;
-    t_stepper = std::thread(stepperControl, &period);
+    t_stepper = std::thread(stepperControl, &stepper);
 
     //bool enable = 1;
     /* Motor tester eh
@@ -65,31 +84,55 @@ int main()
     }
   */
 
-
-    loop(&pid, devAccel, devGyro, &period);
+    loop(&pidAngle, &pidPos, devAccel, devGyro, &stepper);
 
 
     return 0;
 }
 
 
-void loop(pid_filter_t *pid, int devAccel, int devGyro, float *period)
+void loop(pid_filter_t *pidAngle, pid_filter_t *pidPos, int devAccel, int devGyro, struct stepper *stepper)
 {
-    float error = 0.0;
+    float errorPos = 0.0;
+    float setpointPos   = 6.0;
     float pitch = 0.0;
-    float setpoint = 0.0;
-    float pidOutput;
+    float errorAngle = 0.0;
+    float setpointAngle = 0.0;
+    float pidOutput = 0;
+    unsigned int pidTimer;
+    pidTimer = micros();
+
+    for(int i = 0; i >= 10; i++) { getAngle(&pitch,devAccel,devGyro); }
 
     while (1){
+	//time = micros();
 
         getAngle(&pitch,devAccel,devGyro);
 
-        error = setpoint - pitch;
-        pidOutput = pid_process(pid, error);
+        //printf("\rGA: %u                   ", (micros()-time));
 
-        setSpeed(pidOutput, period);
+        // if(abs(error) < DEADBAND){
+        //   error = 0;
+        // }
 
-        printf("\r error = %f, PID = %f", error, pidOutput);
+
+	/////////// Get and set the frequency
+	//pid_set_frequency(pidPos, (float)(micros() - pidTimer));
+	//pid_set_frequency(pidAngle, (float)(micros() - pidTimer));
+	//printf("%f", (float)(micros() - pidTimer));
+	//pidTimer = micros();
+
+
+
+        errorPos = setpointPos - stepper->count;
+        setpointAngle = pid_process(pidPos, errorPos);
+
+        errorAngle = setpointAngle - pitch;
+        pidOutput = pid_process(pidAngle, errorAngle);
+
+        setSpeed(pidOutput, &stepper->period);
+	//printf("\r Comp Angle: %0.2f", pitch);
+        printf("\rerPos = %f, spAngle = %f, ActualA = %f, erAngle = %f, PID = %f",errorPos, setpointAngle, pitch, errorAngle, pidOutput);
 
     }
 }
