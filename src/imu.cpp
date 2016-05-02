@@ -118,7 +118,13 @@ void getAngle(float *pitch, int devAccel, int devGyro)
 	unsigned int time = micros();
 
   	accPitch(&aPitch, devAccel);      // get pitch from the accelerometer
-  	gyroPitch(&gyrPitch, devGyro);   //get pitch from Gyro
+
+  	if(abs(aPitch) > 25.0)
+	{
+		aPitch = *pitch;
+	}
+
+	gyroPitch(&gyrPitch, devGyro);   //get pitch from Gyro
 
   	//end timer
 	time = micros() - time;

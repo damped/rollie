@@ -53,7 +53,7 @@ int main()
     //pid_set_gains(&pidAngle, 0.260,/* 0.0000808*/0.0000, /*0.000024*/ 0.000010);
     //pid_set_gains(&pidPos, -0.0000000000,/* 0.0000808*/0.000007, /*0.000024*/ 0.05);
 
-    pid_set_gains(&pidAngle, 0.290, 0.0000, 0.000030);
+    pid_set_gains(&pidAngle, 0.299, 0.0000, 0.000030);
     pid_set_gains(&pidPos, 0.0, 0.00082, 0.00005);
 
 
