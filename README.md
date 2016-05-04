@@ -14,16 +14,16 @@ The new makefile system allows us to easaly compile all the files togeter. It do
 For testing run:
 ```
 make
-./rollie
+sudo ./rollie
 ```
 
 When you wish to install:
 ```
 make install
-rollie
+sudo rollie
 ```
 
-Before you commit run:
+To commit run:
 ```
 make clean
 git add *    #or any spicific files to add to the commit
