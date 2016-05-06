@@ -11,7 +11,7 @@
 #define MICRO_STEPS 0.5     // Micro steps (half steps = 0.5)
 #define DIA 0.085           // Daiameter in m
 
-#define PI  3.14159265359 // Its pi day... need at least 11 decimals
+#define PI  3.14159265359   // Its pi day... need at least 11 decimals
 
 
 // Structs
@@ -25,6 +25,5 @@ void motorSetup();      // Initialize motor pins
 void wait(float *time);  // Wait loop
 void stepperControl(struct stepper *stepper);
 void setSpeed(float velocity, float *pulseTimePtr);
-
 
 #endif

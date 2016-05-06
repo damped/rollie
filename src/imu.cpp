@@ -1,20 +1,19 @@
-
-//authors Michael and Jonas
-//description, Program to return an accurate angle from the IMU.
+//  Authors Michael and Jonas
+//  Description, Program to return an accurate angle from the IMU.
 //
-//Outputs
+//  Outputs angles in degrees
 
 
 #include "imu.h"
 
-//global constants
-#define PI                          3.14159265359 // Its pi day... need at least 11 decimals
-//#define ACCELEROMETER_SENSITIVITY   2047.97 //+-16 g full scale range of accelerometer
-#define ACCELEROMETER_SENSITIVITY   1000 //+-16 g full scale range of accelerometer
-#define GYROSCOPE_SENSITIVITY       1/14.375  //LSB/(deg/s)
-#define dt                          0.01    //sampling rate 0.01 = 10ms, need to add function input for this
-#define UPPER_ACC_FORCE             4095.94  // max force 2g*2047.97
-#define PIDIV			    0.31831	//1/PI because multiplication is faster
+//Global constants
+#define PI                          3.14159265359   // Its pi day... need at least 11 decimals
+//#define ACCELEROMETER_SENSITIVITY   2047.97       //+-16 g full scale range of accelerometer
+#define ACCELEROMETER_SENSITIVITY   1000            //+-16 g full scale range of accelerometer
+#define GYROSCOPE_SENSITIVITY       1/14.375        //LSB/(deg/s)
+#define dt                          0.01            //sampling rate 0.01 = 10ms, need to add function input for this
+#define UPPER_ACC_FORCE             4095.94         // max force 2g*2047.97
+#define PIDIV			    0.31831                 //1/PI because multiplication is faster
 
 // function to configure the gyroscope
 int gyroConfig(){
@@ -85,7 +84,7 @@ void accPitch(float *aPitch, int devAccel){
     //printf("pitch = %lf",*aPitch);
 
   } while (forceMagnitudeApprox > ACCELEROMETER_SENSITIVITY && forceMagnitudeApprox < 32768);
-  
+
 }
 
 void gyroPitch(float *gyrPitch, int devGyro)
@@ -110,6 +109,8 @@ void gyroPitch(float *gyrPitch, int devGyro)
   *gyrPitch = (Yg/* * GYROSCOPE_SENSITIVITY*/); // Angle around the X-axis
 }
 
+// Get a new angle in degrees
+// Accepts the old pitch (for intigration) and device id of the accel and gyro
 void getAngle(float *pitch, int devAccel, int devGyro)
 {
   	float aPitch,gyrPitch;
