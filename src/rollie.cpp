@@ -25,6 +25,7 @@ void loop(pid_filter_t *pidAngle, pid_filter_t *pidPos, int devAccel, int devGyr
 
 int main()
 {
+
     // Angle PID controller setup
     pid_filter_t pidAngle;
     pid_init(&pidAngle);
@@ -54,6 +55,9 @@ int main()
     std::thread t_stepper;              // Create the stepper thead
     t_stepper = std::thread(stepperControl, &stepper);
 
+    //setup IMU
+    int devGyro = gyroConfig();
+    int devAccel = accConfig();
 
     // Balencing loop
     loop(&pidAngle, &pidPos, devAccel, devGyro, &stepper);
