@@ -42,11 +42,11 @@ int main()
     pid_set_integral_limit(&pidPos,1428571.0); // 10 degrees max
 
     // Preset the integral
-    pid_set_integral(&pidPos, 857142.8); // set to 6 degrees
+  //  pid_set_integral(&pidPos, 857142.8); // set to 6 degrees
 
     // Tune the PID controller
-    pid_set_gains(&pidAngle, 0.299, 0.0000, 0.000030);
-    pid_set_gains(&pidPos, 0.0, 0.00082, 0.00005);
+    pid_set_gains(&pidAngle, 0.28, 0.25, 0.00000);
+    pid_set_gains(&pidPos, 0.00000, 0.0016, 0.000011);
 
     // Start Stepper Motor Thread
     stepper stepper;                    // Create stepper struture
@@ -86,11 +86,11 @@ void loop(pid_filter_t *pidAngle, pid_filter_t *pidPos, int devAccel, int devGyr
         pitch = (pitch + p0 + p1) / 3.0;
 
         // Limit positinal range to prevent interator from overflowing too quikly
-        if (500 < stepper->count)
+        if (150 < stepper->count)
         {
-            stepper->count = 500;
-        } else if (-500 > stepper->count) {
-            stepper->count = -500;
+            stepper->count = 150;
+        } else if (-150 > stepper->count) {
+            stepper->count = -150;
         }
 
 
