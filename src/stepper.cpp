@@ -25,20 +25,20 @@ void stepperControl(stepper *stepper){
             //printf("period = %f",*period);
             if (stepper->period > 0){
                 digitalWrite(motor1Dir, HIGH);
-                digitalWrite(motor2Dir, HIGH);
+                digitalWrite(motor2Dir, LOW);
                 stepper->count--;
             } else {
                 digitalWrite(motor1Dir, LOW);
-                digitalWrite(motor2Dir, LOW);
+                digitalWrite(motor2Dir, HIGH);
                 stepper->count++;
             }
 
             // Do the step
             digitalWrite(motor1Step, HIGH);
-            digitalWrite(motor2Step, HIGH);
+            digitalWrite(motor2Step, LOW);
             wait(&stepper->period);
             digitalWrite(motor1Step, LOW);
-            digitalWrite(motor2Step, LOW);
+            digitalWrite(motor2Step, HIGH);
             wait(&stepper->period);
 
         } else {
@@ -74,6 +74,6 @@ void wait(float *time){
 
 // Calculate the new motor speed and store it
 void setSpeed(float velocity, float *pulseTimePtr) {
-    *pulseTimePtr = 1000000*(1.0 / (MOTOR_STEPS / (MICRO_STEPS * DIA * PI))) / velocity;
+    *pulseTimePtr = 1000000.0*(1.0 / (MOTOR_STEPS / (MICRO_STEPS * DIA * PI))) / velocity;
     //printf("Period: %f, velocity: %f\n", *pulseTimePtr,velocity);
 }
