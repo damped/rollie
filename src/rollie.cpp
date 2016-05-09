@@ -45,8 +45,8 @@ int main()
   //  pid_set_integral(&pidPos, 857142.8); // set to 6 degrees
 
     // Tune the PID controller
-    pid_set_gains(&pidAngle, 0.28, 0.25, 0.00000);
-    pid_set_gains(&pidPos, 0.00000, 0.0016, 0.000011);
+    pid_set_gains(&pidAngle, 0.15, 5.6500, 0.00000);
+    pid_set_gains(&pidPos, 0.00005, 0.0000050, 0.00000001);
 
     // Start Stepper Motor Thread
     stepper stepper;                    // Create stepper struture
@@ -84,21 +84,21 @@ void loop(pid_filter_t *pidAngle, pid_filter_t *pidPos, int devAccel, int devGyr
         p1 = pitch;
         getAngle(&pitch,devAccel,devGyro);
         pitch = (pitch + p0 + p1) / 3.0;
-
+/*
         // Limit positinal range to prevent interator from overflowing too quikly
-        if (150 < stepper->count)
+        if (500 < stepper->count)
         {
-            stepper->count = 150;
-        } else if (-150 > stepper->count) {
-            stepper->count = -150;
+            stepper->count = 500;
+        } else if (-500 > stepper->count) {
+            stepper->count = -500;
         }
-
+*/
 
         //////////// PID Controller ///////////
 
         // Error = Positional setpoint - actual position
         errorPos = setpointPos - stepper->count;
-        setpointAngle = pid_process(pidPos, errorPos);
+        setpointAngle =- 0.94+pid_process(pidPos, errorPos);
         // Outputs the setpint angle for the next PID
 
         // Errorr = Anguar setpoint - acutal angle
