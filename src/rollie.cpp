@@ -46,7 +46,7 @@ int main()
 
     // Tune the PID controller
     pid_set_gains(&pidAngle, 0.15, 5.6500, 0.00000);
-    pid_set_gains(&pidPos, 0.00005, 0.0000050, 0.00000001);
+    pid_set_gains(&pidPos, 0.00005, 0.0000050, 0.00000);
 
     // Start Stepper Motor Thread
     stepper stepper;                    // Create stepper struture
