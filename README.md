@@ -9,23 +9,27 @@ Git cheat sheet: https://confluence.atlassian.com/bitbucketserver/basic-git-comm
 Git workflow: https://www.atlassian.com/git/tutorials/comparing-workflows/feature-branch-workflow
 
 ## Compiling
+<<<<<<< HEAD
 Depreciated: for now, run `g++ getangle.c -lwiringPi -o run` in the src directory.
 
 The new makefile system allows us to easily compile all the files together. It does some fancy things like only compiling what was changed, and allows us to install the program in the `~/bin` folder. This means that when you type `rollie` from anywhere it will execute the program.
+=======
+The new makefile system allows us to easaly compile all the files togeter. It does some fancy things like only compileing what was changed, and allows us to install the program in the `~/bin` folder. This means that when you type `rollie` from anywher it will exicute the program.
+>>>>>>> ba2a7e7a309795cb37e3ac00ec807149beab1dbc
 
 For testing run:
 ```
 make
-./rollie
+sudo ./rollie
 ```
 
 When you wish to install:
 ```
 make install
-rollie
+sudo rollie
 ```
 
-Before you commit run:
+To commit run:
 ```
 make clean
 git add *    #or any specific files to add to the commit

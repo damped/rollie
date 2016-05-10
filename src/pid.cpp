@@ -65,6 +65,12 @@ void pid_reset_integral(pid_filter_t *pid)
     pid->integrator = 0.;
 }
 
+// Added By Jonas
+void pid_set_integral(pid_filter_t *pid, float value)
+{
+    pid->integrator = value;
+}
+
 void pid_set_frequency(pid_filter_t *pid, float frequency)
 {
     pid->frequency = frequency;
