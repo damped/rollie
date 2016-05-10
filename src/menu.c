@@ -8,22 +8,22 @@
 #define ARRAY_SIZE(a) (sizeof(a) / sizeof(a[0]))
 #define CTRLD 	4
 
-char *choices[] = {
+char *choices[4] = {
                         "POWER",
                         "CONTROL",
                         "TUNING",
                         "EXIT"
                   };
 
-char *description[] = {
-                        "-",
+char *description[4] = {
+                        "-           ",
                         "- movement",
                         "- change PID",
                         "- quit program"
 
                   };
 
-char *tuning[] = {
+char *tuning[7] = {
                   "POS - P",
                   "POS - I",
                   "POS - D",
@@ -35,26 +35,23 @@ char *tuning[] = {
 
 typedef struct CONTROL{
             int power,control;
-            float PID;
+            float posP,posI,posD;
+            float angP,angI,angD;
 }CONTROL;
 
 int rollie_menu(CONTROL *);
 
 
-void main()
+int main()
 {
   CONTROL menu;
-
-  /*
-  menu.PID[0]=0;
-  menu.PID[1]=1;
-  menu.PID[2]=2;
-  */
   rollie_menu(&menu);
+  return 0;
 }
 
 int rollie_menu(CONTROL *menu)
-{	ITEM **my_items;
+{
+  ITEM **my_items;
   ITEM **tuning_items;
 
 	int c;
@@ -66,21 +63,23 @@ int rollie_menu(CONTROL *menu)
 
 	/* Initialize curses */
 	initscr();
-        cbreak();
-        noecho();
+  cbreak();
+  noecho();
 	keypad(stdscr, TRUE);
 
 	/* Initialize items */
   n_choices = ARRAY_SIZE(choices);
-  my_items = (ITEM **)calloc(n_choices + 1, sizeof(ITEM *));
+  my_items = (ITEM **)malloc((n_choices + 1)*sizeof(ITEM *));
 
   for(i = 0; i < n_choices; ++i)
   {
           my_items[i] = new_item(choices[i], description[i]);
   }
 
+  my_items[n_choices] = (ITEM *)NULL;
+
   n_choices = ARRAY_SIZE(tuning);
-  tuning_items = (ITEM **)calloc(n_choices + 1, sizeof(ITEM *));
+  tuning_items = (ITEM **)malloc((n_choices + 1)*sizeof(ITEM *));
 
   for(i = 0; i < n_choices; ++i)
   {
@@ -88,7 +87,7 @@ int rollie_menu(CONTROL *menu)
           tuning_items[i] = new_item(tuning[i], "");
   }
 
-  my_items[n_choices] = (ITEM *)NULL;
+
   tuning_items[n_choices] = (ITEM *)NULL;
 
 	my_menu = new_menu((ITEM **)my_items);
@@ -156,14 +155,36 @@ int rollie_menu(CONTROL *menu)
                   int sel = item_index(cur_item);
 
                   unpost_menu(tuning_menu);
-                  mvprintw(10,10,"%f",menu->PID);
-                  refresh();
-                      break;
+
+                  switch(sel)
+                  {
+                      case 0:
+                          mvprintw(0,0,"current: %f, new = ",menu->posP);
+                          break;
+                      case 1:
+                          mvprintw(0,0,"current: %f, new = ",menu->posI);
+                          break;
+                      case 2:
+                          mvprintw(0,0,"current: %f, new = ",menu->posD);
+                          break;
+                      case 3:
+                          mvprintw(0,0,"current: %f, new = ",menu->angP);
+                          break;
+                      case 4:
+                          mvprintw(0,0,"current: %f, new = ",menu->angI);
+                          break;
+                      case 5:
+                          mvprintw(0,0,"current: %f, new = ",menu->angD);
+                          break;
+                      case 6:
+                          unpost_menu(tuning_menu);
+                          post_menu(my_menu);
+                          break;
                     }
-                    refresh();
+                      refresh();
                   }
-
-
+                    refresh();
+                }
 
               break;
             case 3:
