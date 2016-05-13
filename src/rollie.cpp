@@ -59,7 +59,11 @@ int main()
 
     std::thread t_stepper;              // Create the stepper thead
     t_stepper = std::thread(stepperControl, &stepper);
-    t_stepper.join();
+    t_stepper.detach();
+
+    // if (t_stepper.joinable()) {
+    //     t_stepper.join();
+    // }
 
     // Start Menu Thread
     control control;                    // Create control struture
@@ -68,7 +72,10 @@ int main()
 
     std::thread t_rolliemenu;              // Create the stepper thead
     t_rolliemenu = std::thread(rollieControl, &control);
-    t_rolliemenu.join();
+    t_rolliemenu.detach();
+    // if (t_rolliemenu.joinable()) {
+    //     t_rolliemenu.join();
+    // }
 
 
 
@@ -94,7 +101,8 @@ void loop(pid_filter_t *pidAngle, pid_filter_t *pidPos, int devAccel, int devGyr
     float pidOutput = 0.0;
     float p0,p1 = 0.0;
 
-    while (control->power){ // While balencing is enabled
+    //while (control->power){ // While balencing is enabled
+    while(1) {
 /*
 	if(setpointPos <= 14979){
 		setpointPos=setpointPos + 5;
