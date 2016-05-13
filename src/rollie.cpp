@@ -11,6 +11,7 @@
 #include "imu.h"        // Inertial measurment unit for getting angles
 #include "pid.h"        // PID Controller
 #include "stepper.h"    // Stepper motor controller
+#include "rolliemenu.h" // Menu for displaying and controlling robot data
 
 #include <stdio.h>
 #include <wiringPi.h>   // For interfacing whith the Raspberry Pi hardware
@@ -59,19 +60,31 @@ int main()
     std::thread t_stepper;              // Create the stepper thead
     t_stepper = std::thread(stepperControl, &stepper);
 
+
+    // Start Menu Thread
+    control control;                    // Create control struture
+
+    // Preset control stuff here
+
+    std::thread t_rolliemenu;              // Create the stepper thead
+    t_rolliemenu = std::thread(rolliecontrol, &control);
+
+
+
+
     //setup IMU
     int devGyro = gyroConfig();
     int devAccel = accConfig();
 
     // Balencing loop
-    loop(&pidAngle, &pidPos, devAccel, devGyro, &stepper);
+    loop(&pidAngle, &pidPos, devAccel, devGyro, &stepper, &control);
 
 
     return 0;
 }
 
 
-void loop(pid_filter_t *pidAngle, pid_filter_t *pidPos, int devAccel, int devGyro, struct stepper *stepper)
+void loop(pid_filter_t *pidAngle, pid_filter_t *pidPos, int devAccel, int devGyro, struct stepper *stepper, struct control *control)
 {
     float errorPos = 0.0;
     float setpointPos = 0.0;
@@ -81,7 +94,7 @@ void loop(pid_filter_t *pidAngle, pid_filter_t *pidPos, int devAccel, int devGyr
     float pidOutput = 0.0;
     float p0,p1 = 0.0;
 
-    while (1){
+    while (control->power){ // While balencing is enabled
 /*
 	if(setpointPos <= 14979){
 		setpointPos=setpointPos + 5;
@@ -106,6 +119,11 @@ void loop(pid_filter_t *pidAngle, pid_filter_t *pidPos, int devAccel, int devGyr
         }
 */
 
+
+        setpointPos = control->setpos;
+
+
+
         //////////// PID Controller ///////////
 
         // Error = Positional setpoint - actual position
@@ -121,7 +139,12 @@ void loop(pid_filter_t *pidAngle, pid_filter_t *pidPos, int devAccel, int devGyr
         // Calculate and set the motor speed
         setSpeed(pidOutput, &stepper->period);
         //printf("\r Comp Angle: %0.2f", pitch);
-        printf("\rerPos = %f, spAngle = %f, ActualA = %f, erAngle = %f, PID = %f",errorPos, setpointAngle, pitch, errorAngle, pidOutput);
+        //printf("\rerPos = %f, spAngle = %f, ActualA = %f, erAngle = %f, PID = %f",errorPos, setpointAngle, pitch, errorAngle, pidOutput);
+
+        // Update menu display variables
+        control->angle = pitch;
+        control->position = stepper->count;
+
 
     }
 }
