@@ -18,44 +18,49 @@ void rollieControl(control *control)
 
   initialize();       //start curses
 
-  mvprintw(2, 0, "press q to exit");
+  mvprintw(2, 0, "press F2 to exit");
   refresh();
 
 
-
-  while ((key = getch()) != 'q')
+  while((key = getch())!= KEY_F(2))
   {
-    switch (key)
+
+    while ((key = getch()) != 'q')
     {
-      case KEY_UP:
-      control->setPos += 10;
-      break;
+      //clear old junk
+      move(10,10);
+      clrtoeol();
+      move(12,10);
+      clrtoeol();
 
-      case KEY_DOWN:
-      control->setPos -= 10;
-      break;
+      //print new junk
+      mvprintw( 10, 10 , "position: %.2f",(control->setPos)*0.00033);
+      mvprintw( 12, 10 , "angle:    %.2f", control->angle);
 
-      case 'p':
-      if(control->power == 0)
-      control->power = 1;
-      else control->power = 0;
+      refresh();
 
-      default:
-      break;
+
+      switch (key)
+      {
+        case KEY_UP:
+        control->setPos += 10;
+        break;
+
+        case KEY_DOWN:
+        control->setPos -= 10;
+        break;
+
+        case 'p':
+        if(control->power == 0)
+        control->power = 1;
+        else control->power = 0;
+
+        default:
+        break;
+      }
+
     }
 
-    //clear old junk
-    move(10,10);
-    clrtoeol();
-    move(12,10);
-    clrtoeol();
-
-    //print new junk
-    mvprintw( 10, 10 , "position: %.f",(control->position)*0.00033);
-    mvprintw( 12, 10 , "angle:    %.f", control->angle);
-
-    refresh();
   }
-
-
+  endwin();
 }
