@@ -59,7 +59,7 @@ int main()
 
     std::thread t_stepper;              // Create the stepper thead
     t_stepper = std::thread(stepperControl, &stepper);
-
+    t_stepper.join();
 
     // Start Menu Thread
     control control;                    // Create control struture
@@ -68,7 +68,7 @@ int main()
 
     std::thread t_rolliemenu;              // Create the stepper thead
     t_rolliemenu = std::thread(rollieControl, &control);
-
+    t_rolliemenu.join();
 
 
 
