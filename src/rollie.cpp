@@ -46,7 +46,11 @@ int main()
 
     // Tune the PID controller
     pid_set_gains(&pidAngle, 0.15, 5.6500, 0.00000);
-    pid_set_gains(&pidPos, 0.00001, 0.0000050, 0.00010);
+    pid_set_gains(&pidPos, 0.000333, 0.00000111, 0.0002);
+    //pid_set_gains(&pidPos, 0.00001, 0.0000050, 0.00010);
+
+    /* pid_set_gains(&pidPos, 0.000333, 0.00000111, 0.0001); // Found using the magic method */
+
 
     // Start Stepper Motor Thread
     stepper stepper;                    // Create stepper struture
@@ -78,6 +82,14 @@ void loop(pid_filter_t *pidAngle, pid_filter_t *pidPos, int devAccel, int devGyr
     float p0,p1 = 0.0;
 
     while (1){
+/*
+	if(setpointPos <= 14979){
+		setpointPos=setpointPos + 5;
+	}
+*/
+
+
+
         // Simple avreraging
         p0 = pitch;
         getAngle(&pitch,devAccel,devGyro);
