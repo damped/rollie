@@ -181,9 +181,10 @@ int rollie_menu(CONTROL *menu)
                           post_menu(my_menu);
                           break;
                     }
-                      refresh();
+
                   }
                     refresh();
+                    break;
                 }
 
               break;
