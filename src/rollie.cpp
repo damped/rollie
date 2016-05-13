@@ -21,7 +21,7 @@
 #define DEADBAND 0.0    // Absolute amount of angle error that is exeptable
 
 // function prototypes
-void loop(pid_filter_t *pidAngle, pid_filter_t *pidPos, int devAccel, int devGyro, stepper *stepper);
+void loop(pid_filter_t *pidAngle, pid_filter_t *pidPos, int devAccel, int devGyro, stepper *stepper, control *control);
 
 
 int main()
@@ -67,7 +67,7 @@ int main()
     // Preset control stuff here
 
     std::thread t_rolliemenu;              // Create the stepper thead
-    t_rolliemenu = std::thread(rolliecontrol, &control);
+    t_rolliemenu = std::thread(rollieControl, &control);
 
 
 
@@ -120,7 +120,7 @@ void loop(pid_filter_t *pidAngle, pid_filter_t *pidPos, int devAccel, int devGyr
 */
 
 
-        setpointPos = control->setpos;
+        setpointPos = control->setPos;
 
 
 
