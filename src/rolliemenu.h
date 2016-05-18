@@ -15,8 +15,13 @@ typedef struct control
 
     float position,
           angle,
-
-          setPos;
+          setPos,
+          angleKp,
+          angleKi,
+          angleKd,
+          posKp,
+          posKi,
+          posKd;
 
 }control;
 

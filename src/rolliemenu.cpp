@@ -1,4 +1,3 @@
-
 #include "rolliemenu.h"
 
 //initializes curses and enables keyboard
@@ -43,20 +42,68 @@ void rollieControl(control *control)
       switch (key)
       {
         case KEY_UP:
-        control->setPos += 10;
-        break;
+            control->setPos += 10;
+            break;
 
         case KEY_DOWN:
-        control->setPos -= 10;
-        break;
+            control->setPos -= 10;
+            break;
 
         case 'p':
-        if(control->power == 0)
-        control->power = 1;
-        else control->power = 0;
+            if(control->power == 0)
+            control->power = 1;
+            else control->power = 0;
+
+        case 'f': // Angle P down
+            control->angleKp -= 0.001;
+            break;
+
+        case 'r': // Angle P up
+            control->angleKp += 0.001;
+            break;
+
+        case 'g': // Angle I down
+            control->angleKi -= 0.001;
+            break;
+
+        case 't': // Angle I up
+            control->angleKi += 0.001;
+            break;
+
+        case 'h': // Angle D down
+            control->angleKd -= 0.00001;
+            break;
+
+        case 'y': // Angle D up
+            control->angleKd += 0.00001;
+            break;
+
+        case 'j': // Pos P down
+            control->posKp -= 0.0000001;
+            break;
+
+        case 'u': // Pos P up
+            control->posKp += 0.0000001;
+            break;
+
+        case 'k': // Pos I down
+            control->posKi -= 0.000000001;
+            break;
+
+        case 'i': // Pos I up
+            control->posKi += 0.000000001;
+            break;
+
+        case 'l': // Pos D down
+            control->posKd -= 0.000000001;
+            break;
+
+        case 'o': // Pos D up
+            control->posKd += 0.000000001;
+            break;
 
         default:
-        break;
+            break;
       }
 
     }
