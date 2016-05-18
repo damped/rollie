@@ -69,7 +69,7 @@ int main()
 
     std::thread t_stepper;              // Create the stepper thead
     t_stepper = std::thread(stepperControl, &stepper);
-    t_stepper.detach()
+    t_stepper.detach();
 
     // if (t_stepper.joinable()) {
     //     t_stepper.join();
@@ -77,6 +77,8 @@ int main()
 
     // Start Menu Thread
     control control;                    // Create control struture
+
+    control.setPos = 0.0;
 
     control.angleKp = ANGLEKP;
     control.angleKi = ANGLEKI;
@@ -146,8 +148,8 @@ void loop(pid_filter_t *pidAngle, pid_filter_t *pidPos, int devAccel, int devGyr
 
         setpointPos = control->setPos;
 
-        pid_set_gains(&pidAngle, control->angleKp, control->angleKi, control->angleKd);
-        pid_set_gains(&pidPos, control->posKp, control->posKi, control->posKd);
+        pid_set_gains(pidAngle, control->angleKp, control->angleKi, control->angleKd);
+        pid_set_gains(pidPos, control->posKp, control->posKi, control->posKd);
 
 
         //////////// PID Controller ///////////
