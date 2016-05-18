@@ -40,14 +40,15 @@ int main()
     pid_set_frequency(&pidAngle, 100);
 
     // Set the maximum positinal PID limit
-    pid_set_integral_limit(&pidPos,1428571.0); // 10 degrees max
+//    pid_set_integral_limit(&pidPos,1428571.0); // 10 degrees max
+    pid_set_integral_limit(&pidPos,142857.10); // 10 degrees max
 
     // Preset the integral
     //  pid_set_integral(&pidPos, 857142.8); // set to 6 degrees
 
     // Tune the PID controller
     pid_set_gains(&pidAngle, 0.15, 5.6500, 0.00000);
-    pid_set_gains(&pidPos, 0.000333, 0.00000111, 0.0002);
+    pid_set_gains(&pidPos, 0.0002, 0.0000001, 0.0001);
     //pid_set_gains(&pidPos, 0.00001, 0.0000050, 0.00010);
 
     /* pid_set_gains(&pidPos, 0.000333, 0.00000111, 0.0001); // Found using the magic method */
