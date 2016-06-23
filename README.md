@@ -77,6 +77,12 @@ network={
 ### Remote Server
 To be able to connect to the raspberrypi enter `pi1`, or 'pi2', on the server. This will auto connect to the raspberrypi provided that it has established a reverse ssh tunnel.
 
+To make those aliases, add the following to the .bashrc file:
+```
+alias pi1='ssh -p2220 pi@localhost'
+alias pi2='ssh -p2222 pi@localhost'
+```
+
 ### Connecting the IMU
 To connect the IMU to the raspberry Pi connect the ground and 3.3V and connect the SCL and SCA to their respective inputs on the Pi. Follow this pinout for the PI.
 
