@@ -83,6 +83,8 @@ alias pi1='ssh -p2220 pi@localhost'
 alias pi2='ssh -p2222 pi@localhost'
 ```
 
+You will also need share the ssh keys with the server and clients
+
 ### Connecting the IMU
 To connect the IMU to the raspberry Pi connect the ground and 3.3V and connect the SCL and SCA to their respective inputs on the Pi. Follow this pinout for the PI.
 
