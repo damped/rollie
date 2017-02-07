@@ -2,7 +2,6 @@
 Self Balancing Robot
 
 
-This is the place for a high level description of the code and what its for
 
 ## Git
 Git cheat sheet: https://confluence.atlassian.com/bitbucketserver/basic-git-commands-776639767.html
