@@ -2,11 +2,6 @@
 Self Balancing Robot
 
 
-
-## Git
-Git cheat sheet: https://confluence.atlassian.com/bitbucketserver/basic-git-commands-776639767.html
-Git workflow: https://www.atlassian.com/git/tutorials/comparing-workflows/feature-branch-workflow
-
 ## Compiling
 
 The new makefile system allows us to easaly compile all the files togeter. It does some fancy things like only compileing what was changed, and allows us to install the program in the `~/bin` folder. This means that when you type `rollie` from anywher it will exicute the program.
@@ -24,15 +19,6 @@ make install
 sudo rollie
 ```
 
-To commit run:
-```
-make clean
-git add *    #or any specific files to add to the commit
-git commit -m "message"
-git push
-```
-Maybe we will add that last part to make so we just need to do something like `make commit` idk...
-
 
 ## Getting angles
 Complementary filter http://www.pieter-jan.com/node/11
@@ -42,6 +28,8 @@ The accelerometer is located at 0x53 and returns a device id of 0xE5
 
 ### PID controller
 The PID controller is provided by a github library. https://github.com/cvra/pid
+
+We run two PID controllers in cascaded configuration to allow us to both balanced and maintain position.
 
 ## Installation
 ### Dependencies
